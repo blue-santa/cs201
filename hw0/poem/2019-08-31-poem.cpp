@@ -4,7 +4,10 @@ using namespace std;
 
 int main() {
 
+        // Add an extra newline for formatting
         cout << endl;
+
+        // Begin poem
         cout << 
 "I DIED for beauty, but was scarce\n\
 Adjusted in the tomb,\n\
@@ -23,6 +26,7 @@ And covered up our names.\n\
 \n\
         -- Emily Dickenson" << endl;
 
+        // Add an extra newline for formatting
         cout << endl;
 
     return 0;

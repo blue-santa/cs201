@@ -1,0 +1,301 @@
+\documentclass[12pt]{article}
+\input{preamble.tex}
+
+% CHANGE ZZZ to the number of the course you are submitting to and NN to the number of the homework.
+% \bfseries is there to make the typeface bold
+\title{\bfseries CS 201 Homework 00 }
+\author{Bryan Beus}
+\date{\today}
+
+%% -----------------------------------
+%% N E E D   H E L P ? ---------------
+%% -----------------------------------
+%% https://en.wikibooks.org/wiki/LaTeX
+%% -----------------------------------
+
+\begin{document}
+
+\maketitle
+
+Source Code Link:
+% This is where you will put a link to your GitHub project for CS 201
+\url{https://github.com/siddhartha-crypto/cs201}
+
+\section{Design}
+
+\subsection{Hello, World}
+For the \lstinline{Hello, World} program, I use the \lstinline{<string>} library, because I don't want to deal with the complexity of using C strings right now. I use a \lstinline{while} statement to iterate the printing process. 
+
+\subsection{Poem}
+I thought about using "The Wanderer" as my poem, but then I remebered this poem by Emily Dickenson. I read this poem maybe 15 years ago, and the image the poem makes does what the Norse bards used to call, "Hits me in the eye," meaning, the described image was so vivid, I could never forget the poem. 
+
+I had considered looking for some method of breaking up the poem automatically, or formatting the output using some library or something. But I decided that this was beyond the scope of the assignment, and I decided to just use regular \lstinline{\n} newline markers.
+
+\subsection{A Favorite Game}
+
+I chose INSIDE for this. Other games I considered are Final Fantasy VI (Kefka FTW), God of War 4, Stardew Valley, and Faster Than Light.
+
+As far as design goes, this is very similar in nature to the other program, so I followed that method.
+
+\section{Post Mortem}
+
+\subsection{Hello, World}
+
+In my first attempt, I received this error.
+
+\begin{minted}{bash}
+
+2019-08-31-hello.cpp: In function ‘int main()’:
+2019-08-31-hello.cpp:12:24: error: expected primary-expression before ‘<<’ token
+         cout << string << endl;
+                        ^~
+\end{minted}
+
+This occurred because I had declared and used my variable as follows: 
+
+\begin{minted}{c++}
+
+string hello = "Hello, World";
+
+cout << string << endl;
+
+\end{minted}
+
+I accidentally used \lstinline{string} instead of \lstinline{hello} simply because I was being absentminded.
+
+Once I corrected the call to the variable, things proceeded smoothly.
+
+\subsection{Poem}
+
+In my first attempt, I received this error after attempting to use the \lstinline{\n} newline element to provide formatting for the poem, and failing to use the escape character for each quotation mark in the poem. 
+
+\begin{minted}{Bash}
+2019-08-31-poem.cpp:8:13: error: missing terminating " character
+             "I DIED for beauty, but was scarce\n
+...(repeats for each line)
+\end{minted}
+
+I also learned that I need to insert a full \lstinline{\n\} extra escape character after the "n". I did not know this was required in C++.
+
+\subsection{A Favorite Game}
+
+I did not experience any errors in this one, since it is similar to the one above.
+
+\section{Answers to Questions}
+
+\begin{itemize}
+    \item In the communication arts and sciences, software is useful for creating communication lines and networks of individuals to share information. For example, while working in the yard I use Audible software to listen to professors lecture about the foundations and development of Western Civilization.
+    \item The answer to this depends on the specific industry. In the blockchain field (where I work now), many developers don't "look like" anything, because they are anonymous and keep their identities private, for security reasons. But those who do work in the public space generally look fairly similar to anyone else, anywhere else in the world. They wear casual clothes and spend a lot of time in front of a computer.
+    \item  Here is my current memory state on my machine, including both disk and RAM.
+\end{itemize}
+
+\begin{minted}{bash}
+siddhartha@zuko:hello$ free -mh
+              total        used        free      shared  buff/cache   available
+Mem:           15Gi       4.9Gi       7.1Gi       344Mi       3.5Gi        10Gi
+Swap:         4.0Gi          0B       4.0Gi
+
+\end{minted}
+
+\begin{minted}{bash}
+siddhartha@zuko:hw0$ df -hl
+Filesystem             Size  Used Avail Use% Mounted on
+udev                   7.8G     0  7.8G   0% /dev
+tmpfs                  1.6G  2.1M  1.6G   1% /run
+/dev/mapper/data-root  908G  522G  340G  61% /
+\end{minted}
+
+\begin{itemize}
+    \item Five Types of Software Applications
+     \begin{itemize}
+         \item Financial Trading Software
+        \item Blockchain Based Mesh Nets
+        \item Machine-Learning Enhanced Language Software
+        \item Biofeedback Full-Body Suit for Real-time Data Analysis
+        \item Big Data Network Analysis Software
+     \end{itemize} 
+    \item My personal interests
+     \begin{itemize}
+        \item All five of the above are of interest to me, which is why I list them. Currently, I am actively experienced with blockchain technology, so I would like to explore blockchain-based MeshNets more, first. I'm also interested in analyzing economic networks and looking for patterns.
+    \end{itemize}
+\end{itemize}
+
+\section{Sample Output}
+
+% We are going to color the output BLUE, and then set it back to BLACK
+% The lstlisting environment documentation may be found
+% https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+% http://tug.ctan.org/macros/latex/contrib/listings/listings.pdf
+\lstset{language=, caption=Hello, World, label=lst:output}
+\color{blue}
+\begin{lstlisting}
+siddhartha@zuko:hello$ ./hello 
+Hello, World
+Hello, World
+Hello, World
+Hello, World
+Hello, World
+\end{lstlisting}
+\color{black}
+
+\lstset{language=, caption=Poem, label=lst:output}
+\color{blue}
+\begin{lstlisting}
+
+siddhartha@zuko:poem$ ./poem 
+
+I DIED for beauty, but was scarce
+Adjusted in the tomb,
+When one who died for truth was lain,
+In an adjoining room.
+
+He questioned softly why I failed?	        5
+"For beauty," I replied.
+"And I for truth,—the two are one;
+We brethren are," he said.
+
+And so, as kinsmen met a night,
+We talked between the rooms,	        10
+Until the moss had reached our lips,
+And covered up our names.
+
+        -- Emily Dickenson
+
+\end{lstlisting}
+\color{black}
+
+\lstset{language=, caption=A Favorite Game, label=lst:output}
+\color{blue}
+\begin{lstlisting}
+siddhartha@zuko:game$ ./game 
+
+INSIDE is a game like no other I've ever played.
+
+At the beginning of the game, you are a young boy, of perhaps 8 years of age, running through a misty forest. Men wearing white masks and with long spindly arms are scattered about, here and there trying to capture and kill you. As the human player moving the character, you assume that this game is a simple escape sequence, with a Platform-style element of gameplay.
+
+But as the game progresses, it challenges your assumptions. Objects that originally were meant to be used as props by the character instead take control over the character's brain. You have to find ways to control the objects that are now controlling your character.
+
+You find yourself floating in water, and some dark version of yourself is chasing you, attempting to strangle you.
+
+You come to a laboratory full of scientists watching a biological experiment growing within a chamber. You become the experiment, and you break out of their laboratory.
+
+With each change of assumptions, as the human player you struggle to understand both why the game is so utterly fascinating, and at the same time, to understand what kind of game you are actually playing, and what the purpose of the game intends to be.
+
+When the game finishes, you sit, open-mouthed, wondering if this game is actually complete, or if there is still more gameplay to come. Perhaps, you wondering, the game was never anything more than a prompting to question the game of life that you are already and always playing.
+
+The game took six years to make, and the total runtime of the game is about 3 hours, if you go slow and enjoy it. I do recommend that you give it a try.
+
+\end{lstlisting}
+\color{black}
+
+\section{My Programs}
+
+% You could also \inputminted{c++}{myfile.cpp}
+% or just put it here in the minted environment
+
+\subsection{Hello, World}
+
+\begin{minted}{c++}
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+
+    // Declare a string variable for "Hello world"
+    string hello = "Hello, World";
+
+    // Initiate a counting sequence for iteration
+    int count = 0;
+
+    while (count != 5) {
+        
+        // Print string to console
+        cout << hello << endl;
+
+        // Increase count each time
+        count += 1;
+    }
+
+    return 0;
+}
+\end{minted}
+
+\subsection{Poem}
+
+\begin{minted}{c++}
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+
+        // Add an extra newline for formatting
+        cout << endl;
+
+        // Begin poem
+        cout << 
+"I DIED for beauty, but was scarce\n\
+Adjusted in the tomb,\n\
+When one who died for truth was lain,\n\
+In an adjoining room.\n\
+\n\
+He questioned softly why I failed?	        5\n\
+\"For beauty,\" I replied.\n\
+\"And I for truth,—the two are one;\n\
+We brethren are,\" he said.\n\
+\n\
+And so, as kinsmen met a night,\n\
+We talked between the rooms,	        10\n\
+Until the moss had reached our lips,\n\
+And covered up our names.\n\
+\n\
+        -- Emily Dickenson" << endl;
+
+        // Add an extra newline for formatting
+        cout << endl;
+
+    return 0;
+}
+
+\end{minted}
+
+\subsection{A Favorite Game}
+
+\begin{minted}[linenos,tabsize=2,breaklines]{c++}
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+
+    // Add an extra newline in the terminal, for formatting
+    cout << endl;
+
+    // Begin description
+    cout << 
+"INSIDE is a game like no other I've ever played.\n\
+\n\
+At the beginning of the game, you are a young boy, of perhaps 8 years of age, running through a misty forest. Men wearing white masks and with long spindly arms are scattered about, here and there trying to capture and kill you. As the human player moving the character, you assume that this game is a simple escape sequence, with a Platform-style element of gameplay.\n\
+\n\
+But as the game progresses, it challenges your assumptions. Objects that originally were meant to be used as props by the character instead take control over the character's brain. You have to find ways to control the objects that are now controlling your character.\n\
+\n\
+You find yourself floating in water, and some dark version of yourself is chasing you, attempting to strangle you.\n\
+\n\
+You come to a laboratory full of scientists watching a biological experiment growing within a chamber. You become the experiment, and you break out of their laboratory.\n\
+\n\
+With each change of assumptions, as the human player you struggle to understand both why the game is so utterly fascinating, and at the same time, to understand what kind of game you are actually playing, and what the purpose of the game intends to be.\n\
+\n\
+When the game finishes, you sit, open-mouthed, wondering if this game is actually complete, or if there is still more gameplay to come. Perhaps, you wondering, the game was never anything more than a prompting to question the game of life that you are already and always playing.\n\
+\n\
+The game took six years to make, and the total runtime of the game is about 3 hours, if you go slow and enjoy it. I do recommend that you give it a try." << endl;
+
+    // Add an extra newline in the terminal for formatting
+    cout << endl;
+
+    return 0;
+}
+\end{minted}
+\end{document}
+

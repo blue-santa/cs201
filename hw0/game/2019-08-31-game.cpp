@@ -4,7 +4,10 @@ using namespace std;
 
 int main() {
 
+    // Add an extra newline in the terminal, for formatting
     cout << endl;
+
+    // Begin description
     cout << 
 "INSIDE is a game like no other I've ever played.\n\
 \n\
@@ -21,6 +24,8 @@ With each change of assumptions, as the human player you struggle to understand 
 When the game finishes, you sit, open-mouthed, wondering if this game is actually complete, or if there is still more gameplay to come. Perhaps, you wondering, the game was never anything more than a prompting to question the game of life that you are already and always playing.\n\
 \n\
 The game took six years to make, and the total runtime of the game is about 3 hours, if you go slow and enjoy it. I do recommend that you give it a try." << endl;
+
+    // Add an extra newline in the terminal for formatting
     cout << endl;
 
     return 0;
