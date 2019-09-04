@@ -1,3 +1,10 @@
+/**
+ * hello.cpp
+ * Bryan Beus
+ * 4 Sept 2019
+ * Hello, World example for CS 201
+ */
+
 #include <iostream>
 #include <string>
 using namespace std;
