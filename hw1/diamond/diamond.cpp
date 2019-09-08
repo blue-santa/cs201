@@ -24,20 +24,27 @@ int main() {
         return 0;
     } 
 
-    int two_times = num_lines;
+    int two_times = num_lines * 2;
 
     int pos_ver = 0;
     string current_line;
 
-    while (pos_ver < two_times) {
+    while (pos_ver < num_lines) {
         
         current_line = "";
 
         for (int i = 0; i <= two_times; i++) {
-            if (num_lines - pos_ver + 1 < i <= num_lines + pos_ver + 1 && pos_ver <= two_times / 2) {
+            if (
+                    (
+                        (num_lines - pos_ver <= i && i <= num_lines) ||
+                        (num_lines <= i && i <= num_lines + pos_ver)
+                    )
+                    && pos_ver <= num_lines
+               )
+            {
                 current_line = current_line + "#";
-            } else) {
-                current_line = current_line + " ";
+            } else {
+                current_line = current_line + "a";
             }
 
             // stopping here
@@ -46,6 +53,30 @@ int main() {
         cout << current_line << endl;
 
         pos_ver += 1;
+    }
+
+    while (pos_ver < two_times) {
+
+        current_line = "";
+
+        for (int i = 0; i <= two_times; i++) {
+            if (
+                    (
+                        (pos_ver <= i + num_lines && i <= num_lines) ||
+                        (num_lines <= i && i <= two_times - pos_ver)
+                    )
+               )
+            {
+                current_line = current_line + "#";
+            } else {
+                current_line = current_line + "a";
+            }
+        }
+
+        cout << current_line << endl;
+
+        pos_ver += 1;
+
     }
 
     return 0;
