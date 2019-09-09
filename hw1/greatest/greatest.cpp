@@ -70,19 +70,21 @@ int main() {
 
         // Test that the user input is valid
 
-        if (input > 0 && !cin.fail()) {
-            collection.push_back(input);
-
-            // If the input is not valid, end the program
-
-        } else if (cin.fail()) {
-            cout << "The value you entered is not an integer." << endl;
-            cout << "Please restart the program." << endl;
+        if (cin.fail()) {
             cont = false;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << endl;
+            cout << "The value you entered is not an integer. Please restart the program." << endl;
             return 0;
 
             // If the user input is less than or equal to zero, assume that the user is finished and calculate the final result
 
+
+            // If the input is not valid, end the program
+
+        } else if (input > 0 && !cin.fail()) {
+            collection.push_back(input);
         } else if (input <= 0 && collection.size() > 0) {
             cont = false;
             final_val = calculate_final();
@@ -93,6 +95,7 @@ int main() {
                 cout << "Please enter an integer greater than 0 before ending the program." << endl;
 
                 // Catchall error
+
         } else {
             cout << "We encountered an unexpected error. Please review the source code." << endl;
             cont = false;

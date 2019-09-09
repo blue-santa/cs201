@@ -26,7 +26,7 @@ int main() {
 
     // Check to make sure that the input is within our valid parameters
 
-    if (num_lines == 0 | num_lines < 0 | cin.fail()) {
+    if (num_lines == 0 || num_lines < 0 || cin.fail()) {
 
         cout << "The value you entered is not a valid number" << endl;
 

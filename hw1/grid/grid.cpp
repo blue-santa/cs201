@@ -232,10 +232,12 @@ int main() {
             // Test whether user input is valid, and if not repeat the request for user input
             // Otherwise, update the col_viable variable to allow while loop to end
 
-            if (cin.fail() || col <= 0 || C < col) {
+            if (cin.fail() || col == 0 || C < col) {
                 cin.clear();
                 cin.ignore(1000, '\n'); 
                 cout << "The value you provided is not valid. Please try again." << endl;
+            } else if (col < 0) {
+                return 0; 
             } else {
                 col_viable = true;
             }
@@ -253,10 +255,12 @@ int main() {
             // Test whether user input is valid, and if not repeat the request for user input
             // Otherwise, update the row_viable variable to allow while loop to end
 
-            if (cin.fail() || row <= 0 || R < row) {
+            if (cin.fail() || row == 0 || R < row) {
                 cin.clear();
                 cin.ignore(1000, '\n'); 
                 cout << "The value you provided is not valid. Please try again." << endl;
+            } else if (row < 0) {
+                return 0;
             } else {
                 row_viable = true;
             }
