@@ -1,0 +1,885 @@
+\documentclass[12pt]{article}
+\input{preamble.tex}
+
+% CHANGE ZZZ to the number of the course you are submitting to and NN to the number of the homework.
+% \bfseries is there to make the typeface bold
+\title{\bfseries CS 201 Homework 01 }
+\author{Bryan Beus}
+\date{\today}
+
+%% -----------------------------------
+%% N E E D   H E L P ? ---------------
+%% -----------------------------------
+%% https://en.wikibooks.org/wiki/LaTeX
+%% -----------------------------------
+
+\begin{document}
+
+\maketitle
+
+Source Code Link:
+% This is where you will put a link to your GitHub project for CS 201
+\url{https://github.com/siddhartha-crypto/cs201/tree/master/hw1}
+
+\section{Design}
+
+\subsection{Diamond}
+For the \lstinline{Diamond} program, I divide the diamond into two main parts, and two subparts. The main parts are the top and bottom. The subparts are the left and right sides. For each row of the diamond, I assemble a string of the correct characters first, and then print it to the terminal. 
+
+\subsection{Dotcross}
+For the \lstinline{Dotcross} program, I request the user to input each of the variables for each vector, one at a time. I store all of these in one vector. Then, I perform the calculations and print them to the terminal output.  
+
+\subsection{Greatest}
+
+For the \lstinline{Greatest} program, I request the user to input integer variables, one at a time. I check each input to make sure it is valid. The valid responses are stored in a vector. Once the user makes a response that ends the period of inputting, I calculate by iterating through the vector and testing to see if any value is bigger than the current largest value, with the initial value set to the first in the vector array position. I return the final result to the terminal.
+
+
+\subsection{Grid}
+
+I initiate an endless while loop that first clears the screen, then draw the current state of the grid (with default values of "."), and then request the user to input the column and row to change. Assuming the user inputs a proper column and row, I update a vector that holds a position for each box variable (default "."), replacing it with the intended "X". If a user enters a negative integer, I end the program.
+
+\subsection{Mileskm}
+
+I request the user to input the number of miles they would like to convert, and then I return the result times the conversion rate of kilometers/mile.
+
+\section{Post Mortem}
+
+\subsection{Diamond}
+
+I have actually done a similar exercise before, and last time I did this type of problem I made things more complicated. Last time, I had a separate function for both left and right side of each line. This time, I was able to combine the rows of \lstinline{"#"} hashtags into one function per line, and one while statement per top/bottom. 
+
+However, as I thought afterwards I'm certain I could simplify this down even further. I could just do a simple add/subtract formula for the left/right sides of each line, without getting into a full function for each. 
+
+I am out of time for this week, so this may have to wait for a future experiment.
+
+\subsection{Dotcross}
+
+The challenge here was to get the \lstinline{setprecision()} function to work properly. I had to add in a \lstinline{fixed} function from the standard namespace to get the setprecision to focus on decimal places, as a opposed to total number of digits in the response.
+
+\subsection{Greatest}
+
+The while loop solution that I use here is fine, so long as I enter whole integers or characters, but if I enter a float value, the while loop executes itself an extra time. I spent a long time trying to solve this problem, and was not able to solve it, nor find help online. I assume the problem is that I do not fully understand how the C++ compiler works. I will ask the TA for assistance.
+
+\subsection{Grid}
+
+This one seemed simple enough when I began, but became more complicated as time progressed. I did not want to deal with having unique variables for each box, and I did not want to have to manually type out the rows/columns and their structure for each slot. 
+
+So, I grouped things down into functions that could be called at each step of drawing the process. This was time consuming to visualize, but was perhaps a cleaner solution in the end, and likely saved time.
+
+The big challenge in terms of coding was the vector of vectors that I used to hold the current state of the grid boxes. I had to use Stackoverflow a lot to discover how to properly place and call these types of vectors. 
+
+\subsection{Mileskm}
+
+This one was relatively straightforward, and I finished it in just a few minutes.
+
+\section{Answers to Questions}
+
+\begin{itemize}
+    \item A compiler serves to convert code in one language into code in another. Typically, this is from a higher to a lower level language. The stages from source code to executable are build, compile, and link.
+    \item Definitions
+     \begin{itemize}
+        \item Header: These files contain C++ source code, but are not intended to be compiled directly. Instead, they are included using an #include statement
+        \item compile-time error: An error that occurs at the time that we attempt to compile the source code
+        \item linker: The linker generates a single executable from multiple source code and library files
+        \item statement: An expression of logic using code
+    \end{itemize} 
+    \item A source code is human readable. An object file is an intermediate file between source and executable files, and is generally less readable.
+    \item We need to internalize the theory. Theory without internalization makes you a critic, and everybody's a critic.
+    \item Generally, a prompt is a response from the computer stating that it is ready for the next user input.
+    \item This is the newline character, or "escape n." This gives us a new line, under normal circumstances (utf 8 etc.).
+    \item Definitions
+        \begin{itemize}
+            \item Variable: A variable is a value that can change, depending upon the way the source code utilizes it. 
+            \item Object: A combination of variables, data structures, and functions; an object can also be described as an instance of a class. Objects in object-oriented programming are a high priority in the designer's mindset.
+            \item literal: A fixed value -- something that does not change within the source code. A literal has an opposite nature when compared to a variable.
+        \end{itemize}
+    \item Types of literals: In C++, we have strings, floats, doubles, longs, integers, chars, and many more.
+    \item Five names to avoid, so as to avoid confusion
+        \begin{itemize}
+            \item test - While this word is legal, it should not be used, because bash scripts and the terminal use this for various functions. 
+            \item \lstinline{_var} - Underscores at the start of words are used in libraries, and therefore, although legal, should be avoided
+            \item isNotValid - Avoid negation. 
+            \item T - One letter variables should be avoided, since they can create code that is difficult to read.
+        \end{itemize}
+        \item Double may contain a decimal place, whereas int is only full integers. Information can be lost.
+\end{itemize}
+
+\section{Sample Output}
+
+% We are going to color the output BLUE, and then set it back to BLACK
+% The lstlisting environment documentation may be found
+% https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+% http://tug.ctan.org/macros/latex/contrib/listings/listings.pdf
+\lstset{language=, caption="Diamond", label=lst:output}
+\color{blue}
+\begin{lstlisting}
+siddhartha@zuko:diamond$ ./diamond 
+Enter the number of lines to print in the diamond: 8
+       #       
+      ###      
+     #####     
+    #######    
+   #########   
+  ###########  
+ ############# 
+###############
+ ############# 
+  ###########  
+   #########   
+    #######    
+     #####     
+      ###      
+       #    
+\end{lstlisting}
+\color{black}
+
+\lstset{language=, caption=Dotcross, label=lst:output}
+\color{blue}
+\begin{lstlisting}
+siddhartha@zuko:dotcross$ ./dotcross 
+Provide three floating point numbers for vector A and three more for vector B: 
+Ax: 1.01
+Ay: 2.01
+Az: 0.5523
+Bx: 2.01
+By: -1.05
+Bz: 1.001
+A dot B = 0.47245
+A cross B = (2.59193, 0.09911, -5.10060)
+\end{lstlisting}
+\color{black}
+
+\lstset{language=, caption=Greatest, label=lst:output}
+\color{blue}
+\begin{lstlisting}
+siddhartha@zuko:greatest$ ./greatest 
+Provide a sequence of positive integers, ending with zero or a negative number.
+Enter a positive integer (0 or negative to end): 1
+Enter a positive integer (0 or negative to end): 5
+Enter a positive integer (0 or negative to end): 253
+Enter a positive integer (0 or negative to end): 022
+Enter a positive integer (0 or negative to end): 0
+
+The greatest number entered: 253
+\end{lstlisting}
+\color{black}
+
+\lstset{language=, caption=Grid, label=lst:output}
+\color{blue}
+\begin{lstlisting}
+
+Note: LaTeX struggles with the Unicode characters used in the program to draw the grid walls. Please run this in your terminal to see the grid structure.
+
+     1     2     3     4     5     
+  ╔═════╦═════╦═════╦═════╦═════╗
+  ║     ║     ║     ║     ║     ║
+ 1║  .  ║  .  ║  .  ║  .  ║  .  ║
+  ║     ║     ║     ║     ║     ║
+  ╠═════╬═════╬═════╬═════╬═════╣
+  ║     ║     ║     ║     ║     ║
+ 2║  .  ║  .  ║  X  ║  .  ║  .  ║
+  ║     ║     ║     ║     ║     ║
+  ╠═════╬═════╬═════╬═════╬═════╣
+  ║     ║     ║     ║     ║     ║
+ 3║  .  ║  .  ║  .  ║  .  ║  X  ║
+  ║     ║     ║     ║     ║     ║
+  ╠═════╬═════╬═════╬═════╬═════╣
+  ║     ║     ║     ║     ║     ║
+ 4║  .  ║  .  ║  .  ║  .  ║  .  ║
+  ║     ║     ║     ║     ║     ║
+  ╠═════╬═════╬═════╬═════╬═════╣
+  ║     ║     ║     ║     ║     ║
+ 5║  .  ║  .  ║  .  ║  .  ║  .  ║
+  ║     ║     ║     ║     ║     ║
+  ╚═════╩═════╩═════╩═════╩═════╝
+
+Enter the number of the column you would like to fill: 1
+Enter the number of the row you would like to fill: -1
+\end{lstlisting}
+\color{black}
+
+\lstset{language=, caption=Mileskm, label=lst:output}
+\color{blue}
+\begin{lstlisting}
+siddhartha@zuko:mileskm$ ./mileskm 
+Enter the number of miles to convert to kilometers: 2.51
+The number of kilometers in 2.51 miles is: 4.03859
+\end{lstlisting}
+\color{black}
+
+\section{My Programs}
+
+% You could also \inputminted{c++}{myfile.cpp}
+% or just put it here in the minted environment
+
+\subsection{Diamond}
+
+\begin{minted}[linenos,tabsize=2,breaklines]{c++}
+/**
+ * diamond.cpp
+ * Bryan Beus
+ * 7 Sept 2019
+ * Diamond assignment for CS 201
+ */
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+
+    // Declare the variable to hold the number of lines
+
+    int num_lines;
+
+    // Request info about the number of lines
+
+    cout << "Enter the number of lines to print in the diamond: ";
+
+    // Capture user input
+
+    cin >> num_lines;
+
+    // Check to make sure that the input is within our valid parameters
+
+    if (num_lines == 0 || num_lines < 0 || cin.fail()) {
+
+        cout << "The value you entered is not a valid number" << endl;
+
+        return 0;
+    } 
+
+    // Set the doubled value of num_lines
+
+    int two_times = num_lines * 2;
+
+    // Set our current vertical position on the diamond grid
+
+    int pos_ver = 0;
+
+    // Declare an empty string to use for additive iteration
+
+    string current_line;
+
+    // Begin while loop to print first half of diamond
+
+    while (pos_ver < num_lines) {
+
+        // Set or reset current_line variable value to empty
+
+        current_line = "";
+
+        // Use iterative adding to the current_line string to build the current line's # output
+
+        for (int i = 1; i < two_times; i++) {
+
+            // Set the equations to decide whether each character in the string should be a " " or a "#"
+
+            if (
+                    (num_lines - pos_ver <= i && i <= num_lines) ||
+                    (num_lines <= i && i <= num_lines + pos_ver)
+               )
+            {
+
+                // Add a "#" if the equation produce a true result 
+
+                current_line = current_line + "#";
+            } else {
+
+                // Add a space, if not
+
+                current_line = current_line + " ";
+            }
+
+        }
+
+        // Print the resulting current_line variable to the terminal
+
+        cout << current_line << endl;
+
+        // Increase our vertical position in preparation to move to the next line
+
+        pos_ver += 1;
+    }
+
+    // Because we're creating a diamond, we want to skip the first row, so that we do not get a fully mirrored image in the vertical direction
+
+    pos_ver += 1;
+
+    // Begin while loop for bottom half of diamond
+
+    while (pos_ver < two_times) {
+
+        // Reset current_line value to empty
+
+        current_line = "";
+
+        // Use iterative adding to create the string to print to the console
+
+        for (int i = 1; i < two_times; i++) {
+
+            // Equations to determine whether to add a "#" or a " "
+
+            if (
+                    (pos_ver < i + num_lines && i <= num_lines) ||
+                    (num_lines <= i && i < two_times - pos_ver + num_lines)
+               )
+            {
+
+                // Add a "#"
+
+                current_line = current_line + "#";
+            } else {
+
+                // Or add a " " 
+
+                current_line = current_line + " ";
+            }
+        }
+
+        // Print the resulting string to the terminal
+
+        cout << current_line << endl;
+
+        // Increase our vertical position
+        pos_ver += 1;
+
+    }
+
+    // End
+
+    return 0;
+}
+\end{minted}
+
+\subsection{Dotcross}
+
+\begin{minted}[linenos,tabsize=2,breaklines]{c++}
+/**
+ * dotcross.cpp
+ * Bryan Beus
+ * 8 Sept 2019
+ * Dotcross assignment for CS 201
+ */
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+
+    // Declare a vector to hold user inputs
+
+    vector<float> dotcross;
+
+    // Declare a float variable to hold user inputs
+
+    float input;
+
+    // Declare a vector to hold the variables names
+
+    vector<string> xyz;
+    xyz.push_back("Ax");
+    xyz.push_back("Ay");
+    xyz.push_back("Az");
+    xyz.push_back("Bx");
+    xyz.push_back("By");
+    xyz.push_back("Bz");
+
+    // Request user input
+
+    cout << "Provide three floating point numbers for vector A and three more for vector B: " << endl;
+
+    // Initiate a while loop that continues until the user has provided all six inputs for vectors A and B
+
+    while (dotcross.size() < 6) {
+
+        // Request user input for the current vector variable
+
+        cout << xyz.at(dotcross.size()) << ": ";
+        cin >> input;
+
+        // Test whether user input is valid, and if not, repeat the while loop
+        // Otherwise, add the user input to the vector variables
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000,'\n');
+            cout << "The input you provided is not valid. Please try again." << endl;
+        } else {
+            dotcross.push_back(input);
+        }
+    }
+
+    // Declare a dot product variable and perform the dot-product calculation
+
+    float dotprod = dotcross.at(0) * dotcross.at(3) + dotcross.at(1) * dotcross.at(4) + dotcross.at(2) * dotcross.at(5);
+
+    // Delcare a vector of the cross-product vector and perform each calculation
+    vector<float> crossprod;
+    crossprod.push_back(dotcross.at(1) * dotcross.at(5) - dotcross.at(2) * dotcross.at(4));
+    crossprod.push_back(dotcross.at(2) * dotcross.at(3) - dotcross.at(0) * dotcross.at(5));
+    crossprod.push_back(dotcross.at(0) * dotcross.at(4) - dotcross.at(1) * dotcross.at(3));
+
+    // Report the results
+
+    cout << fixed << setprecision(5) <<  "A dot B = " << dotprod << endl;
+    cout << "A cross B = (" << crossprod.at(0) << ", " << crossprod.at(1) << ", " << crossprod.at(2) << ")" << endl;
+
+    return 0;
+}
+\end{minted}
+
+\subsection{Greatest}
+
+\begin{minted}[linenos,tabsize=2,breaklines]{c++}
+/**
+ * greatest.cpp
+ * Bryan Beus
+ * 7 Sept 2019
+ * Greatest assignment for CS 201
+ */
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// Declare a vector to hold all user inputs
+
+vector<int> collection;
+
+// Declare a variable to hold each user input
+
+int input;
+
+// Declare a bool vector to indicate whether or not the user inputs allow for a while loop to end
+
+bool cont = true;
+
+// Declare the final variable that holds the greatest integer
+
+int final_val;
+
+// A function to request user input
+
+void request_int() {
+    cout << "Enter a positive integer (0 or negative to end): ";
+}
+
+// A function to calculate the final result
+
+int calculate_final() {
+
+    // Declare the current largest integer, and set it equal to the first user input in the vector
+
+    int current = collection.at(0); 
+
+    // Iterate through the user inputs
+    // If any user input is larger than the current largest user input, set the new largest integer as the current largest
+
+    for (int i = 0; i < collection.size(); i++) {
+        if (collection.at(i) > current) {
+            current = collection.at(i);
+        }
+    }
+
+    // Return the final largest integer
+
+    return current;
+}
+
+int main() {
+
+    // Request user input
+
+    cout << "Provide a sequence of positive integers, ending with zero or a negative number." << endl;
+
+    // Initiate a while loop that continues until the user has finished inputting integers
+
+    while (cont) {
+        
+        request_int();
+        cin >> input; 
+
+        // Test that the user input is valid
+
+        if (cin.fail()) {
+            cont = false;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << endl;
+            cout << "The value you entered is not an integer. Please restart the program." << endl;
+            return 0;
+
+            // If the user input is less than or equal to zero, assume that the user is finished and calculate the final result
+
+
+            // If the input is not valid, end the program
+
+        } else if (input > 0 && !cin.fail()) {
+            collection.push_back(input);
+        } else if (input <= 0 && collection.size() > 0) {
+            cont = false;
+            final_val = calculate_final();
+        } else if (input <= 0 && collection.size() == 0) {
+
+            // If the user input is less than or equal to zero, but there are not integers in the vector, request the user to continue inputting integers
+
+                cout << "Please enter an integer greater than 0 before ending the program." << endl;
+
+                // Catchall error
+
+        } else {
+            cout << "We encountered an unexpected error. Please review the source code." << endl;
+            cont = false;
+            return 0;
+        } 
+    }
+
+    // Add an extra line for formatting
+
+    cout << endl;
+
+    // Return the final result
+
+    cout << "The greatest number entered: " << final_val << endl; 
+
+    return 0;
+}
+\end{minted}
+
+\subsection{Grid}
+
+\begin{minted}[linenos,tabsize=2,breaklines]{c++}
+/**
+ * grid.cpp
+ * Bryan Beus
+ * 8 Sept 2019
+ * Grid assignment for CS 201
+ */
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+// Define the number of Rows (R) and Columns (C)
+
+#define R 5
+#define C 5
+
+// Define the Width of the blank spaces in the cells
+// This must be an odd number
+
+#define Width 5
+
+// Set a default function to print a series of blank spaces of length <Width>
+
+void print_full_width() {
+    for (int j = 0; j < Width; j++) {
+        cout << " ";
+    } 
+}
+
+// Set a default function to print a series of blank spaces of half of length <Width>
+
+void print_half_width() { 
+    for (int j = 0; j < (Width - 1) / 2; j++) {
+        cout << " ";
+    } 
+}
+
+// Set a default function to print a series of double bars of length <Width>
+
+void print_full_bar() {
+    for (int i = 0; i < Width; i++) {
+        cout << "═";
+    } 
+}
+
+// Print the top of the grid
+
+void print_top_line() {
+
+    // Vertically clear at least one line in the terminal, then print the <Width> blank spaces
+
+    cout << endl;
+
+    print_full_width();
+
+    // Print each column number, followed by <Width> blank spaces 
+
+    for (int i = 1; i <= C; i++) {
+
+        cout << i;
+
+        print_full_width();
+    }
+
+    cout << endl;
+
+    // Print the top row of the grid
+
+    cout << "  ╔";
+
+    for (int i = 0; i < C - 1; i++) {
+
+        print_full_bar();
+
+        cout << "╦";
+
+    }
+
+    print_full_bar();
+
+    cout << "╗" << endl;
+}
+
+// A function to fill a whole row that has no variables or grid corners
+
+void print_fill_row() {
+
+    cout << "  ║";
+
+    for (int i = 0; i < C; i++) {
+
+        print_full_width();
+
+        cout << "║";
+    }
+
+    cout << endl;
+}
+
+// A function to fill a row that has variables, including row numbers and variables inside the grid boxes
+// Row requires both the current row to print and a vector that has the current state of grid boxes (X's or .'s)
+
+void print_var_row(int row, vector< vector<string> > collection) {
+
+    // Begin the row 
+
+    cout << " " << row << "║";
+
+    // Iterate through each grid box, printing the variable that is in the vector
+
+    for (int i = 0; i < C; i++) {
+
+        print_half_width();
+
+        cout << collection[row - 1][i];
+
+        print_half_width();
+
+        cout << "║";
+    }
+
+    cout << endl;
+}
+
+// A function to print a row that divides the grid boxes
+
+void print_bar_row() {
+    cout << "  ╠";
+
+    for (int i = 0; i < C - 1; i++) {
+
+        print_full_bar();
+
+        cout << "╬";
+    }
+
+    print_full_bar();
+    cout << "╣";
+
+    cout << endl;
+}
+
+// A function to print the bottom line of the grid
+
+void print_bottom_line() {
+
+    cout << "  ╚";
+
+    for (int i = 0; i < C - 1; i++) {
+
+        print_full_bar();
+
+        cout << "╩"; 
+    }
+
+    print_full_bar();
+
+    cout << "╝" << endl;
+}
+
+int main() {
+
+    // Declare the col and row integer variables
+    // These are used for each user input
+
+    int col;
+    int row;
+
+    // Declare a vector of vectors of strings
+    // This holds the current state of the grid box values
+
+    vector< vector<string> > collection;
+    
+    // Expand the number of string-vectors within the main vector to account for the number of rows on the grid
+
+    collection.resize(R);
+
+    // Set a default column value of "." for each of the <C> number of grid boxes
+
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            collection[i].push_back(".");
+        }
+    }
+
+    // Initiate an endless while loop to draw and redraw the current grid to the screen
+    // and to listen for user input/updates
+
+    while (true) {
+
+        // Clear the terminal
+
+        cout << "\033[2J\033[1;1H";
+
+        // Draw the current state of the grid
+
+        print_top_line();
+
+        for (int i = 0; i < R; i++) {
+            print_fill_row();
+            print_var_row(i + 1, collection);
+            print_fill_row();
+            if (i != R - 1) {
+                print_bar_row();
+            } 
+        }
+
+        print_bottom_line();
+        cout << endl;
+
+        // Ensure the col and row variables are reset to 0 for this iteration of the endless while loop
+
+        col = 0;
+        row = 0;
+
+        // Declare variables to query whether or not the user has entered a valid row/column number
+
+        bool col_viable = false;
+        bool row_viable = false;
+
+        // Initiate a while loop to listen for user input until a valid column number is entered
+
+        while (!col_viable) {
+
+            // Request user input
+
+            cout << "Enter the number of the column you would like to fill: ";
+            cin >> col;
+
+            // Test whether user input is valid, and if not repeat the request for user input
+            // Otherwise, update the col_viable variable to allow while loop to end
+
+            if (cin.fail() || col == 0 || C < col) {
+                cin.clear();
+                cin.ignore(1000, '\n'); 
+                cout << "The value you provided is not valid. Please try again." << endl;
+            } else if (col < 0) {
+                return 0; 
+            } else {
+                col_viable = true;
+            }
+        }
+
+        // Initiate a while loop to listen for user input until a valid row number is entered
+
+        while (!row_viable) {
+
+            // Request user input
+
+            cout << "Enter the number of the row you would like to fill: ";
+            cin >> row;
+
+            // Test whether user input is valid, and if not repeat the request for user input
+            // Otherwise, update the row_viable variable to allow while loop to end
+
+            if (cin.fail() || row == 0 || R < row) {
+                cin.clear();
+                cin.ignore(1000, '\n'); 
+                cout << "The value you provided is not valid. Please try again." << endl;
+            } else if (row < 0) {
+                return 0;
+            } else {
+                row_viable = true;
+            }
+        }
+
+        // At the provided user row and column, update the vector-vector value to 'X'
+
+        collection[row - 1][col - 1] = 'X';
+
+    }
+
+    return 0;
+}
+\end{minted}
+
+\subsection{Mileskm}
+
+\begin{minted}[linenos,tabsize=2,breaklines]{c++}
+/**
+ * mileskm.cpp
+ * Bryan Beus
+ * 7 Sept 2019
+ * Mileskm assignment for CS 201
+ */
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+
+    // Set a default conversion value for kilometers
+
+    float km_per_m = 1.609;
+
+    // Declare a variable for user input
+
+    float input;
+
+    // Request user input
+
+    cout << "Enter the number of miles to convert to kilometers: ";
+
+    cin >> input;
+
+    // Test that the user input is valid, and if not, end the program
+
+    if (cin.fail()) {
+        cout << "The value you entered is not a valid number. Please enter a numerical value." << endl;
+        return 0;
+    } 
+
+    // Return the final result and calculations
+
+    cout << "The number of kilometers in " << input << " miles is: " << input * km_per_m << endl;
+
+    return 0; 
+}
+\end{minted}
+
+\end{document}
+
