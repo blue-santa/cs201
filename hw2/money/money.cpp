@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
 
 // Clear the console
 
@@ -134,7 +135,7 @@ void reportWalletSum(std::vector<int> & user_wallet, std::vector<std::string> & 
 
     // Print the total value in the wallet
 
-    std::cout << "The value of all your coins is $" << total_wallet << std::endl; 
+    std::cout << "The value of all your coins is $" << std::fixed << std::setprecision(2) << total_wallet << std::endl; 
 
     // Pause for user to continue
 
