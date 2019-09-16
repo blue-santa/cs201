@@ -1,5 +1,6 @@
 /**
  * money.cpp
+ * CS 201
  * Bryan Beus
  * September 14, 2019
  * A program to count the money a user has and to return a clean summation of the value

@@ -1,5 +1,6 @@
 /**
  * rice.cpp
+ * CS 201
  * Bryan Beus
  * September 15, 2019
  * A program to display the power of compound interest and to observe the output in various variable types

@@ -1,6 +1,7 @@
 /** 
  * main.cpp
  * Bryan Beus
+ * CS 201
  * September 14, 2019
  * The main program in the assignment - vector names and other features
  */
