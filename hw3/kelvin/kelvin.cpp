@@ -99,11 +99,6 @@ int main() {
     double c;
 
     // Original
-    // Did not have variable to check whether input is above -273.15 degrees
-
-    bool isValid = false;
-
-    // Original
     // Did not declare the k value in advance
     // Not necessarily a problem, but also perhaps not a best practice
 
