@@ -32,7 +32,7 @@ using std::getline;
 
     void printEmpty(int layers, size_t phraseLength);
 
-    void printWord(int layers, string & phrase);
+    void printBox(int layers, string & phrase);
 
     void requestLayers(int & layers, bool & contLoop);
 
