@@ -207,6 +207,8 @@ int main() {
         cout << "The value of \"b^2 - 4a\" is not positive, and therefore this quadratic equation will not work." << endl;
     }
 
+    // If we have results, print them to the screen
+
     if (results.size()) {
         printResults(results);
     }
