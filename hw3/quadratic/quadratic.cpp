@@ -192,6 +192,8 @@ int main() {
     // Request user values
     getValues(vars);
 
+    // Check that we have a valid equation
+
     isValid = checkSquareRoot(vars);
 
     if (isValid) {
