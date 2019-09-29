@@ -185,11 +185,13 @@ int main() {
 
     clearConsole();
 
-    // Request user input
+    // Prompt the user
 
     cout << "Please provide the values of the constants for the equation. Value \"a\" should be non-zero." << endl;
     
+    // Request user values
     getValues(vars);
+
     isValid = checkSquareRoot(vars);
 
     if (isValid) {
