@@ -196,8 +196,13 @@ int main() {
 
     isValid = checkSquareRoot(vars);
 
+    // If the quadratic equation is valid, assemble the roots
+
     if (isValid) {
         results = findRoots(vars);
+
+    // If the quadratic equation is not valid, inform the user of the issue
+
     } else {
         cout << "The value of \"b^2 - 4a\" is not positive, and therefore this quadratic equation will not work." << endl;
     }
