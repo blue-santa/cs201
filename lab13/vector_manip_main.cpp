@@ -23,7 +23,23 @@ using std::getline;
 
 int main(int argc, char **argv) {
 
+	vector<string> initList {"I", "am", "the", "eggman.", "I", "am", "the", "eggman.", "I", "am", "the", "walrus!"};
+
+	printList(initList);
+
+	char letter = 'x';
+
+	changeList(initList, letter);
+
+	printList(initList);
+
+	string sentinel;
+
+	requestSentinel(sentinel);
+
+	requestAdditional(initList, sentinel);
+	
+	printList(initList);
 
 	return 0;
 }
-

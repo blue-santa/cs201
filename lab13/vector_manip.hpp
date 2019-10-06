@@ -19,7 +19,10 @@ using std::string;
 using std::noskipws;
 using std::getline;
 
-#ifndef VECTOR_MANIP
-#define VECTOR_MANIP 
-
+#ifndef VECTORMANIP
+#define VECTORMANIP
+void printList(vector<string> & list);
+void changeList(vector<string> & list, char & letter);
+void requestSentinel(string & sentinel);
+void requestAdditional(vector<string> & initList, string sentinel);
 #endif
