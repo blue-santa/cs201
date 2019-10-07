@@ -1,9 +1,9 @@
 /**
- * vector_manip.cpp
+ * readstring.cpp
  * CS 201
  * Bryan Beus
- * September 30, 2019
- * The function definition file for vector_manip
+ * October 7, 2019
+ * The function definition file
  */
 
 #include <iostream>
@@ -11,7 +11,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "vector_manip.hpp"
+#include "readstring.hpp"
 
 using std::cout;
 using std::cin;
@@ -19,58 +19,24 @@ using std::endl;
 using std::vector;
 using std::string;
 using std::noskipws;
-using std::getline;
+using std::getline; 
+using std::istringstream; 
 
-void printList(vector<string> & list) {
+void printSquares(vector<string> & text) {
 
-	for (auto str: list)
-		cout << str << " ";
-	cout << endl;
+    for (size_t i {0}; i < text.size(); i++) {
+        istringstream instream(text.at(i));
+        int num;
+        instream >> num;
+        if (!instream) {
+            cout << "err" << endl;
+        } else {
+            cout << num * num << endl;
+        }
+    }
+
 }
 
-void changeList(vector<string> & list, char & letter) {
-	for (size_t i {0}; i < list.size(); i++) {
-
-		if (!list.at(i).empty()) { 
-			list.at(i)[0] = letter;
-		}
-	}
-}
-
-void requestSentinel(string & sentinel) {
-	cout << "What word do you want to serve as the sentinel value? ";
-
-	while (true) {
-		cin >> sentinel;
-
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(1000, '\n');
-			cout << "Please try again: ";
-		} else {
-			break;
-		}
-	}
-}
-
-void requestAdditional(vector<string> & initList, string sentinel) {
-	cout << "Please input new words. When finished, use the sentinel value, " << sentinel << ", to stop.";
-
-	string temp;
-
-	while (true) {
-		cout << "> ";
-
-		getline(cin, temp);
-
-		if (cin.fail()) {
-			cin.clear();
-			cin.ignore(1000, '\n');
-			cout << "Please try again: ";
-		} else if (temp == sentinel) {
-			break;
-		} else {
-			initList.push_back(temp);
-		}
-	}
+void printSquares2(int & num) {
+    cout << num * num << endl;
 }

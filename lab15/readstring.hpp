@@ -1,15 +1,16 @@
 /**
- * vector_manip.hpp
+ * readstring.hpp
  * CS 201
  * Bryan Beus
- * October 2, 2019
- * Header file for vector manip
+ * October 7, 2019
+ * Header file
  */
 
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <algorithm> 
+#include <sstream>
 
 using std::cout;
 using std::cin;
@@ -18,11 +19,14 @@ using std::vector;
 using std::string;
 using std::noskipws;
 using std::getline;
+using std::istringstream;
 
 #ifndef VECTORMANIP
 #define VECTORMANIP
-void printList(vector<string> & list);
-void changeList(vector<string> & list, char & letter);
-void requestSentinel(string & sentinel);
-void requestAdditional(vector<string> & initList, string sentinel);
+
+void printSquares(vector<string> & text);
+void printSquares2(int & num);
+
 #endif
+
+

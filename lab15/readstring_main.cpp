@@ -1,9 +1,9 @@
 /**
- * vector_manip_main.cpp
+ * readstring_main.cpp
  * CS 201
  * Bryan Beus
- * October 2, 2019
- * The main file for the vector_manip project
+ * October 7, 2019
+ * The main file 
  */
 
 #include <iostream>
@@ -12,7 +12,7 @@
 #include <algorithm>
 #include <sstream>
 
-// #include "vector_manip.hpp"
+#include "readstring.hpp"
 
 using std::cout;
 using std::cin;
@@ -22,9 +22,6 @@ using std::string;
 using std::noskipws;
 using std::getline;
 using std::istringstream;
-
-void printSquares(vector<string> & text);
-void printSquares2(int & num);
 
 int main(int argc, char **argv) {
 
@@ -49,21 +46,3 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-void printSquares(vector<string> & text) {
-
-    for (size_t i {0}; i < text.size(); i++) {
-        istringstream instream(text.at(i));
-        int num;
-        instream >> num;
-        if (!instream) {
-            cout << "err" << endl;
-        } else {
-            cout << num * num << endl;
-        }
-    }
-
-}
-
-void printSquares2(int & num) {
-    cout << num * num << endl;
-}
