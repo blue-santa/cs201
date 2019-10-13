@@ -22,6 +22,18 @@ using std::noskipws;
 using std::getline;
 using std::istringstream;
 
+bool ReadLine(vector<string> &input) {
+    getline(cin, input);
+
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+    } else if (!cin || input == "") {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 
 int main(int argc, char **argv) {
