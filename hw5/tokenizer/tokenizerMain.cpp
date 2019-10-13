@@ -35,6 +35,26 @@ bool ReadLine(vector<string> &input) {
     }
 }
 
+unsigned StringToTokenWS(string &input, vector<string> &tokens) {
+
+        istringstream instream(input.at(i));
+        int num;
+        instream >> num;
+        if (!instream) {
+            cout << "err" << endl;
+        } else {
+            cout << num * num << endl;
+        }
+
+    size_t tokenSize = tokens.size();
+
+    if (tokens.size() <= sizeof(unsigned)) {
+        tokenSize = static_cast<unsigned>(tokenSize);
+    }
+
+    return tokenSize;
+}
+
 
 int main(int argc, char **argv) {
 
