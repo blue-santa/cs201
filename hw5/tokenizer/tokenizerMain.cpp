@@ -22,15 +22,18 @@ using std::noskipws;
 using std::getline;
 using std::istringstream;
 
-bool ReadLine(vector<string> &input) {
-    getline(cin, input);
+#define MAX_INPUT_LENGTH    300;
+
+bool ReadLine(string &input) {
+
+    cin.getline(input, MAX_INPUT_LENGTH);
 
     if (cin.fail()) {
         cin.clear();
         cin.ignore(1000, '\n');
-    } else if (!cin || input == "") {
+    } else if (!cin || temp == "") {
         return false;
-    } else {
+    } else { 
         return true;
     }
 }
@@ -87,6 +90,9 @@ int main(int argc, char **argv) {
         // Capture user input
         ReadLine(input);
 
+        // Add a blank space when the line is complete
+        // TO DO
+        
         // Iterate through input and place ordered responses into tokens container
         StringToTokensWS(input, tokens);
 
