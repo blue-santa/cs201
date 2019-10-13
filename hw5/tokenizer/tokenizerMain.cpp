@@ -95,7 +95,7 @@ bool containsEnd(string &testSubject) {
 
 void AnalyzeTokens(const vector<string> &tokens) {
     string temp;
-    string res;
+    bool res = false;
     size_t longest_length = 0;
 
     for (auto token: tokens) {
@@ -104,12 +104,60 @@ void AnalyzeTokens(const vector<string> &tokens) {
     }
 
     for (auto token: tokens) {
-        token = temp;
-        res = ;
+        string type;
+
+        res = checkInt(token, type, res);
+
+        if (!res) {
+           res = checkIdentifier(token, type, res); 
+        }
+
+        if (!res) {
+            res = checkString(token, type, res);
+        }
+
+        if (!res) {
+            res = checkWhitespace(token, type, res);
+        }
+
+        if (!res) {
+            res = checkSpecial(token, type, res);
+        }
+
+        if (!res) {
+            type = "unknown";
+        } 
 
         size_t necessary_width = longest_length + 15 - token.size();
-        cout << "[" << res << "]" << string(necessary_width, " ") << token << endl; 
+        cout << "[" << type << "]" << string(necessary_width, " ") << token << endl; 
     } 
+}
+
+void checkInt(string &token, string &type, bool &res) { 
+    bool isInt;
+    // Stop here
+    vector<string> integers {"0", "1", "2", "3", "4", "5", "6"};
+
+    for (auto ch: token) {
+        
+    }
+
+    if (isInt) {
+        type = "integer";
+        res = true;
+    }
+}
+
+void checkIdentified(string &token, string &type, bool &res) { 
+}
+
+void checkString(string &token, string &type, bool &res) {
+}
+
+void checkWhitespace(string &token, string &type, bool &res) {
+}
+
+void checkSpecial(string &token, string &type, bool &res) {
 }
 
 int main(int argc, char **argv) {
