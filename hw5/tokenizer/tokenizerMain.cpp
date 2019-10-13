@@ -55,6 +55,17 @@ unsigned StringToTokenWS(string &input, vector<string> &tokens) {
     return tokenSize;
 }
 
+bool containsEnd(vector<string> &tokens) {
+
+    for (auto token: tokens) {
+       string temp = token;
+       transform(temp.begin(), temp.end(), temp.begin(), tolower);
+       if (temp == "end") {
+            return true
+       }
+    }
+    return false;
+}
 
 int main(int argc, char **argv) {
 
