@@ -67,6 +67,10 @@ bool containsEnd(vector<string> &tokens) {
     return false;
 }
 
+void AnalyzeTokens(const vector<string> &tokens) {
+
+}
+
 int main(int argc, char **argv) {
 
     // Declare input vector<string> that will continually capture user input
