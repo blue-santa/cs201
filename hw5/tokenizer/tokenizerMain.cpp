@@ -21,6 +21,7 @@ using std::string;
 using std::noskipws;
 using std::getline;
 using std::istringstream;
+using std::find;
 
 #define MAX_INPUT_LENGTH    300;
 
@@ -134,12 +135,22 @@ void AnalyzeTokens(const vector<string> &tokens) {
 }
 
 void checkInt(string &token, string &type, bool &res) { 
-    bool isInt;
-    // Stop here
-    vector<string> integers {"0", "1", "2", "3", "4", "5", "6"};
+    bool isInt = true;
 
-    for (auto ch: token) {
-        
+    vector<string> integers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+
+    int i {0};
+
+    while (i < token.size() && isInt == true)
+
+        for (size_t i {0}; i < integers.size(); i++) {
+            size_type testPresent = (find(integers.begin(), integers.end(), token.charAt(i)));
+            if (testPresent == string::npos) {
+                isInt = false;
+            }
+        }
+
+        ++i;
     }
 
     if (isInt) {
@@ -148,13 +159,110 @@ void checkInt(string &token, string &type, bool &res) {
     }
 }
 
-void checkIdentified(string &token, string &type, bool &res) { 
+void checkIdentifier(string &token, string &type, bool &res) { 
+    bool isIdent = true;
+
+    vector<string> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+                                "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
+                                "u", "v", "w", "x", "y", "z",
+                                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+                                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
+                                "U", "V", "W", "X", "Y", "Z",
+                                "_"};
+
+    int i {0};
+
+    while (i < token.size() && isIdent == true)
+
+        for (size_t i {0}; i < identifiers.size(); i++) {
+            size_type testPresent = (find(identifiers.begin(), identifiers.end(), token.charAt(i)));
+            if (testPresent == string::npos) {
+                isIdent = false;
+            }
+        }
+
+        ++i;
+    }
+
+    if (isIdent) {
+        type = "identifier";
+        res = true;
+    }
 }
 
 void checkString(string &token, string &type, bool &res) {
+    bool isString = true;
+
+    vector<string> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+                                "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
+                                "u", "v", "w", "x", "y", "z",
+                                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+                                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
+                                "U", "V", "W", "X", "Y", "Z",
+                                "_", "\""};
+
+    int i {0};
+
+    while (i < token.size() && isString == true)
+
+        for (size_t i {0}; i < identifiers.size(); i++) {
+            size_type testPresent = (find(identifiers.begin(), identifiers.end(), token.charAt(i)));
+            if (testPresent == string::npos) {
+                isString = false;
+            }
+        }
+
+        ++i;
+    }
+
+    size_t tokenSize = token.size();
+    if (token.charAt(0) != "\"" || token.charAt(tokenSize) != "\"") {
+        isString = false;
+    }
+
+    if (isString) {
+        type = "string literal";
+        res = true;
+    }
 }
 
 void checkWhitespace(string &token, string &type, bool &res) {
+    bool isString = true;
+
+    vector<string> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+                                "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
+                                "u", "v", "w", "x", "y", "z",
+                                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+                                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
+                                "U", "V", "W", "X", "Y", "Z",
+                                "_", "\""};
+
+    int i {0};
+
+    while (i < token.size() && isString == true)
+
+        for (size_t i {0}; i < identifiers.size(); i++) {
+            size_type testPresent = (find(identifiers.begin(), identifiers.end(), token.charAt(i)));
+            if (testPresent == string::npos) {
+                isString = false;
+            }
+        }
+
+        ++i;
+    }
+
+    size_t tokenSize = token.size();
+    if (token.charAt(0) != "\"" || token.charAt(tokenSize) != "\"") {
+        isString = false;
+    }
+
+    if (isString) {
+        type = "string literal";
+        res = true;
+    }
 }
 
 void checkSpecial(string &token, string &type, bool &res) {
