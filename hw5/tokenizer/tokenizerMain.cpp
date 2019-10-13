@@ -38,16 +38,28 @@ bool ReadLine(string &input) {
     }
 }
 
-unsigned StringToTokenWS(string &input, vector<string> &tokens) {
+unsigned StringToTokenWS(string &input, vector<string> &tokens, bool &isFinished) {
 
-        istringstream instream(input.at(i));
-        int num;
-        instream >> num;
-        if (!instream) {
-            cout << "err" << endl;
+    string temp;
+
+    istringstream instream(input);
+
+    if (!instream) {
+        cout << "err" << endl;
+    }
+    
+    while (!instream.eof()) {
+        instream >> temp;
+        isFinished = containsEnd(temp);
+
+        if (isFinished) {
+            break;
         } else {
-            cout << num * num << endl;
+            tokens.push_back(temp);
         }
+    }
+
+    tokens.push_back("");
 
     size_t tokenSize = tokens.size();
 
@@ -70,8 +82,34 @@ bool containsEnd(vector<string> &tokens) {
     return false;
 }
 
-void AnalyzeTokens(const vector<string> &tokens) {
+bool containsEnd(string &testSubject) {
 
+    string temp = testSubject;
+    transform(temp.begin(), temp.end(), temp.begin(), tolower);
+    if (temp == "end") {
+        return true
+    }
+
+    return false;
+}
+
+void AnalyzeTokens(const vector<string> &tokens) {
+    string temp;
+    string res;
+    size_t longest_length = 0;
+
+    for (auto token: tokens) {
+        if (longest_length < token.size())
+            longest_length = token.size();
+    }
+
+    for (auto token: tokens) {
+        token = temp;
+        res = ;
+
+        size_t necessary_width = longest_length + 15 - token.size();
+        cout << "[" << res << "]" << string(necessary_width, " ") << token << endl; 
+    } 
 }
 
 int main(int argc, char **argv) {
@@ -82,6 +120,9 @@ int main(int argc, char **argv) {
     // Declare vector<string> tokens that will collect all tokens from every input
     vector<string> tokens;
 
+    // Declare bool for tracking user input of "end"
+    bool isFinished;
+
     // Request user input 
     cout << "Please type text. When you are done, type any variation of \"End\": " << endl;
 
@@ -90,17 +131,13 @@ int main(int argc, char **argv) {
         // Capture user input
         ReadLine(input);
 
-        // Add a blank space when the line is complete
-        // TO DO
-        
         // Iterate through input and place ordered responses into tokens container
         StringToTokensWS(input, tokens);
 
         // Test whether there is a new token that is any combination of the string "end"
         // If so, break the endless while loop 
-        bool isFinished = containsEnd(tokens);
         if (isFinished) {
-            break; 
+            break;
         } 
     }
 
