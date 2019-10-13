@@ -11,7 +11,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "tokenizer.hpp"
+// #include "tokenizer.hpp"
 
 using std::cout;
 using std::cin;
@@ -24,6 +24,51 @@ using std::istringstream;
 using std::find;
 
 #define MAX_INPUT_LENGTH    300;
+
+bool ReadLine(string &input);
+unsigned StringToTokenWS(string &input, vector<string> &tokens, bool &isFinished);
+bool containsEnd(vector<string> &tokens);
+bool containsEnd(string &testSubject);
+void AnalyzeTokens(const vector<string> &tokens);
+void checkInt(string &token, string &type, bool &res);
+void checkIdentifier(string &token, string &type, bool &res);
+void checkString(string &token, string &type, bool &res);
+void checkWhitespace(string &token, string &type, bool &res);
+void checkSpecial(string &token, string &type, bool &res);
+
+int main(int argc, char **argv) {
+
+    // Declare input vector<string> that will continually capture user input
+    vector<string> input;
+
+    // Declare vector<string> tokens that will collect all tokens from every input
+    vector<string> tokens;
+
+    // Declare bool for tracking user input of "end"
+    bool isFinished;
+
+    // Request user input 
+    cout << "Please type text. When you are done, type any variation of \"End\": " << endl;
+
+    while (true) {
+
+        // Capture user input
+        ReadLine(input);
+
+        // Iterate through input and place ordered responses into tokens container
+        StringToTokensWS(input, tokens);
+
+        // Test whether there is a new token that is any combination of the string "end"
+        // If so, break the endless while loop 
+        if (isFinished) {
+            break;
+        } 
+    }
+
+    AnalyzeTokens(tokens);
+
+    return 0;
+}
 
 bool ReadLine(string &input) {
 
@@ -144,7 +189,7 @@ void checkInt(string &token, string &type, bool &res) {
     while (i < token.size() && isInt == true)
 
         for (size_t i {0}; i < integers.size(); i++) {
-            size_type testPresent = (find(integers.begin(), integers.end(), token.charAt(i)));
+            size_type testPresent = find(integers.begin(), integers.end(), token.charAt(i));
             if (testPresent == string::npos) {
                 isInt = false;
             }
@@ -176,7 +221,7 @@ void checkIdentifier(string &token, string &type, bool &res) {
     while (i < token.size() && isIdent == true)
 
         for (size_t i {0}; i < identifiers.size(); i++) {
-            size_type testPresent = (find(identifiers.begin(), identifiers.end(), token.charAt(i)));
+            size_type testPresent = find(identifiers.begin(), identifiers.end(), token.charAt(i));
             if (testPresent == string::npos) {
                 isIdent = false;
             }
@@ -208,7 +253,7 @@ void checkString(string &token, string &type, bool &res) {
     while (i < token.size() && isString == true)
 
         for (size_t i {0}; i < identifiers.size(); i++) {
-            size_type testPresent = (find(identifiers.begin(), identifiers.end(), token.charAt(i)));
+            size_type testPresent = find(identifiers.begin(), identifiers.end(), token.charAt(i));
             if (testPresent == string::npos) {
                 isString = false;
             }
@@ -229,7 +274,19 @@ void checkString(string &token, string &type, bool &res) {
 }
 
 void checkWhitespace(string &token, string &type, bool &res) {
-    bool isString = true;
+    bool isWhitespace = true;
+
+    if (token != " ")
+        isWhitespace == false
+
+    if (isWhitespace) {
+        type = "whitespace";
+        res = true;
+    }
+}
+
+void checkSpecial(string &token, string &type, bool &res) {
+    bool hasSpecial = true;
 
     vector<string> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
                                 "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
@@ -238,67 +295,24 @@ void checkWhitespace(string &token, string &type, bool &res) {
                                 "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
                                 "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
                                 "U", "V", "W", "X", "Y", "Z",
-                                "_", "\""};
+                                "_", "\"", "+", "-", "*", "/", "=", "%"};
 
     int i {0};
 
-    while (i < token.size() && isString == true)
+    while (i < token.size() && hasSpecial == true)
 
         for (size_t i {0}; i < identifiers.size(); i++) {
-            size_type testPresent = (find(identifiers.begin(), identifiers.end(), token.charAt(i)));
+            size_type testPresent = find(identifiers.begin(), identifiers.end(), token.charAt(i));
             if (testPresent == string::npos) {
-                isString = false;
+                hasSpecial = false;
             }
         }
 
         ++i;
     }
 
-    size_t tokenSize = token.size();
-    if (token.charAt(0) != "\"" || token.charAt(tokenSize) != "\"") {
-        isString = false;
-    }
-
-    if (isString) {
-        type = "string literal";
+    if (hasSpecial) {
+        type = "special characters";
         res = true;
     }
 }
-
-void checkSpecial(string &token, string &type, bool &res) {
-}
-
-int main(int argc, char **argv) {
-
-    // Declare input vector<string> that will continually capture user input
-    vector<string> input;
-
-    // Declare vector<string> tokens that will collect all tokens from every input
-    vector<string> tokens;
-
-    // Declare bool for tracking user input of "end"
-    bool isFinished;
-
-    // Request user input 
-    cout << "Please type text. When you are done, type any variation of \"End\": " << endl;
-
-    while (true) {
-
-        // Capture user input
-        ReadLine(input);
-
-        // Iterate through input and place ordered responses into tokens container
-        StringToTokensWS(input, tokens);
-
-        // Test whether there is a new token that is any combination of the string "end"
-        // If so, break the endless while loop 
-        if (isFinished) {
-            break;
-        } 
-    }
-
-    AnalyzeTokens(tokens);
-
-    return 0;
-}
-
