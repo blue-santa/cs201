@@ -28,7 +28,7 @@ bool ReadLine(string &input);
 unsigned StringToTokensWS(const string &input, vector<string> &tokens, bool &isFinished);
 bool containsEnd(string &testSubject);
 void AnalyzeTokens(const vector<string> &tokens);
-int checkType(string &token, bool &res, vector<char> &v);
+int checkType(string &token, string &potType, bool &res, vector<char> &v);
 void checkWhitespace(string &token, bool &res);
 void checkStringLiteral(string &token, bool &res, vector<char> &string_literal);
 
@@ -126,11 +126,11 @@ bool containsEnd(string &testSubject) {
 void AnalyzeTokens(const vector<string> &tokens) {
     size_t longest_length = 0;
 
-    // if (c >= 'A' && c <= 'Z');
     vector<char> integers {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     vector<char> identifier {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_'};
-    vector<char> string_literal {'"'};
     vector<char> special {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_', '+', '-', '*', '/', '=', '%'};
+
+    vector<vector> vv {integers, identifier, special};
 
     for (auto token: tokens) {
         if (longest_length < token.length())
@@ -138,60 +138,43 @@ void AnalyzeTokens(const vector<string> &tokens) {
     }
 
     for (auto token: tokens) {
+        string potType;
         bool res = false;
+        vector<string> potTypes {"integer", "identifier", "special"};
 
-        string type;
+        if (!res) { 
+            // Also tests to ensure that the token has a length > 0
+            potType = "whitespace";
+            checkWhitespace(token, potType, res, longest_length); 
+        } 
 
-        checkType(token, res, integers);
+        if (!res) {
+            potType = "string";
+            checkStringLiteral(token, potType, res, longest_length);
+        } 
 
-        if (res) {
-            type = "integer";
-        } else {
-            checkType(token, res, identifier);
-        }
-
-        if (res && type.empty()) {
-            type = "identifier";
-        } else {
-            checkStringLiteral(token, res, string_literal);
-        }
-
-        if (res && type.empty()) {
-            type = "string_literal";
-        } else {
-            checkType(token, res, special);
-        }
-
-        if (res && type.empty()) {
-            type = "special";
-        } else {
-            checkWhitespace(token, res);
-        }
-
-        if (res && type.empty()) {
-            type = "whitespace";
+        int i {0};
+        while (!res && i < 3) 
+            potType = potTypes.at(i);
+            checkType(token, potType, res, longest_length, vv.at(i)); 
+            i++;
         } 
         
         if (!res) {
             type = "unknown";
+            printType(token, longest_length, type);
         } 
 
-        int necessary_width = longest_length + 35 - token.length() - type.length(); 
-
-        cout << "[" << type << "]" << string(necessary_width, ' ') << token << endl; 
     } 
 }
 
-int checkType(string &token, bool &res, vector<char> &v) { 
+int checkType(string &token, string &potType, int &longest_length, vector<char> &v) { 
 
     size_t tokenLength = token.length();
 
     bool isType = true;
-    size_t vSize = v.size();
 
-    if (!tokenLength) {
-        return 0;
-    }
+    size_t vSize = v.size();
 
     int i {0};
 
@@ -205,25 +188,20 @@ int checkType(string &token, bool &res, vector<char> &v) {
     }
 
     if (isType) {
-        res = true;
+        printType(token, longest_length, potType);
     }
 
     return 0;
 }
 
-void checkWhitespace(string &token, bool &res) {
-    bool isWhitespace = false;
-
-    if (token == " ") {
-        isWhitespace == true;
-    }
-
-    if (isWhitespace) {
+void checkWhitespace(string &token, string &potType, bool &res, int &longest_length) { 
+    if (!tokenLength || token == " ") {
         res = true;
-    }
+        printType(token, longest_length, potType);
+    } 
 }
 
-void checkStringLiteral(string &token, bool &res, vector<char> &string_literal) {
+void checkStringLiteral(string &token, string &potType, bool &res, int &longest_length) {
     bool isStringLiteral = false;
 
     size_t tokenLength = token.length();
@@ -234,5 +212,19 @@ void checkStringLiteral(string &token, bool &res, vector<char> &string_literal) 
 
     if (isStringLiteral) {
         res = true;
+        token = escapeQuotes(token);
+        printType(token, longest_length, potType);
     }
+}
+
+void escapeQuotes(string &token) {
+    for (size_t i {0}; i < token.length(); i++) {
+        if (token.at(i) == '"')
+            token.insert(token.at(i), 1, '\');
+    }
+}
+
+void printType(string &token, int &longest_length, string &potType) {
+    int necessary_width = longest_length + 35 - token.length() - potType.length(); 
+    cout << "[" << potType << "]" << string(necessary_width, ' ') << '"' << token << '"' << endl; 
 }
