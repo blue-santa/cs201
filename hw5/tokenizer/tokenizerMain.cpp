@@ -25,7 +25,7 @@ using std::istringstream;
 using std::find;
 
 bool ReadLine(string &input);
-unsigned StringToTokensWS(string &input, vector<string> &tokens, bool &isFinished);
+unsigned StringToTokensWS(const string &input, vector<string> &tokens, bool &isFinished);
 bool containsEnd(string &testSubject);
 void AnalyzeTokens(const vector<string> &tokens);
 int checkType(string &token, string &type, bool &res, vector<char> &v);
@@ -83,7 +83,7 @@ bool ReadLine(string &input) {
     }
 }
 
-unsigned StringToTokensWS(string &input, vector<string> &tokens, bool &isFinished) {
+unsigned StringToTokensWS(const string &input, vector<string> &tokens, bool &isFinished) {
 
     string temp; 
     istringstream instream(input);
@@ -127,6 +127,7 @@ bool containsEnd(string &testSubject) {
 void AnalyzeTokens(const vector<string> &tokens) {
     size_t longest_length = 0;
 
+    // if (c >= 'A' && c <= 'Z');
     vector<char> integers {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     vector<char> identifier {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_'};
     vector<char> string_literal {'"'};
