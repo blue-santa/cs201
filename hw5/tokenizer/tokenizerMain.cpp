@@ -29,7 +29,8 @@ unsigned StringToTokensWS(string &input, vector<string> &tokens, bool &isFinishe
 bool containsEnd(string &testSubject);
 void AnalyzeTokens(const vector<string> &tokens);
 int checkType(string &token, string &type, bool &res, vector<char> &v);
-void checkWhitespace(string &token, string &type, bool &res);
+void checkWhitespace(string &token, bool &res);
+void checkStringLiteral(string &token, bool &res, vector<char> &string_literal);
 
 int main(int argc, char **argv) {
 
@@ -152,23 +153,23 @@ void AnalyzeTokens(const vector<string> &tokens) {
         if (res && type.empty()) {
             type = "identifier";
         } else {
-            checkType(token, type, res, string_literal);
+            checkStringLiteral(token, res, string_literal);
         }
 
         if (res && type.empty()) {
             type = "string_literal";
-        } else {
-            checkWhitespace(token, type, res);
-        }
-
-        if (res && type.empty()) {
-            type = "whitespace";
         } else {
             checkType(token, type, res, special);
         }
 
         if (res && type.empty()) {
             type = "special";
+        } else {
+            checkWhitespace(token, res);
+        }
+
+        if (res && type.empty()) {
+            type = "whitespace";
         } 
         
         if (!res) {
@@ -210,14 +211,28 @@ int checkType(string &token, string &type, bool &res, vector<char> &v) {
     return 0;
 }
 
-void checkWhitespace(string &token, string &type, bool &res) {
-    bool isWhitespace = true;
+void checkWhitespace(string &token, bool &res) {
+    bool isWhitespace = false;
 
-    if ((token.at(0) != ' ') && (token.length() != 1))
-        isWhitespace == false;
+    if (token == " ") {
+        isWhitespace == true;
+    }
 
     if (isWhitespace) {
         res = true;
     }
 }
 
+void checkStringLiteral(string &token, bool &res, vector<char> &string_literal) {
+    bool isStringLiteral = false;
+
+    size_t tokenLength = token.length();
+
+    if ((token.at(0) == '"') && (token.at(tokenLength - 1) == '"')) {
+        isStringLiteral = true;
+    }
+
+    if (isStringLiteral) {
+        res = true;
+    }
+}
