@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 // #include "tokenizer.hpp"
 
@@ -23,11 +24,10 @@ using std::getline;
 using std::istringstream;
 using std::find;
 
-#define MAX_INPUT_LENGTH    300;
+#define MAX_INPUT_LENGTH    300
 
 bool ReadLine(string &input);
-unsigned StringToTokenWS(string &input, vector<string> &tokens, bool &isFinished);
-bool containsEnd(vector<string> &tokens);
+unsigned StringToTokensWS(string &input, vector<string> &tokens, bool &isFinished);
 bool containsEnd(string &testSubject);
 void AnalyzeTokens(const vector<string> &tokens);
 void checkInt(string &token, string &type, bool &res);
@@ -39,7 +39,7 @@ void checkSpecial(string &token, string &type, bool &res);
 int main(int argc, char **argv) {
 
     // Declare input vector<string> that will continually capture user input
-    vector<string> input;
+    string input;
 
     // Declare vector<string> tokens that will collect all tokens from every input
     vector<string> tokens;
@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
         ReadLine(input);
 
         // Iterate through input and place ordered responses into tokens container
-        StringToTokensWS(input, tokens);
+        StringToTokensWS(input, tokens, isFinished);
 
         // Test whether there is a new token that is any combination of the string "end"
         // If so, break the endless while loop 
@@ -70,30 +70,34 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-bool ReadLine(string &input) {
-
-    cin.getline(input, MAX_INPUT_LENGTH);
-
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore(1000, '\n');
-    } else if (!cin || temp == "") {
-        return false;
-    } else { 
-        return true;
+bool ReadLine(string &input) { 
+    while (true) {
+        string line;
+        getline(cin, line); 
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Please try again: ";
+        } else if (!cin || line == "") {
+            return false;
+        } else { 
+            input = line;
+            return true;
+        }
     }
 }
 
-unsigned StringToTokenWS(string &input, vector<string> &tokens, bool &isFinished) {
+unsigned StringToTokensWS(string &input, vector<string> &tokens, bool &isFinished) {
 
-    string temp;
-
+    string temp; 
     istringstream instream(input);
 
     if (!instream) {
-        cout << "err" << endl;
+        cout << "No string provided" << endl;
     }
     
+    // Might need something here to break up the line by whitespaces?
+
     while (!instream.eof()) {
         instream >> temp;
         isFinished = containsEnd(temp);
@@ -107,25 +111,9 @@ unsigned StringToTokenWS(string &input, vector<string> &tokens, bool &isFinished
 
     tokens.push_back("");
 
-    size_t tokenSize = tokens.size();
+    size_t tokensSize = tokens.size();
 
-    if (tokens.size() <= sizeof(unsigned)) {
-        tokenSize = static_cast<unsigned>(tokenSize);
-    }
-
-    return tokenSize;
-}
-
-bool containsEnd(vector<string> &tokens) {
-
-    for (auto token: tokens) {
-       string temp = token;
-       transform(temp.begin(), temp.end(), temp.begin(), tolower);
-       if (temp == "end") {
-            return true
-       }
-    }
-    return false;
+    return tokensSize;
 }
 
 bool containsEnd(string &testSubject) {
@@ -133,7 +121,7 @@ bool containsEnd(string &testSubject) {
     string temp = testSubject;
     transform(temp.begin(), temp.end(), temp.begin(), tolower);
     if (temp == "end") {
-        return true
+        return true;
     }
 
     return false;
@@ -145,37 +133,38 @@ void AnalyzeTokens(const vector<string> &tokens) {
     size_t longest_length = 0;
 
     for (auto token: tokens) {
-        if (longest_length < token.size())
-            longest_length = token.size();
+        if (longest_length < token.length())
+            longest_length = token.length();
     }
 
     for (auto token: tokens) {
         string type;
 
-        res = checkInt(token, type, res);
+        checkInt(token, type, res);
 
         if (!res) {
-           res = checkIdentifier(token, type, res); 
+           checkIdentifier(token, type, res); 
         }
 
         if (!res) {
-            res = checkString(token, type, res);
+            checkString(token, type, res);
         }
 
         if (!res) {
-            res = checkWhitespace(token, type, res);
+            checkWhitespace(token, type, res);
         }
 
         if (!res) {
-            res = checkSpecial(token, type, res);
+            checkSpecial(token, type, res);
         }
 
         if (!res) {
             type = "unknown";
         } 
 
-        size_t necessary_width = longest_length + 15 - token.size();
-        cout << "[" << type << "]" << string(necessary_width, " ") << token << endl; 
+        int necessary_width = longest_length + 15 - token.length(); 
+
+        cout << "[" << type << "]" << string(necessary_width, ' ') << token << endl; 
     } 
 }
 
@@ -186,11 +175,14 @@ void checkInt(string &token, string &type, bool &res) {
 
     int i {0};
 
-    while (i < token.size() && isInt == true)
+    size_t tokenLength = token.length();
+    size_t integersSize = integers.size();
 
-        for (size_t i {0}; i < integers.size(); i++) {
-            size_type testPresent = find(integers.begin(), integers.end(), token.charAt(i));
-            if (testPresent == string::npos) {
+    while (i < tokenLength && isInt == true) {
+
+        for (size_t i {0}; i < integersSize; i++) {
+            vector<int>::iterator it = find(integers.begin(), token.at(i));
+            if (it == integers.end()) {
                 isInt = false;
             }
         }
@@ -218,10 +210,13 @@ void checkIdentifier(string &token, string &type, bool &res) {
 
     int i {0};
 
-    while (i < token.size() && isIdent == true)
+    size_t tokenLength = token.length();
+    size_t identifiersSize = identifiers.size();
 
-        for (size_t i {0}; i < identifiers.size(); i++) {
-            size_type testPresent = find(identifiers.begin(), identifiers.end(), token.charAt(i));
+    while (i < tokenLength && isIdent == true) {
+
+        for (size_t i {0}; i < identifiersSize; i++) {
+            size_t testPresent = find(identifiers.begin(), identifiers.end(), token.at(i));
             if (testPresent == string::npos) {
                 isIdent = false;
             }
@@ -250,10 +245,13 @@ void checkString(string &token, string &type, bool &res) {
 
     int i {0};
 
-    while (i < token.size() && isString == true)
+    size_t tokenLength = token.length();
+    size_t identifiersSize = identifiers.size();
 
-        for (size_t i {0}; i < identifiers.size(); i++) {
-            size_type testPresent = find(identifiers.begin(), identifiers.end(), token.charAt(i));
+    while (i < tokenLength && isString == true) {
+
+        for (size_t i {0}; i < identifiersSize; i++) {
+            size_t testPresent = find(identifiers.begin(), identifiers.end(), token.at(i));
             if (testPresent == string::npos) {
                 isString = false;
             }
@@ -262,8 +260,7 @@ void checkString(string &token, string &type, bool &res) {
         ++i;
     }
 
-    size_t tokenSize = token.size();
-    if (token.charAt(0) != "\"" || token.charAt(tokenSize) != "\"") {
+    if (token.at(0) != "\"" || token.at(tokenLength - 1) != "\"") {
         isString = false;
     }
 
@@ -277,7 +274,7 @@ void checkWhitespace(string &token, string &type, bool &res) {
     bool isWhitespace = true;
 
     if (token != " ")
-        isWhitespace == false
+        isWhitespace == false;
 
     if (isWhitespace) {
         type = "whitespace";
@@ -299,10 +296,13 @@ void checkSpecial(string &token, string &type, bool &res) {
 
     int i {0};
 
-    while (i < token.size() && hasSpecial == true)
+    size_t tokenLength = token.length();
+    size_t identifiersSize = identifiers.size();
 
-        for (size_t i {0}; i < identifiers.size(); i++) {
-            size_type testPresent = find(identifiers.begin(), identifiers.end(), token.charAt(i));
+    while (i < tokenLength && hasSpecial == true) {
+
+        for (size_t i {0}; i < identifiersSize; i++) {
+            size_t testPresent = find(identifiers.begin(), identifiers.end(), token.at(i));
             if (testPresent == string::npos) {
                 hasSpecial = false;
             }
