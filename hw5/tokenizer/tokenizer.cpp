@@ -132,9 +132,7 @@ int checkType(string &token, string &potType, bool &res, const size_t &longest_l
 
     bool isType = true;
 
-    size_t vSize = v.size();
-
-    int i {0};
+    size_t i {0};
 
     while (i < tokenLength && isType == true) { 
 
