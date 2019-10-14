@@ -63,7 +63,7 @@ unsigned StringToTokensWS(const string &input, vector<string> &tokens, bool &isF
     } 
 
     if (!isFinished)
-        tokens.push_back(" ");
+        tokens.push_back("");
 
     size_t tokensSize = tokens.size();
 
@@ -86,9 +86,9 @@ void AnalyzeTokens(const vector<string> &tokens) {
 
     vector<char> integers {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     vector<char> identifier {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_'};
-    vector<char> special {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_', '+', '-', '*', '/', '=', '%'};
+    vector<char> other {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_', '+', '-', '*', '/', '=', '%'};
 
-    vector< vector<char> > vv {integers, identifier, special};
+    vector< vector<char> > vv {integers, identifier, other};
 
     for (auto token: tokens) {
         if (longest_length < token.length())
@@ -98,7 +98,7 @@ void AnalyzeTokens(const vector<string> &tokens) {
     for (auto token: tokens) {
         string potType;
         bool res = false;
-        vector<string> potTypes {"integer", "identifier", "special"};
+        vector<string> potTypes {"integer", "identifier", "other"};
 
         if (!res) { 
             // Also tests to ensure that the token has a length > 0
