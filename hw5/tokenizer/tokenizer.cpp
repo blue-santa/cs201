@@ -181,6 +181,6 @@ void escapeQuotes(string &token, size_t &tokenLength) {
 }
 
 void printType(string &token,  const size_t &longest_length, string &potType) {
-    int necessary_width = longest_length + 35 - token.length() - potType.length(); 
+    int necessary_width = 35 - potType.length(); 
     cout << "[" << potType << "]" << string(necessary_width, ' ') << '"' << token << '"' << endl; 
 }
