@@ -1,4 +1,4 @@
-TARGET = tokenizer
+TARGET = database
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
