@@ -24,17 +24,12 @@ using std::getline;
 using std::istringstream;
 using std::find;
 
-#define MAX_INPUT_LENGTH    300
-
 bool ReadLine(string &input);
 unsigned StringToTokensWS(string &input, vector<string> &tokens, bool &isFinished);
 bool containsEnd(string &testSubject);
 void AnalyzeTokens(const vector<string> &tokens);
-void checkInt(string &token, string &type, bool &res);
-void checkIdentifier(string &token, string &type, bool &res);
-void checkString(string &token, string &type, bool &res);
+int checkType(string &token, string &type, bool &res, vector<char> &v);
 void checkWhitespace(string &token, string &type, bool &res);
-void checkSpecial(string &token, string &type, bool &res);
 
 int main(int argc, char **argv) {
 
@@ -110,7 +105,7 @@ unsigned StringToTokensWS(string &input, vector<string> &tokens, bool &isFinishe
     } 
 
     if (!isFinished)
-        tokens.push_back("");
+        tokens.push_back(" ");
 
     size_t tokensSize = tokens.size();
 
@@ -129,9 +124,12 @@ bool containsEnd(string &testSubject) {
 }
 
 void AnalyzeTokens(const vector<string> &tokens) {
-    string temp;
-    bool res = false;
     size_t longest_length = 0;
+
+    vector<char> integers {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    vector<char> identifier {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_'};
+    vector<char> string_literal {'"'};
+    vector<char> special {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '_', '+', '-', '*', '/', '=', '%'};
 
     for (auto token: tokens) {
         if (longest_length < token.length())
@@ -139,177 +137,87 @@ void AnalyzeTokens(const vector<string> &tokens) {
     }
 
     for (auto token: tokens) {
+        bool res = false;
+
         string type;
 
-        checkInt(token, type, res);
+        checkType(token, type, res, integers);
 
-        if (!res) {
-           checkIdentifier(token, type, res); 
+        if (res) {
+            type = "integer";
+        } else {
+            checkType(token, type, res, identifier);
         }
 
-        if (!res) {
-            checkString(token, type, res);
+        if (res && type.empty()) {
+            type = "identifier";
+        } else {
+            checkType(token, type, res, string_literal);
         }
 
-        if (!res) {
+        if (res && type.empty()) {
+            type = "string_literal";
+        } else {
             checkWhitespace(token, type, res);
         }
 
-        if (!res) {
-            checkSpecial(token, type, res);
+        if (res && type.empty()) {
+            type = "whitespace";
+        } else {
+            checkType(token, type, res, special);
         }
 
+        if (res && type.empty()) {
+            type = "special";
+        } 
+        
         if (!res) {
             type = "unknown";
         } 
 
-        int necessary_width = longest_length + 15 - token.length(); 
+        int necessary_width = longest_length + 35 - token.length() - type.length(); 
 
         cout << "[" << type << "]" << string(necessary_width, ' ') << token << endl; 
     } 
 }
 
-void checkInt(string &token, string &type, bool &res) { 
-    bool isInt = true;
+int checkType(string &token, string &type, bool &res, vector<char> &v) { 
 
-    vector<char> identifiers {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    size_t tokenLength = token.length();
+
+    bool isType = true;
+    size_t vSize = v.size();
+
+    if (!tokenLength) {
+        return 0;
+    }
 
     int i {0};
 
-    size_t tokenLength = token.length();
-    size_t identifiersSize = identifiers.size();
+    while (i < tokenLength && isType == true) { 
 
-    while (i < tokenLength && isInt == true) {
-
-        for (size_t i {0}; i < identifiersSize ; i++) { 
-            if (find(identifiers.begin(), identifiers.end(), token.at(i)) == identifiers.end()) {
-                isInt = false;
-            }
+        if (find(v.begin(), v.end(), token.at(i)) == v.end()) {
+            isType = false;
         }
 
         ++i;
     }
 
-    if (isInt) {
-        type = "integer";
+    if (isType) {
         res = true;
     }
-}
 
-void checkIdentifier(string &token, string &type, bool &res) { 
-    bool isIdent = true;
-
-    vector<char> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-                                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-                                "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
-                                "u", "v", "w", "x", "y", "z",
-                                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-                                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
-                                "U", "V", "W", "X", "Y", "Z",
-                                "_"};
-
-    int i {0};
-
-    size_t tokenLength = token.length();
-    size_t identifiersSize = identifiers.size();
-
-    while (i < tokenLength && isIdent == true) {
-
-        for (size_t i {0}; i < identifiersSize; i++) {
-            if (find(identifiers.begin(), identifiers.end(), token.at(i)) == identifiers.end()) {
-                isIdent = false;
-            }
-        }
-
-        ++i;
-    }
-
-    if (isIdent) {
-        type = "identifier";
-        res = true;
-    }
-}
-
-void checkString(string &token, string &type, bool &res) {
-    bool isString = true;
-
-    vector<char> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-                                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-                                "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
-                                "u", "v", "w", "x", "y", "z",
-                                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-                                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
-                                "U", "V", "W", "X", "Y", "Z",
-                                "_", "\""};
-
-    int i {0};
-
-    size_t tokenLength = token.length();
-    size_t identifiersSize = identifiers.size();
-
-    while (i < tokenLength && isString == true) {
-
-        for (size_t i {0}; i < identifiersSize; i++) {
-            if (find(identifiers.begin(), identifiers.end(), token.at(i)) == identifiers.end()) {
-                isString = false;
-            }
-        }
-
-        ++i;
-    }
-
-    if (token.at(0) != '\"' || token.at(tokenLength - 1) != '\"') {
-        isString = false;
-    }
-
-    if (isString) {
-        type = "string literal";
-        res = true;
-    }
+    return 0;
 }
 
 void checkWhitespace(string &token, string &type, bool &res) {
     bool isWhitespace = true;
 
-    if (token != " ")
+    if ((token.at(0) != ' ') && (token.length() != 1))
         isWhitespace == false;
 
     if (isWhitespace) {
-        type = "whitespace";
         res = true;
     }
 }
 
-void checkSpecial(string &token, string &type, bool &res) {
-    bool hasSpecial = true;
-
-    vector<char> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-                                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-                                "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
-                                "u", "v", "w", "x", "y", "z",
-                                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-                                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", 
-                                "U", "V", "W", "X", "Y", "Z",
-                                "_", "\"", "+", "-", "*", "/", "=", "%"};
-
-    int i {0};
-
-    size_t tokenLength = token.length();
-    size_t identifiersSize = identifiers.size();
-
-    while (i < tokenLength && hasSpecial == true) {
-
-        for (size_t i {0}; i < identifiersSize; i++) {
-            if (find(identifiers.begin(), identifiers.end(), token.at(i)) == identifiers.end()) {
-                hasSpecial = false;
-            }
-        }
-
-        ++i;
-    }
-
-    if (hasSpecial) {
-        type = "special characters";
-        res = true;
-    }
-}
