@@ -28,7 +28,7 @@ bool ReadLine(string &input);
 unsigned StringToTokensWS(const string &input, vector<string> &tokens, bool &isFinished);
 bool containsEnd(string &testSubject);
 void AnalyzeTokens(const vector<string> &tokens);
-int checkType(string &token, string &type, bool &res, vector<char> &v);
+int checkType(string &token, bool &res, vector<char> &v);
 void checkWhitespace(string &token, bool &res);
 void checkStringLiteral(string &token, bool &res, vector<char> &string_literal);
 
@@ -97,11 +97,10 @@ unsigned StringToTokensWS(const string &input, vector<string> &tokens, bool &isF
     while (!instream.eof()) {
         instream >> temp;
         isFinished = containsEnd(temp);
+        tokens.push_back(temp);
 
         if (isFinished) {
             break;
-        } else {
-            tokens.push_back(temp);
         }
     } 
 
@@ -143,12 +142,12 @@ void AnalyzeTokens(const vector<string> &tokens) {
 
         string type;
 
-        checkType(token, type, res, integers);
+        checkType(token, res, integers);
 
         if (res) {
             type = "integer";
         } else {
-            checkType(token, type, res, identifier);
+            checkType(token, res, identifier);
         }
 
         if (res && type.empty()) {
@@ -160,7 +159,7 @@ void AnalyzeTokens(const vector<string> &tokens) {
         if (res && type.empty()) {
             type = "string_literal";
         } else {
-            checkType(token, type, res, special);
+            checkType(token, res, special);
         }
 
         if (res && type.empty()) {
@@ -183,7 +182,7 @@ void AnalyzeTokens(const vector<string> &tokens) {
     } 
 }
 
-int checkType(string &token, string &type, bool &res, vector<char> &v) { 
+int checkType(string &token, bool &res, vector<char> &v) { 
 
     size_t tokenLength = token.length();
 
