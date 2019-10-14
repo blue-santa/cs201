@@ -107,9 +107,10 @@ unsigned StringToTokensWS(string &input, vector<string> &tokens, bool &isFinishe
         } else {
             tokens.push_back(temp);
         }
-    }
+    } 
 
-    tokens.push_back("");
+    if (!isFinished)
+        tokens.push_back("");
 
     size_t tokensSize = tokens.size();
 
@@ -171,18 +172,17 @@ void AnalyzeTokens(const vector<string> &tokens) {
 void checkInt(string &token, string &type, bool &res) { 
     bool isInt = true;
 
-    vector<string> integers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    vector<char> identifiers {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
     int i {0};
 
     size_t tokenLength = token.length();
-    size_t integersSize = integers.size();
+    size_t identifiersSize = identifiers.size();
 
     while (i < tokenLength && isInt == true) {
 
-        for (size_t i {0}; i < integersSize; i++) {
-            vector<int>::iterator it = find(integers.begin(), token.at(i));
-            if (it == integers.end()) {
+        for (size_t i {0}; i < identifiersSize ; i++) { 
+            if (find(identifiers.begin(), identifiers.end(), token.at(i)) == identifiers.end()) {
                 isInt = false;
             }
         }
@@ -199,7 +199,7 @@ void checkInt(string &token, string &type, bool &res) {
 void checkIdentifier(string &token, string &type, bool &res) { 
     bool isIdent = true;
 
-    vector<string> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+    vector<char> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
                                 "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
                                 "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
                                 "u", "v", "w", "x", "y", "z",
@@ -216,8 +216,7 @@ void checkIdentifier(string &token, string &type, bool &res) {
     while (i < tokenLength && isIdent == true) {
 
         for (size_t i {0}; i < identifiersSize; i++) {
-            size_t testPresent = find(identifiers.begin(), identifiers.end(), token.at(i));
-            if (testPresent == string::npos) {
+            if (find(identifiers.begin(), identifiers.end(), token.at(i)) == identifiers.end()) {
                 isIdent = false;
             }
         }
@@ -234,7 +233,7 @@ void checkIdentifier(string &token, string &type, bool &res) {
 void checkString(string &token, string &type, bool &res) {
     bool isString = true;
 
-    vector<string> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+    vector<char> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
                                 "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
                                 "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
                                 "u", "v", "w", "x", "y", "z",
@@ -251,8 +250,7 @@ void checkString(string &token, string &type, bool &res) {
     while (i < tokenLength && isString == true) {
 
         for (size_t i {0}; i < identifiersSize; i++) {
-            size_t testPresent = find(identifiers.begin(), identifiers.end(), token.at(i));
-            if (testPresent == string::npos) {
+            if (find(identifiers.begin(), identifiers.end(), token.at(i)) == identifiers.end()) {
                 isString = false;
             }
         }
@@ -260,7 +258,7 @@ void checkString(string &token, string &type, bool &res) {
         ++i;
     }
 
-    if (token.at(0) != "\"" || token.at(tokenLength - 1) != "\"") {
+    if (token.at(0) != '\"' || token.at(tokenLength - 1) != '\"') {
         isString = false;
     }
 
@@ -285,7 +283,7 @@ void checkWhitespace(string &token, string &type, bool &res) {
 void checkSpecial(string &token, string &type, bool &res) {
     bool hasSpecial = true;
 
-    vector<string> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+    vector<char> identifiers {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
                                 "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
                                 "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", 
                                 "u", "v", "w", "x", "y", "z",
@@ -302,8 +300,7 @@ void checkSpecial(string &token, string &type, bool &res) {
     while (i < tokenLength && hasSpecial == true) {
 
         for (size_t i {0}; i < identifiersSize; i++) {
-            size_t testPresent = find(identifiers.begin(), identifiers.end(), token.at(i));
-            if (testPresent == string::npos) {
+            if (find(identifiers.begin(), identifiers.end(), token.at(i)) == identifiers.end()) {
                 hasSpecial = false;
             }
         }
