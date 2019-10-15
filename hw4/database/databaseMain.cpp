@@ -51,7 +51,7 @@ bool readRecord(vector < vector<string> > &taoTeChing, int &desiredChapter, int 
 
 void printChapter(int &desiredChapter, const vector< vector<string> > taoTeChing);
 
-void loadDatabase(vector< vector<string> > &taoTeChing);
+bool loadDatabase(vector< vector<string> > &taoTeChing);
 
 int main(int argc, char **argv) {
 
@@ -200,7 +200,7 @@ void selectChapter(vector< vector<string> > &taoTeChing) {
 
         instream >> desiredChapter;
 
-        if (!instream) {
+        if (!instream || desiredChapter > 81 || desiredChapter < 1) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -264,7 +264,7 @@ void addLine(vector< vector<string> > &taoTeChing) {
         }
     }
 
-    createRecord(taoTeChing, desiredChapter, desiredLine, desiredContent, true);
+    createRecord(taoTeChing, desiredChapter, desiredLine, desiredContent);
 
     clearConsole();
     cout << "The chapter is now as follows: " << endl;
@@ -345,7 +345,7 @@ void updateLine(vector< vector<string> > &taoTeChing) {
         }
     }
 
-    createRecord(taoTeChing, desiredChapter, desiredLine, desiredContent, true);
+    createRecord(taoTeChing, desiredChapter, desiredLine, desiredContent);
 
     cout << "The chapter is now as follows: " << endl;
 
