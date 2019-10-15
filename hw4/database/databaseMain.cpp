@@ -60,42 +60,48 @@ int main(int argc, char **argv) {
 	// Create empty vector<vector> to serve as database
 	vector<vector <string> > taoTeChing (81);
 
+    // Load database
 	bool databaseLoaded = loadDatabase(taoTeChing); 
 
+    // If the database failed to load, end the program
 	if (!databaseLoaded)
 		return 0;
 
+    // Allow user to read database call
 	waitForContinue(); 
 
+    // Initiate endless while loop to display main menu
 	while (true) {
-		int option;
 
+        // Declare option variable to collect user input
+        // Display option screen and receive user input
+		int option; 
 		option = displayOptions(option);
 
+        // Follow user directions to appropriate function
 		switch (option) {
 		    case 0:
-			return 0;
+                return 0;
 		    case 1:
-			selectChapter(taoTeChing);
-			break;
+                selectChapter(taoTeChing);
+                break;
 		    case 2:
-			addLine(taoTeChing);
-			break;
+                addLine(taoTeChing);
+                break;
 		    case 3:
-			updateLine(taoTeChing);
-			break;
+                updateLine(taoTeChing);
+                break;
 		    case 4:
-			deleteLine(taoTeChing);
-			break;
+                deleteLine(taoTeChing);
+                break;
 		    default:
-			break;
-		}
-
-
+                break;
+		} 
 	}
 	return 0;
 }
 
+// Display the options screen
 int displayOptions(int &option) {
 
 	// Clear the console
@@ -132,12 +138,15 @@ int displayOptions(int &option) {
 
 	    instream >> option;
 
+        // If input is invalid, restart while loop
 	    if (!instream) {
-		cin.clear();
-		cin.ignore(1000, '\n');
-		continue;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue;
+
+        // Otherwise, end while loop
 	    } else {
-		break;
+            break;
 	    }
 	}
 
@@ -145,6 +154,7 @@ int displayOptions(int &option) {
 	return option; 
 }
 
+// Load the database
 bool loadDatabase(vector< vector<string> > &taoTeChing) {
 
 	// State filename where initial database is stored
@@ -203,243 +213,289 @@ bool loadDatabase(vector< vector<string> > &taoTeChing) {
 	return true;
 }
 
+// Select a chapter to read
 void selectChapter(vector< vector<string> > &taoTeChing) {
+
+    // Clear the console
     clearConsole();
+
+    // Display main prompt
     cout << "There are 81 Chapters in the Tao Te Ching. Input an integer to select your chapter: ";
 
+    // Declare int to hold user's chapter input
     int desiredChapter;
 
+    // Initiate endless while loop to request user input
     while (true) {
-        string line;
-
+        string line; 
         getline(cin, line);
-        istringstream instream(line);
-
+        istringstream instream(line); 
         instream >> desiredChapter;
 
+        // If user input is invalid, restart loop
         if (!instream || desiredChapter > 81 || desiredChapter < 1) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
+
+        // Otherwise, break loop
         } else {
             break;
         }
     }
 
+    // Reduce user input by one var to account for index value difference
     desiredChapter--;
 
+    // Print the chapter the user desires to read
     printChapter(desiredChapter, taoTeChing);
 
+    // Wait for user to proceed
     cin.clear();
     cin.ignore(1000, '\n');
     waitForContinue();
 }
 
+// Add a line to a user input
 void addLine(vector< vector<string> > &taoTeChing) { 
+
+    // Clear the console
     clearConsole();
+
+    // Display main heading
     cout << "There are 81 Chapters in the Tao Te Ching. Input an integer to select the chapter to which you would like to add a line:  ";
 
+    // Initiate endless while loop to receive user input for desired Chapter
     int desiredChapter; 
-
     while (true) {
         string line;
-        getline(cin, line);
-
-        istringstream instream(line);
-
+        getline(cin, line); 
+        istringstream instream(line); 
         instream >> desiredChapter;
 
+        // If the input is invalid, restart loop
         if (!instream || desiredChapter > 81 || desiredChapter < 1) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
+
+        // Otherwise, end loop
         } else {
             break;
         }
     }
 
+    // Reduce chapter int by one to account for index value
     desiredChapter--;
 
+    // Print the chapter to the screen for visibility, and print next prompt
     printChapter(desiredChapter, taoTeChing);
-    cout << endl;
-
-    int desiredLine = taoTeChing[desiredChapter].size();
-
+    cout << endl; 
     cout << "What is the line you would like to add? ";
 
+    // Set the desired line int to change to the last line, by default, as we are only adding a new line
+    int desiredLine = taoTeChing[desiredChapter].size(); 
+    
+    // Initiate endless while loop to capture user's new line to add
     string desiredContent;
-
     while (true) {
         getline(cin, desiredContent); 
 
+        // If the input is invalid, restart loop
         if (!cin || cin.fail()) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Please try again: ";
+
+
+        // Otherwise, end loop
         } else {
             break;
         }
     }
 
-    createRecord(taoTeChing, desiredChapter, desiredLine, desiredContent);
+    // Create the new line
+    createRecord(taoTeChing, desiredChapter, desiredLine, desiredContent); 
 
+    // Clear console and print updated chapter to the screen
     clearConsole();
-    cout << "The chapter is now as follows: " << endl;
-
+    cout << "The chapter is now as follows: " << endl; 
     printChapter(desiredChapter, taoTeChing);
     
+    // Wait for user to finish reading
     cin.clear();
     cin.ignore(1000, '\n');
-    waitForContinue();
-
+    waitForContinue(); 
 }
 
+// Update an existing line
 void updateLine(vector< vector<string> > &taoTeChing) { 
+
+    // Clear console and print next prompt
     clearConsole();
     cout << "There are 81 Chapters in the Tao Te Ching. Input an integer to select the chapter to update:  ";
 
-    int desiredChapter;
-
+    // Initiate endless while loop to capture user's desired chapter
+    int desiredChapter; 
     while (true) {
         string line;
-        getline(cin, line);
-
-        istringstream instream(line);
-
+        getline(cin, line); 
+        istringstream instream(line); 
         instream >> desiredChapter;
 
+        // If user's response is invalid, restart loop
         if (!instream || desiredChapter > 81 || desiredChapter < 1) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
+
+        // Otherwise, end loop
         } else {
             break;
         }
     }
 
+    // Reduce desired chapter count to account for index value
     desiredChapter--;
 
+    // Print the chapter and next propmt to be updated to the screen
     printChapter(desiredChapter, taoTeChing);
-    cout << endl;
-
-    size_t chapterLimit = taoTeChing[desiredChapter].size();
-
+    cout << endl; 
     cout << "Which line would you like to edit? ";
 
-    int desiredLine;
+    // Initiate chapter limit, to limit user responses within existing range
+    size_t chapterLimit = taoTeChing[desiredChapter].size();
 
+    // Initiate endless while loop to capture user's desired line
+    int desiredLine; 
     while (true) {
         string line;
-        getline(cin, line);
-
+        getline(cin, line); 
         istringstream instream(line); 
         instream >> desiredLine;
 
+        // If the user input is valid, restart loop
         if (!instream || desiredLine < 1 || desiredLine > chapterLimit) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
+
+        // Otherwise, break loop
         } else {
             break;
         }
     }
 
+    // Decrease line by one to account for index value
     desiredLine--;
 
-    cout << endl;
+    // Prompt user's desired updates and changes
+    cout << endl; 
+    cout << "What would you like the line to say? " << endl; 
 
-    cout << "What would you like the line to say? " << endl;
-
-    string desiredContent;
-
+    // Initiate endless while loop to request user udpates
+    string desiredContent; 
     while (true) {
         getline(cin, desiredContent);
 
+        // If user input is invalid, restart loop
         if (!cin || cin.fail()) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
+
+        // Otherwise, break loop
         } else {
             break;
         }
     }
 
+    // Use user inputs to create new record
     createRecord(taoTeChing, desiredChapter, desiredLine, desiredContent);
 
-    cout << "The chapter is now as follows: " << endl;
-
-    printChapter(desiredChapter, taoTeChing);
-
+    // Print updated values to the screen and wait for user to indicate they are finished 
+    cout << "The chapter is now as follows: " << endl; 
+    printChapter(desiredChapter, taoTeChing); 
     cin.clear();
     cin.ignore(1000, '\n');
     waitForContinue();
 }
 
+// Delete a line from a chapter
 void deleteLine(vector< vector<string> > &taoTeChing) {
+    //
+    // Clear console and print prompt 
     clearConsole();
     cout << "There are 81 Chapters in the Tao Te Ching. Input an integer to select the chapter from which to delete a line:  ";
 
-    int desiredChapter;
-
+    // Request user input for desired chapter from which to delete a line
+    int desiredChapter; 
     while (true) {
         string line;
-        getline(cin, line);
-
+        getline(cin, line); 
         istringstream instream(line);
         instream >> desiredChapter;
 
+        // If user input is invalid, restart loop
         if (!instream || desiredChapter > 81 || desiredChapter < 1) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
+
+        // Otherwise, end the loop
         } else {
             break;
         }
     }
 
+    // Reduce desired chapter to account for index value
     desiredChapter--;
 
+    // Print selected chapter to screen
     printChapter(desiredChapter, taoTeChing);
     cout << endl;
 
+    // Set limit to number of lines in the chapter
     size_t chapterLimit = taoTeChing[desiredChapter].size();
 
+    // Prompt user for line to delete
     cout << "Which line would you like to delete? ";
-    int desiredLine;
-
+    int desiredLine; 
     while (true) {
         string line;
-        getline(cin, line);
-
-        istringstream instream(line);
-
+        getline(cin, line); 
+        istringstream instream(line); 
         instream >> desiredLine;
 
+        // If user input is invalid, restart loop 
         if (!instream || desiredLine > chapterLimit || desiredLine < 1) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
+
+        // Otherwise, break loop
         } else {
             break;
         }
     }
+
+    // Reduce desired line count to account for index value
     --desiredLine;
 
-    cout << endl;
-
+    // Remove desired line
     taoTeChing[desiredChapter].erase(taoTeChing[desiredChapter].begin() + desiredLine);
 
-    cout << "The chapter is now as follows: " << endl;
-
-    printChapter(desiredChapter, taoTeChing);
-
+    // Print update to screen and wait for user to finish reading
+    cout << endl;
+    cout << "The chapter is now as follows: " << endl; 
+    printChapter(desiredChapter, taoTeChing); 
     cin.clear();
     cin.ignore(1000, '\n');
     waitForContinue();
 }
 
-void waitForContinue() {
-
+// Wait for user response
+void waitForContinue() { 
     cout << endl << "Press enter to continue...";
     getchar();
 }
@@ -448,45 +504,52 @@ void waitForContinue() {
 void clearConsole() {
 
     // Clear the console 
-    cout << "\033[2J\033[1;1H";
-
+    cout << "\033[2J\033[1;1H"; 
 }
 
+// Create a new record in the database
 bool createRecord(vector< vector<string> > &taoTeChing, int &desiredChapter, int &desiredLine, string &desiredContent) {
+
+    // Set actual size of chapter, for monitoring limitations
     size_t chapterActualSize = taoTeChing[desiredChapter].size();
 
+    // If the desired line is not within the existing vector size, create a new line
     if (desiredLine >= chapterActualSize) { 
        taoTeChing[desiredChapter].push_back(desiredContent); 
        cout << endl;
+
+    // Otherwise, set the existing line to the new line and end function
     } else {
         taoTeChing[desiredChapter][desiredLine] = desiredContent; 
-    }
-
+    } 
     return true;
 }
 
-bool readRecord(vector < vector<string> > &taoTeChing, int &desiredChapter, int &desiredLine) {
-
-    cout << taoTeChing[desiredChapter].at(desiredLine) << endl;
-
+// Read a given line from the provided vector
+bool readRecord(vector < vector<string> > &taoTeChing, int &desiredChapter, int &desiredLine) { 
+    cout << taoTeChing[desiredChapter].at(desiredLine) << endl; 
     return true;
 }
 
+// Print a full chapter to the console
 void printChapter(int &desiredChapter, const vector< vector<string> > taoTeChing) { 
 
+    // Print the header
     cout << "Chapter " << desiredChapter + 1 << endl;
     cout << endl;
 
-    for (size_t i {0}; i < taoTeChing[desiredChapter].size(); i++) {
-
+    // Iterate through and print each line number
+    for (size_t i {0}; i < taoTeChing[desiredChapter].size(); i++) { 
         if (i + 1 < 10)
             cout << " " << i + 1;
         else
             cout << i + 1;
 
+        // Print line
         cout << "  " <<  taoTeChing[desiredChapter].at(i) << endl;
     }
 
+    // Print extra newlines for formatting
     cout << endl;
     cout << endl; 
 }
