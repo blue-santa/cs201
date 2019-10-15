@@ -14,8 +14,7 @@
 #include <sstream>
 #include <map>
 #include <fstream>
-#include <chrono>
-#include <thread>
+#include <stdlib.h>
 
 // #include "bulls-and-cows.hpp"
 
@@ -30,8 +29,17 @@ using std::getline;
 using std::find;
 using std::istringstream;
 using std::ifstream;
+using std::rand;
 
 int main(int argc, char **argv) {
+
+    vector<int> pattern;
+    srand (time(NULL));
+    
+    for (int i {0}; i < 4; i++) {
+        int temp = rand() % 10;
+        pattern.push_back(temp);
+    }
 
 
 	return 0;
