@@ -45,111 +45,145 @@ void waitForContinue();
 // Clear the console 
 void clearConsole();
 
-bool createRecord(vector< vector<string> > &taoTeChing, int &desiredChapter, int &desiredLine, string &desiredContent, bool verbose);
+bool createRecord(vector< vector<string> > &taoTeChing, int &desiredChapter, int &desiredLine, string &desiredContent);
 
 bool readRecord(vector < vector<string> > &taoTeChing, int &desiredChapter, int &desiredLine);
 
 void printChapter(int &desiredChapter, const vector< vector<string> > taoTeChing);
 
+void loadDatabase(vector< vector<string> > &taoTeChing);
+
 int main(int argc, char **argv) {
 
-    vector<vector <string> > taoTeChing (81);
+	// Create empty vector<vector> to serve as database
+	vector<vector <string> > taoTeChing (81);
 
-    string filename = "tao_te_ching.txt";
+	bool databaseLoaded = loadDatabase(taoTeChing); 
 
-    // Load Tao Te Ching into database
-    ifstream in(filename);
+	if (!databaseLoaded)
+		return 0;
 
-    if (!in) {
-        cerr << "Cannot open file: " << filename << endl;
-        return 0;
-    }
+	waitForContinue(); 
 
-    string line;
-    int chapterCount {-1};
-    int i {0};
+	while (true) {
+	clearConsole();
+	string title = "Welcome to the Tao Te Ching library";
+	cout << string(title.length(), '=') << endl;
+	cout << title << endl;
+	cout << string(title.length(), '=') << endl;
+	cout << endl; 
+	cout << "This program allows the user to practice CRUD database techniques, with the Tao Te Ching as a reference" << endl;
 
-    while (getline(in, line)) {
+	cout << endl;
+	cout << "Please select an option from the following menu: " << endl;
+	cout << "1) Select a chapter to read from the Tao Te Ching" << endl;
+	cout << "2) Add a line to a specific chapter" << endl;
+	cout << "3) Update a line from a specific chapter" << endl;
+	cout << "4) Delete a line from a specific chapter" << endl;
+	cout << "0) Exit program" << endl;
+	cout << endl;
 
-        istringstream instream(line);
-        string firstWord;
+	cout << "> ";
 
-        instream >> firstWord;
-        if (firstWord == "Chapter") {
-            chapterCount++;
-            i = 0;
-        } else {
-            createRecord(taoTeChing, chapterCount, i, line, false);
-        }
-        i++;
-    }
+	int option;
 
-    clearConsole();
-    cout << "Database created..." << endl;
+	while (true) { 
+	    string line;
+	    getline(cin, line);
 
-    waitForContinue();
+	    istringstream instream(line);
 
-    while (true) {
-        clearConsole();
-        string title = "Welcome to the Tao Te Ching library";
-        cout << string(title.length(), '=') << endl;
-        cout << title << endl;
-        cout << string(title.length(), '=') << endl;
-        cout << endl; 
-        cout << "This program allows the user to practice CRUD database techniques, with the Tao Te Ching as a reference" << endl;
+	    instream >> option;
 
-        cout << endl;
-        cout << "Please select an option from the following menu: " << endl;
-        cout << "1) Select a chapter to read from the Tao Te Ching" << endl;
-        cout << "2) Add a line to a specific chapter" << endl;
-        cout << "3) Update a line from a specific chapter" << endl;
-        cout << "4) Delete a line from a specific chapter" << endl;
-        cout << "0) Exit program" << endl;
-        cout << endl;
+	    if (!instream) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		continue;
+	    } else {
+		break;
+	    }
+	}
 
-        cout << "> ";
-
-        int option;
-
-        while (true) { 
-            string line;
-            getline(cin, line);
-
-            istringstream instream(line);
-
-            instream >> option;
-
-            if (!instream) {
-                cin.clear();
-                cin.ignore(1000, '\n');
-                continue;
-            } else {
-                break;
-            }
-        }
-
-        switch (option) {
-            case 0:
-                return 0;
-            case 1:
-                selectChapter(taoTeChing);
-                break;
-            case 2:
-                addLine(taoTeChing);
-                break;
-            case 3:
-                updateLine(taoTeChing);
-                break;
-            case 4:
-                deleteLine(taoTeChing);
-                break;
-            default:
-                break;
-        }
+	switch (option) {
+	    case 0:
+		return 0;
+	    case 1:
+		selectChapter(taoTeChing);
+		break;
+	    case 2:
+		addLine(taoTeChing);
+		break;
+	    case 3:
+		updateLine(taoTeChing);
+		break;
+	    case 4:
+		deleteLine(taoTeChing);
+		break;
+	    default:
+		break;
+	}
 
 
-    }
+	}
 	return 0;
+}
+
+bool loadDatabase(vector< vector<string> > &taoTeChing) {
+
+	// State filename where initial database is stored
+	string filename = "tao_te_ching.txt";
+	
+	// Load Tao Te Ching filename into stream
+	ifstream in(filename);
+
+	// Check that the file loaded properly
+	if (!in) {
+		cerr << "Cannot open file: " << filename << endl;
+
+		// If the file did not load properly end func and program
+		return false;
+	}
+
+	// Declare line to hold line-by-line input of file
+	string line;
+
+	// Declare Chapter count, to track current chapter
+	// Set to -1 so that first iteration increases to index 0
+	int chapterCount {-1};
+
+	// Declare lineCount to iterate through each line by count
+	int lineCount {0};
+
+	// Initiate while loop; lasts until getline returns false
+	while (getline(in, line)) { 
+
+		// Declare istringstream to capture each full line
+		istringstream instream(line);
+
+		// Capture firstWord, to test if it is a new Chapter heading
+		string firstWord; 
+		instream >> firstWord;
+		if (firstWord == "Chapter") {
+
+			// If this line is a new chapter, increaes the chapterCount and reset lineCount
+			chapterCount++;
+			lineCount = 0;
+		} else {
+
+			// If the line is a normal line, pass all necessary information to the createRecord function
+			createRecord(taoTeChing, chapterCount, lineCount, line);
+		}
+
+		// Increase current lineCount
+		lineCount++;
+	}
+
+	// Clear the console and state that Database was successfully created
+	clearConsole();
+	cout << "Database created..." << endl;
+
+	// Return true and end func
+	return true;
 }
 
 void selectChapter(vector< vector<string> > &taoTeChing) {
@@ -397,7 +431,7 @@ void clearConsole() {
 
 }
 
-bool createRecord(vector< vector<string> > &taoTeChing, int &desiredChapter, int &desiredLine, string &desiredContent, bool verbose) {
+bool createRecord(vector< vector<string> > &taoTeChing, int &desiredChapter, int &desiredLine, string &desiredContent) {
     size_t chapterActualSize = taoTeChing[desiredChapter].size();
 
     if (desiredLine >= chapterActualSize) { 
