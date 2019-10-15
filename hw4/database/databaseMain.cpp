@@ -53,6 +53,8 @@ void printChapter(int &desiredChapter, const vector< vector<string> > taoTeChing
 
 bool loadDatabase(vector< vector<string> > &taoTeChing);
 
+int displayOptions(int & option);
+
 int main(int argc, char **argv) {
 
 	// Create empty vector<vector> to serve as database
@@ -66,15 +68,49 @@ int main(int argc, char **argv) {
 	waitForContinue(); 
 
 	while (true) {
+		int option;
+
+		option = displayOptions(option);
+
+		switch (option) {
+		    case 0:
+			return 0;
+		    case 1:
+			selectChapter(taoTeChing);
+			break;
+		    case 2:
+			addLine(taoTeChing);
+			break;
+		    case 3:
+			updateLine(taoTeChing);
+			break;
+		    case 4:
+			deleteLine(taoTeChing);
+			break;
+		    default:
+			break;
+		}
+
+
+	}
+	return 0;
+}
+
+int displayOption(int &option) {
+
+	// Clear the console
 	clearConsole();
+
+	// Display header
 	string title = "Welcome to the Tao Te Ching library";
 	cout << string(title.length(), '=') << endl;
 	cout << title << endl;
 	cout << string(title.length(), '=') << endl;
 	cout << endl; 
-	cout << "This program allows the user to practice CRUD database techniques, with the Tao Te Ching as a reference" << endl;
-
+	cout << "This program allows the user to practice CRUD database techniques, with the Tao Te Ching as a reference" << endl; 
 	cout << endl;
+
+	// Display menu
 	cout << "Please select an option from the following menu: " << endl;
 	cout << "1) Select a chapter to read from the Tao Te Ching" << endl;
 	cout << "2) Add a line to a specific chapter" << endl;
@@ -83,10 +119,11 @@ int main(int argc, char **argv) {
 	cout << "0) Exit program" << endl;
 	cout << endl;
 
+	// Display prompt
 	cout << "> ";
 
-	int option;
 
+	// Read user option input
 	while (true) { 
 	    string line;
 	    getline(cin, line);
@@ -104,28 +141,8 @@ int main(int argc, char **argv) {
 	    }
 	}
 
-	switch (option) {
-	    case 0:
-		return 0;
-	    case 1:
-		selectChapter(taoTeChing);
-		break;
-	    case 2:
-		addLine(taoTeChing);
-		break;
-	    case 3:
-		updateLine(taoTeChing);
-		break;
-	    case 4:
-		deleteLine(taoTeChing);
-		break;
-	    default:
-		break;
-	}
-
-
-	}
-	return 0;
+	// Return user input
+	return option; 
 }
 
 bool loadDatabase(vector< vector<string> > &taoTeChing) {
