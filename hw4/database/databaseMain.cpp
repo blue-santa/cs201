@@ -232,7 +232,7 @@ void addLine(vector< vector<string> > &taoTeChing) {
 
         instream >> desiredChapter;
 
-        if (!instream) {
+        if (!instream || desiredChapter > 81 || desiredChapter < 1) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -291,7 +291,7 @@ void updateLine(vector< vector<string> > &taoTeChing) {
 
         instream >> desiredChapter;
 
-        if (!instream) {
+        if (!instream || desiredChapter > 81 || desiredChapter < 1) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -369,7 +369,7 @@ void deleteLine(vector< vector<string> > &taoTeChing) {
         istringstream instream(line);
         instream >> desiredChapter;
 
-        if (!instream) {
+        if (!instream || desiredChapter > 81 || desiredChapter < 1) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
