@@ -110,12 +110,22 @@ int main(int argc, char **argv) {
         cout << "> ";
 
         int option;
-        cin >> option;
 
-        if (cin.fail() || !cin) {
-            cin.clear();
-            cin.ignore(1000, '\n');
-            continue;
+        while (true) { 
+            string line;
+            getline(cin, line);
+
+            istringstream instream(line);
+
+            instream >> option;
+
+            if (!instream) {
+                cin.clear();
+                cin.ignore(1000, '\n');
+                continue;
+            } else {
+                break;
+            }
         }
 
         switch (option) {
@@ -149,9 +159,14 @@ void selectChapter(vector< vector<string> > &taoTeChing) {
     int desiredChapter;
 
     while (true) {
-        cin >> desiredChapter;
+        string line;
 
-        if (!cin) {
+        getline(cin, line);
+        istringstream instream(line);
+
+        instream >> desiredChapter;
+
+        if (!instream) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -173,12 +188,17 @@ void addLine(vector< vector<string> > &taoTeChing) {
     clearConsole();
     cout << "There are 81 Chapters in the Tao Te Ching. Input an integer to select the chapter to which you would like to add a line:  ";
 
-    int desiredChapter;
+    int desiredChapter; 
 
     while (true) {
-        cin >> desiredChapter;
+        string line;
+        getline(cin, line);
 
-        if (!cin) {
+        istringstream instream(line);
+
+        instream >> desiredChapter;
+
+        if (!instream) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -199,18 +219,20 @@ void addLine(vector< vector<string> > &taoTeChing) {
     string desiredContent;
 
     while (true) {
-        cin.clear();
-        cin.ignore(1000, '\n'); 
         getline(cin, desiredContent); 
 
-        if (cin.fail() || !cin) 
+        if (!cin || cin.fail()) {
+            cin.clear();
+            cin.ignore(1000, '\n');
             cout << "Please try again: ";
-        else
+        } else {
             break;
+        }
     }
 
     createRecord(taoTeChing, desiredChapter, desiredLine, desiredContent, true);
 
+    clearConsole();
     cout << "The chapter is now as follows: " << endl;
 
     printChapter(desiredChapter, taoTeChing);
@@ -222,14 +244,20 @@ void addLine(vector< vector<string> > &taoTeChing) {
 }
 
 void updateLine(vector< vector<string> > &taoTeChing) { 
+    clearConsole();
     cout << "There are 81 Chapters in the Tao Te Ching. Input an integer to select the chapter to update:  ";
 
     int desiredChapter;
 
     while (true) {
-        cin >> desiredChapter;
+        string line;
+        getline(cin, line);
 
-        if (!cin) {
+        istringstream instream(line);
+
+        instream >> desiredChapter;
+
+        if (!instream) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -244,12 +272,17 @@ void updateLine(vector< vector<string> > &taoTeChing) {
     cout << endl;
 
     cout << "Which line would you like to edit? ";
+
     int desiredLine;
 
     while (true) {
-        cin >> desiredLine;
+        string line;
+        getline(cin, line);
 
-        if (!cin) {
+        istringstream instream(line); 
+        instream >> desiredLine;
+
+        if (!instream) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -257,6 +290,8 @@ void updateLine(vector< vector<string> > &taoTeChing) {
             break;
         }
     }
+
+    desiredLine--;
 
     cout << endl;
 
@@ -267,7 +302,7 @@ void updateLine(vector< vector<string> > &taoTeChing) {
     while (true) {
         getline(cin, desiredContent);
 
-        if (!cin) {
+        if (!cin || cin.fail()) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -288,14 +323,19 @@ void updateLine(vector< vector<string> > &taoTeChing) {
 }
 
 void deleteLine(vector< vector<string> > &taoTeChing) {
+    clearConsole();
     cout << "There are 81 Chapters in the Tao Te Ching. Input an integer to select the chapter from which to delete a line:  ";
 
     int desiredChapter;
 
     while (true) {
-        cin >> desiredChapter;
+        string line;
+        getline(cin, line);
 
-        if (!cin) {
+        istringstream instream(line);
+        instream >> desiredChapter;
+
+        if (!instream) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -313,9 +353,14 @@ void deleteLine(vector< vector<string> > &taoTeChing) {
     int desiredLine;
 
     while (true) {
-        cin >> desiredLine;
+        string line;
+        getline(cin, line);
 
-        if (!cin) {
+        istringstream instream(line);
+
+        instream >> desiredLine;
+
+        if (!instream) {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "The input you provided is invalid. Please try again: ";
@@ -323,10 +368,11 @@ void deleteLine(vector< vector<string> > &taoTeChing) {
             break;
         }
     }
+    --desiredLine;
 
     cout << endl;
 
-    taoTeChing.erase(taoTeChing.begin() + desiredLine);
+    taoTeChing[desiredChapter].erase(taoTeChing[desiredChapter].begin() + desiredLine);
 
     cout << "The chapter is now as follows: " << endl;
 
@@ -343,12 +389,10 @@ void waitForContinue() {
     getchar();
 }
 
-// Clear the console
-
+// Clear the console 
 void clearConsole() {
 
-        // Clear the console
-
+    // Clear the console 
     cout << "\033[2J\033[1;1H";
 
 }
@@ -359,16 +403,9 @@ bool createRecord(vector< vector<string> > &taoTeChing, int &desiredChapter, int
     if (desiredLine >= chapterActualSize) { 
        taoTeChing[desiredChapter].push_back(desiredContent); 
        cout << endl;
-    } else if (verbose) {
-        cout << endl;
-        cout << "Line to be replaced: ";
-        readRecord(taoTeChing, desiredChapter, desiredLine); 
+    } else {
         taoTeChing[desiredChapter][desiredLine] = desiredContent; 
-        cout << endl;
     }
-
-    cout << "Line " << desiredLine << " now reads: ";
-    readRecord(taoTeChing, desiredChapter, desiredLine); 
 
     return true;
 }
