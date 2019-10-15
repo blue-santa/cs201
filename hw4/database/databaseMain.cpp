@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-int displayOption(int &option) {
+int displayOptions(int &option) {
 
 	// Clear the console
 	clearConsole();
