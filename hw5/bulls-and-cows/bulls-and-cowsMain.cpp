@@ -6,30 +6,33 @@
  * The main file for userInput project
  */
 
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <sstream>
+#include <map>
+#include <fstream>
+#include <chrono>
+#include <thread>
 
-#include "userInput.hpp"
+// #include "bulls-and-cows.hpp"
 
 using std::cout;
+using std::cerr;
 using std::cin;
 using std::endl;
 using std::vector;
 using std::string;
 using std::noskipws;
 using std::getline;
+using std::find;
+using std::istringstream;
+using std::ifstream;
 
 int main(int argc, char **argv) {
 
-	vector<string> userInput;
-	vector<string> userInput2;
-	vector<string> userInput3;
-
-	exercise1(userInput);
-	exercise2(userInput, userInput2);
-	exercise3(userInput, userInput3);
 
 	return 0;
 }
