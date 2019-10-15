@@ -69,11 +69,8 @@ int main(int argc, char **argv) {
     int chapterCount {-1};
     int i {0};
 
-    // This should be using the Create command
-
     while (getline(in, line)) {
 
-        cout << "Test: " << chapterCount << endl;
         istringstream instream(line);
         string firstWord;
 
@@ -87,11 +84,9 @@ int main(int argc, char **argv) {
         i++;
     }
 
-    // for (int i {0}; i < 81; i++) {
-        // printChapter(i, taoTeChing);
-    // }
-
+    clearConsole();
     cout << "Database created..." << endl;
+
     waitForContinue();
 
     while (true) {
@@ -175,6 +170,7 @@ void selectChapter(vector< vector<string> > &taoTeChing) {
 }
 
 void addLine(vector< vector<string> > &taoTeChing) { 
+    clearConsole();
     cout << "There are 81 Chapters in the Tao Te Ching. Input an integer to select the chapter to which you would like to add a line:  ";
 
     int desiredChapter;
@@ -196,22 +192,21 @@ void addLine(vector< vector<string> > &taoTeChing) {
     printChapter(desiredChapter, taoTeChing);
     cout << endl;
 
-    int desiredLine = taoTeChing[desiredChapter].size() + 1;
+    int desiredLine = taoTeChing[desiredChapter].size();
 
     cout << "What is the line you would like to add? ";
 
     string desiredContent;
 
     while (true) {
-        getline(cin, desiredContent);
+        cin.clear();
+        cin.ignore(1000, '\n'); 
+        getline(cin, desiredContent); 
 
-        if (!cin) {
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "The input you provided is invalid. Please try again: ";
-        } else {
+        if (cin.fail() || !cin) 
+            cout << "Please try again: ";
+        else
             break;
-        }
     }
 
     createRecord(taoTeChing, desiredChapter, desiredLine, desiredContent, true);
@@ -359,27 +354,21 @@ void clearConsole() {
 }
 
 bool createRecord(vector< vector<string> > &taoTeChing, int &desiredChapter, int &desiredLine, string &desiredContent, bool verbose) {
-    if (verbose) {
-        if (taoTeChing[desiredChapter].size() > desiredLine) {
-            cout << "Current new line: ";
-            readRecord(taoTeChing, desiredChapter, desiredLine); 
-        }
-    }
+    size_t chapterActualSize = taoTeChing[desiredChapter].size();
 
-    if (taoTeChing[desiredChapter].size() < desiredLine) {
+    if (desiredLine >= chapterActualSize) { 
        taoTeChing[desiredChapter].push_back(desiredContent); 
-    } else { 
-        taoTeChing[desiredChapter][desiredLine] = desiredContent; 
-    }
-
-    if (verbose) {
-        cout << "Line " << desiredLine << " reads: ";
+       cout << endl;
+    } else if (verbose) {
+        cout << endl;
+        cout << "Line to be replaced: ";
         readRecord(taoTeChing, desiredChapter, desiredLine); 
+        taoTeChing[desiredChapter][desiredLine] = desiredContent; 
+        cout << endl;
     }
 
-    cin.clear();
-    cin.ignore(1000, '\n');
-    waitForContinue();
+    cout << "Line " << desiredLine << " now reads: ";
+    readRecord(taoTeChing, desiredChapter, desiredLine); 
 
     return true;
 }
