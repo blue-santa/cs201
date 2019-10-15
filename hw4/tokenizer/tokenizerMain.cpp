@@ -53,6 +53,7 @@ int main(int argc, char **argv) {
         } 
     }
 
+    // Analyze tokens
     AnalyzeTokens(tokens);
 
     return 0;
