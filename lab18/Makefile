@@ -1,4 +1,4 @@
-TARGET = lab15
+TARGET = insertion_sort
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
