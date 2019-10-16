@@ -12,17 +12,26 @@
 // for timer
 #include <stdio.h>
 #include <time.h>
+#include <fstream>
+#include <map>
+#include <stdlib.h>
+#include <sstream>
 
 #include "insertion_sort.hpp"
 
+using std::rand;
+
 int main() {
-	std::vector<int> original = { 52, 12, 37, 34, 15, 10, 16, 26, 18, 20, 29,
-			30, 34, 50, 16, 25 };
+	std::vector<int> original;
+
+	for (int i {20000}; i > 0; i--) {
+		original.push_back(i);
+	}
 
 	// your unsorted original
-	std::cout << "Original vector:" << std::endl;
-	printVector(original);
-	std::cout << std::endl << std::endl;
+	// std::cout << "Original vector:" << std::endl;
+	// printVector(original);
+	// std::cout << std::endl << std::endl;
 
 	// make a copy and sort the vector using the STL for comparison
 	std::vector<int> sorted = original;
@@ -38,14 +47,14 @@ int main() {
 	timer = clock() - timer;
 
 	// STL sorted vector
-	std::cout << "Sorted vector:" << std::endl;
-	printVector(sorted);
-	std::cout << std::endl << std::endl;
+	// std::cout << "Sorted vector:" << std::endl;
+	// printVector(sorted);
+	// std::cout << std::endl << std::endl;
 
 	// your sorted original
-	std::cout << "Your vector:" << std::endl;
-	printVector(original);
-	std::cout << std::endl << std::endl;
+	// std::cout << "Your vector:" << std::endl;
+	// printVector(original);
+	// std::cout << std::endl << std::endl;
 
 	// does it match STL sorted vector?
 	if (isEqual(original, sorted)) {
