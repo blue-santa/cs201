@@ -1,5 +1,5 @@
 /**
- * bulls-and-cows.cpp
+ * bulls-and-cowsMain.cpp
  * CS 201
  * Bryan Beus
  * October 15, 2019
