@@ -19,10 +19,10 @@ void insertionSort(std::vector<int> & data) {
 //	2. If the previous element is bigger than the current element
 //	3. Temporarily save the current element
 
-	for (size_t i {1}; i < data.size(); i++) {
-		if (data.at(i - 1) > data.at(i)) {
+	for (size_t i = 1; i < data.size(); i++) {
+		if (data[i - 1] > data[i]) {
 			int temp;
-			temp = data.at(i);
+			temp = data[i];
 	// Now, we need to move each element that is bigger than the temporary.
 
 //	4. Make a new index j for decrementing equal to the current index
@@ -31,15 +31,15 @@ void insertionSort(std::vector<int> & data) {
 //	6. Move the previous element into the current element
 //	7. Decrement j
 			int j = i;
-			while (j > 0 && (data.at(j - 1) > temp)) {
-				data.at(j) = data.at(j - 1); 
+			while (j > 0 && (data[j - 1] > temp)) {
+				data[j] = data[j - 1]; 
 				j--;
 			}
 
 	// We found where temp goes.
 
 //	8. Move it into the element at j
-			data.at(j) = temp;
+			data[j] = temp;
 		}
 	}
 }
