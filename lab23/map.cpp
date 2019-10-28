@@ -62,6 +62,14 @@ int main(int argv, char **argc) {
 
     map<int, string>::iterator it = myMap.begin();
 
+    cout << "Erasing: " << it -> first << " " << it -> second << endl;
+
+    cout << endl;
+
+    myMap.erase(it);
+
+    it = myMap.begin();
+
     while (it != myMap.end()) {
         cout << it -> first << " " << it -> second << endl;
         it++;
