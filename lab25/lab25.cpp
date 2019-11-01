@@ -50,6 +50,8 @@ using std::to_string;
 using std::sort;
 using std::mismatch;
 
+// void correctSet(vector<int> &v1, vector<int> &v2, pair<vector<int>::iterator, vector<int>::iterator> myMismatch);
+
 int main(int argv, char **argc) {
 
 	vector<int> v1 {1, 2, 3, 4, 5, 6};
@@ -58,13 +60,18 @@ int main(int argv, char **argc) {
 
 	pair<vector<int>::iterator, vector<int>::iterator> myMismatch;
 
-	myMismatch = mismatch(v1.begin(), v1.end(), v2.begin());
+	while (myMismatch.first != v1.end()) {
+		myMismatch = mismatch(v1.begin(), v1.end(), v2.begin());
+		cout << "Mismatching elements: " << *myMismatch.first << " and " << *myMismatch.second << endl;
 
-	if (myMismatch.first != v1.end()) 
-		cout << "Mismatching elements: " << *myMismatch.first << " and " << *myMismatch.second;
-	else 
+		int index1 = myMismatch.first - v1.begin();
+		int index2 = myMismatch.second - v2.begin(); 
+		v2[index2] = v1[index1]; 
+	}
 		cout << "Vectors match" << endl;
 
 	return 0;
 }
 
+// void correctSet(vector<int> &v1, vector<int> &v2, pair<vector<int>::iterator, vector<int>::iterator> &myMismatch) {
+//}
