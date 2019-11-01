@@ -50,7 +50,7 @@ using std::to_string;
 using std::sort;
 using std::mismatch;
 
-// void correctSet(vector<int> &v1, vector<int> &v2, pair<vector<int>::iterator, vector<int>::iterator> myMismatch);
+void correctSet(vector<int> &v1, vector<int> &v2, pair<vector<int>::iterator, vector<int>::iterator> &myMismatch);
 
 int main(int argv, char **argc) {
 
@@ -62,16 +62,17 @@ int main(int argv, char **argc) {
 
 	while (myMismatch.first != v1.end()) {
 		myMismatch = mismatch(v1.begin(), v1.end(), v2.begin());
-		cout << "Mismatching elements: " << *myMismatch.first << " and " << *myMismatch.second << endl;
-
-		int index1 = myMismatch.first - v1.begin();
-		int index2 = myMismatch.second - v2.begin(); 
-		v2[index2] = v1[index1]; 
+		cout << "Mismatching elements: " << *myMismatch.first << " and " << *myMismatch.second << endl; 
+		correctSet(v1, v2, myMismatch);
 	}
 		cout << "Vectors match" << endl;
 
 	return 0;
 }
 
-// void correctSet(vector<int> &v1, vector<int> &v2, pair<vector<int>::iterator, vector<int>::iterator> &myMismatch) {
-//}
+void correctSet(vector<int> &v1, vector<int> &v2, pair<vector<int>::iterator, vector<int>::iterator> &myMismatch) {
+		int index1 = myMismatch.first - v1.begin();
+		int index2 = myMismatch.second - v2.begin(); 
+
+		v2[index2] = v1[index1]; 
+}
