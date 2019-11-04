@@ -13,6 +13,9 @@
 #include <sstream> 
 #include <cmath> 
 #include "truncstruct.hpp"
+#include <FL/Fl.H>
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Box.H>
 
 using std::cout; 
 using std::cin; 
@@ -68,6 +71,8 @@ int main(int argc, char **argv) {
     res = trunc8(usrStr, usrCount);
 
     cout << res.str << endl; 
+
+	Fl_Window *window = new Fl_Window(340,180);
 
     return 0;
 
