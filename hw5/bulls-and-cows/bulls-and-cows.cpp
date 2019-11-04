@@ -177,14 +177,21 @@ void calculateBullsAndCows(Fl_Widget* obj, void*) {
     Fl_Output* defaultPattern = (Fl_Output*) onButtonClick->parent()->child(6); 
     pattern = defaultPattern->value();
     
-    // If the input is not valid, report in the console
+    // If the input is not valid, set values to 0
     if (!isValid) {
        usrCows = 0;
        usrBulls = 0;
+       cout << "Invalid" << endl;
     } else {
-        // Calculate the resulting bulls and cows
+
+        // Otherwise, calculate the resulting bulls and cows
         calculateRes(pattern, sendStr, usrBulls, usrCows);
     }
+
+    cout << "Pattern: " << pattern << endl;
+    cout << "sendStr: " << sendStr << endl;
+    cout << "usrBulls: " << usrBulls << endl;
+    cout << "usrCows: " << usrCows << endl;
 
     string sendCows;
     string sendBulls;

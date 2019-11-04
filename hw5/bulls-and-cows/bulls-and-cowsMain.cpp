@@ -83,12 +83,12 @@ int main(int argc, char **argv) {
     resBulls = new Fl_Output(290, 90, 340, 25, 0);
 
     // Declare correct pattern as child 6
-    correctPattern = new Fl_Output(0,1,2,3,0);
+    correctPattern = new Fl_Output(10,10,0,0,0);
     correctPattern->value(pattern.c_str());
 
     // Declare buttons for user actions
     calculateRes = new Fl_Button(10, 130, 130, 25, "Calculate");
-    // calculateRes->callback(calculateBullsAndCows);
+    calculateRes->callback(calculateBullsAndCows);
 
     quit = new Fl_Button(150, 130, 130, 25, "Quit");
     quit->callback(quitProgram);
