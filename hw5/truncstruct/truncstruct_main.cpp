@@ -16,6 +16,10 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Box.H>
+#include <FL/Fl_Output.H>
+#include <FL/Fl_Input.H>
+#include <FL/Fl_Widget.H>
+#include <FL/Fl_Button.H>
 
 using std::cout; 
 using std::cin; 
@@ -30,50 +34,54 @@ using std::find;
 
 int main(int argc, char **argv) {
 
-    string usrStr; 
-    cout << "Please provide a string: ";
+    // string usrStr; 
+    // cout << "Please provide a string: ";
 
-    while(true) {
+    // while(true) {
 
-        getline(cin, usrStr);
+        // getline(cin, usrStr);
 
-        if (!cin || cin.fail()) { 
-            cin.clear(); 
-            cin.ignore(1000, '\n'); 
-            cout << "Try again: "; 
-        } else { 
-            break; 
-        }
+        // if (!cin || cin.fail()) { 
+            // cin.clear(); 
+            // cin.ignore(1000, '\n'); 
+            // cout << "Try again: "; 
+        // } else { 
+            // break; 
+        // }
 
-    }
+    // }
 
-    size_t usrCount; 
-    cout << "To how many characters would you like to truncate the string? ";
+    // size_t usrCount; 
+    // cout << "To how many characters would you like to truncate the string? ";
 
-    while(true) {
+    // while(true) {
 
-	string temp;
-        getline(cin, temp);
+	// string temp;
+        // getline(cin, temp);
 
-        if (!cin || cin.fail()) { 
-		cin.clear(); 
-		cin.ignore(1000, '\n'); 
-		cout << "Try again: "; 
-        } else { 
-		istringstream instream(temp);
-		instream >> usrCount;
-		break; 
-        }
+        // if (!cin || cin.fail()) { 
+		// cin.clear(); 
+		// cin.ignore(1000, '\n'); 
+		// cout << "Try again: "; 
+        // } else { 
+		// istringstream instream(temp);
+		// instream >> usrCount;
+		// break; 
+        // }
 
-    }
+    // }
 
-    StringInfo res; 
-    res = trunc8(usrStr, usrCount);
+    // StringInfo res; 
+    // res = trunc8(usrStr, usrCount);
 
-    cout << res.str << endl; 
+    // cout << res.str << endl; 
 
-	Fl_Window *window = new Fl_Window(340,180);
+	Fl_Window *window = new Fl_Window(640,360, "Beus's Truncate Application");
+    Fl_Output *stringInputInstructions = new Fl_Output(20, 20, 100, 340,0);
+    stringInputInstructions->value("Test");
+    window->end();
+    window->show(argc, argv);
 
-    return 0;
+    return Fl::run();
 
 }
