@@ -188,19 +188,11 @@ void calculateBullsAndCows(Fl_Widget* obj, void*) {
         calculateRes(pattern, sendStr, usrBulls, usrCows);
     }
 
-    cout << "Pattern: " << pattern << endl;
-    cout << "sendStr: " << sendStr << endl;
-    cout << "usrBulls: " << usrBulls << endl;
-    cout << "usrCows: " << usrCows << endl;
-
+    // Convert integers to strings
     string sendCows;
-    string sendBulls;
-
+    string sendBulls; 
     sendCows = std::to_string(usrCows); 
     sendBulls = std::to_string(usrBulls);
-
-    cout << "sendCows: " << sendCows << endl;
-    cout << "sendBulls: " << sendBulls << endl;
 
     // Capture the child object that displays the cows result (currently empty)
     Fl_Output* resCows = (Fl_Output*) onButtonClick->parent()->child(3);
