@@ -162,10 +162,10 @@ void calculateBullsAndCows(Fl_Widget* obj, void*) {
     Fl_Input* usrStr = (Fl_Input*) onButtonClick->parent()->child(1);
 
     // Declare variables for prepping call to calculate
-    int usrCows;
-    int usrBulls;
-    string sendStr;
-    string pattern;
+    int usrCows = 0;
+    int usrBulls = 0;
+    string sendStr = "";
+    string pattern = "";
 
     // Set sendStr to the user's provided string
     sendStr = usrStr->value(); 
@@ -176,7 +176,7 @@ void calculateBullsAndCows(Fl_Widget* obj, void*) {
     // Capture the child object that holds the correct pattern 
     Fl_Output* defaultPattern = (Fl_Output*) onButtonClick->parent()->child(6); 
     pattern = defaultPattern->value();
-    
+
     // If the input is not valid, set values to 0
     if (!isValid) {
        usrCows = 0;
@@ -199,6 +199,9 @@ void calculateBullsAndCows(Fl_Widget* obj, void*) {
     sendCows = std::to_string(usrCows); 
     sendBulls = std::to_string(usrBulls);
 
+    cout << "sendCows: " << sendCows << endl;
+    cout << "sendBulls: " << sendBulls << endl;
+
     // Capture the child object that displays the cows result (currently empty)
     Fl_Output* resCows = (Fl_Output*) onButtonClick->parent()->child(3);
 
@@ -206,7 +209,7 @@ void calculateBullsAndCows(Fl_Widget* obj, void*) {
     resCows->value(sendCows.c_str());
 
     // Capture the child object that displays the bulls result (currently empty)
-    Fl_Output* resBulls = (Fl_Output*) onButtonClick->parent()->child(3);
+    Fl_Output* resBulls = (Fl_Output*) onButtonClick->parent()->child(5);
 
     // Set the resCows variable from the window to the final string
     resBulls->value(sendBulls.c_str());
