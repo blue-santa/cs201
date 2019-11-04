@@ -1,18 +1,18 @@
-TARGET = standard
+TARGET = tokenizer
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
 LD = g++
 CXX = g++
 CXXFLAGS = -std=c++14 -g -Wall -Iinclude -DGL_SILENCE_DEPRECATION
-LDFLAGS = -lfltk
+LDFLAGS = 
 
 .PHONY: all clean
 
 all: $(TARGET)
 
 clean:
-	$(RM) *.o
+	$(RM) src/*.o
 	$(RM) $(TARGET)
 
 $(TARGET): $(OBJECTS)
