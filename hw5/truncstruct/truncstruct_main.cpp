@@ -9,75 +9,24 @@
 #include <iostream> 
 #include <string> 
 #include <vector> 
-#include <algorithm> 
 #include <sstream> 
-#include <cmath> 
+
 #include "truncstruct.hpp"
 #include <FL/Fl.H> 
 #include <FL/Fl_Text_Display.H>
 #include <FL/Fl_Window.H>
-#include <FL/Fl_Box.H>
 #include <FL/Fl_Output.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Button.H>
 
-using std::cout; 
-using std::cin; 
-using std::endl; 
-using std::vector; 
 using std::string; 
-using std::noskipws; 
-using std::getline; 
 using std::istringstream; 
-using std::ostringstream; 
-using std::find;
 
 void quitProgram(Fl_Widget* obj, void*);
+void truncArbitrary(Fl_Widget* obj, void*);
 
 int main(int argc, char **argv) {
-
-    // string usrStr; 
-    // cout << "Please provide a string: ";
-
-    // while(true) {
-
-        // getline(cin, usrStr);
-
-        // if (!cin || cin.fail()) { 
-            // cin.clear(); 
-            // cin.ignore(1000, '\n'); 
-            // cout << "Try again: "; 
-        // } else { 
-            // break; 
-        // }
-
-    // }
-
-    // size_t usrCount; 
-    // cout << "To how many characters would you like to truncate the string? ";
-
-    // while(true) {
-
-	// string temp;
-        // getline(cin, temp);
-
-        // if (!cin || cin.fail()) { 
-		// cin.clear(); 
-		// cin.ignore(1000, '\n'); 
-		// cout << "Try again: "; 
-        // } else { 
-		// istringstream instream(temp);
-		// instream >> usrCount;
-		// break; 
-        // }
-
-    // }
-
-    // StringInfo res; 
-    // res = trunc8(usrStr, usrCount);
-
-    // cout << res.str << endl; 
 
     Fl_Text_Buffer *stringInputBuff = nullptr;
     Fl_Text_Display *stringInputDisplay = nullptr;
@@ -111,7 +60,7 @@ int main(int argc, char **argv) {
     res = new Fl_Output(290, 50, 340, 25, 0);
 
     truncateUsrStr = new Fl_Button(10, 130, 130, 25, "Truncate");
-    truncateUsrStr->callback(trunc8);
+    truncateUsrStr->callback(truncArbitrary);
 
     quit = new Fl_Button(150, 130, 130, 25, "Quit");
     quit->callback(quitProgram);
@@ -125,4 +74,24 @@ int main(int argc, char **argv) {
 
 void quitProgram(Fl_Widget* obj, void*) {
     exit(0);
+}
+
+void truncArbitrary(Fl_Widget* obj, void*) { 
+    
+    Fl_Button* onButtonClick = (Fl_Button*) obj;
+    Fl_Output* res = (Fl_Output*) onButtonClick->parent()->child(5);
+
+    Fl_Input* usrStr = (Fl_Input*) onButtonClick->parent()->child(1);
+    Fl_Input* usrCount = (Fl_Input*) onButtonClick->parent()->child(3);
+
+    string tempString = usrCount->value();
+    istringstream instream(tempString);
+
+    size_t usrSize;
+    instream >> usrSize;
+
+    string sendStr = usrStr->value();
+
+    StringInfo defaultOutput = trunc(StringInfo { sendStr, usrSize });
+
 }
