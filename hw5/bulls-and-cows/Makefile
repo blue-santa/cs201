@@ -5,7 +5,7 @@ OBJECTS = $(SOURCES:%.cpp=%.o)
 LD = g++
 CXX = g++
 CXXFLAGS = -std=c++14 -g -Wall -Iinclude -DGL_SILENCE_DEPRECATION
-LDFLAGS = 
+LDFLAGS = -lfltk
 
 .PHONY: all clean
 

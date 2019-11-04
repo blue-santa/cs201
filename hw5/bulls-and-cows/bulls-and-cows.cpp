@@ -17,6 +17,14 @@
 
 #include "bulls-and-cows.hpp"
 
+#include <FL/Fl.H>
+#include <FL/Fl_Text_Display.H>
+#include <FL/Fl_Window.H>
+#include <FL/Fl_Output.H>
+#include <FL/Fl_Input.H>
+#include <FL/Fl_Widget.H>
+#include <FL/Fl_Button.H>
+
 using std::cout;
 using std::cerr;
 using std::cin;
@@ -30,6 +38,7 @@ using std::istringstream;
 using std::stringstream;
 using std::ifstream;
 using std::rand;
+
 
 // Test whether the user's input is a valid response
 bool testUserInput(string &userInput) {
@@ -137,3 +146,62 @@ void setPattern(string &pattern) {
         pattern = pattern + ss.str();
     } 
 }
+
+// Quit the program
+void quitProgram(Fl_Widget* obj, void*) {
+    exit(0);
+}
+
+// Truncate and capitalize a string according to provided user input of size
+void calculateBullsAndCows(Fl_Widget* obj, void*) { 
+    
+    // Capture the current state of objects when the truncate button is clicked 
+    Fl_Button* onButtonClick = (Fl_Button*) obj;
+
+    // Capture the user's current guess
+    Fl_Input* usrStr = (Fl_Input*) onButtonClick->parent()->child(1);
+
+    // Declare variables for prepping call to calculate
+    int usrCows;
+    int usrBulls;
+    string sendStr;
+    string pattern;
+
+    // Set sendStr to the user's provided string
+    sendStr = usrStr->value(); 
+
+    // Ensure that user input is valid
+    bool isValid = testUserInput(sendStr);
+
+    // Capture the child object that holds the correct pattern 
+    Fl_Output* defaultPattern = (Fl_Output*) onButtonClick->parent()->child(6); 
+    pattern = defaultPattern->value();
+    
+    // If the input is not valid, report in the console
+    if (!isValid) {
+       usrCows = 0;
+       usrBulls = 0;
+    } else {
+        // Calculate the resulting bulls and cows
+        calculateRes(pattern, sendStr, usrBulls, usrCows);
+    }
+
+    string sendCows;
+    string sendBulls;
+
+    sendCows = std::to_string(usrCows); 
+    sendBulls = std::to_string(usrBulls);
+
+    // Capture the child object that displays the cows result (currently empty)
+    Fl_Output* resCows = (Fl_Output*) onButtonClick->parent()->child(3);
+
+    // Set the resCows variable from the window to the final string
+    resCows->value(sendCows.c_str());
+
+    // Capture the child object that displays the bulls result (currently empty)
+    Fl_Output* resBulls = (Fl_Output*) onButtonClick->parent()->child(3);
+
+    // Set the resCows variable from the window to the final string
+    resBulls->value(sendBulls.c_str());
+}
+
