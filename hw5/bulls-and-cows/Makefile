@@ -1,4 +1,4 @@
-TARGET = tokenizer
+TARGET = bulls-and-cows
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
