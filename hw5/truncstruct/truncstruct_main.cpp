@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
     // cout << res.str << endl; 
 
 	Fl_Window *window = new Fl_Window(640,360, "Beus's Truncate Application");
-    Fl_Output *stringInputInstructions = new Fl_Output(20, 20, 100, 340,0);
+    Fl_Output *stringInputInstructions = new Fl_Output(20, 20, 600, 320,0);
     stringInputInstructions->value("Test");
     window->end();
     window->show(argc, argv);
