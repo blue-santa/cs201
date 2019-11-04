@@ -12,6 +12,8 @@
 #include <sstream> 
 
 #include "truncstruct.hpp"
+#include "beus_truncstruct.hpp"
+
 #include <FL/Fl.H> 
 #include <FL/Fl_Text_Display.H>
 #include <FL/Fl_Window.H>
@@ -23,13 +25,10 @@
 using std::string; 
 using std::istringstream; 
 
-void quitProgram(Fl_Widget* obj, void*);
-void truncArbitrary(Fl_Widget* obj, void*);
-
 int main(int argc, char **argv) {
 
-    Fl_Text_Buffer *stringInputBuff = nullptr;
-    Fl_Text_Display *stringInputDisplay = nullptr;
+    // Declare Fl_Output pointer objects for displaying instructions and information
+    Fl_Output *stringInputDisplay = nullptr;
     Fl_Output *countPrompt = nullptr;
     Fl_Output *resultDisplay = nullptr;
 
@@ -42,10 +41,8 @@ int main(int argc, char **argv) {
 	Fl_Window *window = new Fl_Window(640,170, "Beus's Truncate Application");
     window->begin();
 
-    stringInputBuff = new Fl_Text_Buffer();
-    stringInputDisplay = new Fl_Text_Display(10, 10, 270, 25);
-    stringInputDisplay->buffer(stringInputBuff);
-    stringInputBuff->text("Please provide a string to truncate:");
+    stringInputDisplay = new Fl_Output(10, 10, 270, 25, 0);
+    stringInputDisplay->value("Please provide a string to truncate:");
 
     usrStr = new Fl_Input(290, 10, 340, 25);
 
@@ -57,7 +54,7 @@ int main(int argc, char **argv) {
     resultDisplay = new Fl_Output(10, 90, 270, 25, 0);
     resultDisplay->value("The truncated string:");
 
-    res = new Fl_Output(290, 50, 340, 25, 0);
+    res = new Fl_Output(290, 90, 340, 25, 0);
 
     truncateUsrStr = new Fl_Button(10, 130, 130, 25, "Truncate");
     truncateUsrStr->callback(truncArbitrary);
@@ -72,26 +69,4 @@ int main(int argc, char **argv) {
 
 }
 
-void quitProgram(Fl_Widget* obj, void*) {
-    exit(0);
-}
 
-void truncArbitrary(Fl_Widget* obj, void*) { 
-    
-    Fl_Button* onButtonClick = (Fl_Button*) obj;
-    Fl_Output* res = (Fl_Output*) onButtonClick->parent()->child(5);
-
-    Fl_Input* usrStr = (Fl_Input*) onButtonClick->parent()->child(1);
-    Fl_Input* usrCount = (Fl_Input*) onButtonClick->parent()->child(3);
-
-    string tempString = usrCount->value();
-    istringstream instream(tempString);
-
-    size_t usrSize;
-    instream >> usrSize;
-
-    string sendStr = usrStr->value();
-
-    StringInfo defaultOutput = trunc(StringInfo { sendStr, usrSize });
-
-}
