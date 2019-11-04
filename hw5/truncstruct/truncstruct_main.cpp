@@ -76,9 +76,16 @@ int main(int argc, char **argv) {
 
     // cout << res.str << endl; 
 
+    Fl_Input *usrStr = nullptr;
+    Fl_Input *usrSize = nullptr;
+    Fl_Output *res = nullptr;
+    Fl_Button *truncateUsrStr = nullptr;
+    Fl_Button *quiz = nullptr;
+
 	Fl_Window *window = new Fl_Window(640,360, "Beus's Truncate Application");
-    Fl_Output *stringInputInstructions = new Fl_Output(10, 10, 600, 30,"Test");
-    stringInputInstructions->value("Test");
+    window->begin();
+    Fl_Output *stringInputInstructions = new Fl_Output(10, 10, 600, 30, 0);
+    stringInputInstructions->value("");
     window->end();
     window->show(argc, argv);
 
