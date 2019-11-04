@@ -33,6 +33,8 @@ using std::istringstream;
 using std::ostringstream; 
 using std::find;
 
+void quitProgram(Fl_Widget* obj, void*);
+
 int main(int argc, char **argv) {
 
     // string usrStr; 
@@ -80,14 +82,15 @@ int main(int argc, char **argv) {
     Fl_Text_Buffer *stringInputBuff = nullptr;
     Fl_Text_Display *stringInputDisplay = nullptr;
     Fl_Output *countPrompt = nullptr;
+    Fl_Output *resultDisplay = nullptr;
 
     Fl_Input *usrStr = nullptr;
     Fl_Input *usrCount = nullptr;
     Fl_Output *res = nullptr;
     Fl_Button *truncateUsrStr = nullptr;
-    Fl_Button *quiz = nullptr;
+    Fl_Button *quit = nullptr;
 
-	Fl_Window *window = new Fl_Window(640,360, "Beus's Truncate Application");
+	Fl_Window *window = new Fl_Window(640,170, "Beus's Truncate Application");
     window->begin();
 
     stringInputBuff = new Fl_Text_Buffer();
@@ -97,14 +100,29 @@ int main(int argc, char **argv) {
 
     usrStr = new Fl_Input(290, 10, 340, 25);
 
-    countPrompt = new Fl_Output(10, 50, 500, 25);
-    countPrompt->value("To how many integers would you like to truncate the string?");
+    countPrompt = new Fl_Output(10, 50, 270, 25, 0);
+    countPrompt->value("How many final integers?");
 
-    usrCount = new Fl_Input(520, 50, 110, 25);
+    usrCount = new Fl_Input(290, 50, 340, 25);
+
+    resultDisplay = new Fl_Output(10, 90, 270, 25, 0);
+    resultDisplay->value("The truncated string:");
+
+    res = new Fl_Output(290, 50, 340, 25, 0);
+
+    truncateUsrStr = new Fl_Button(10, 130, 130, 25, "Truncate");
+    truncateUsrStr->callback(trunc8);
+
+    quit = new Fl_Button(150, 130, 130, 25, "Quit");
+    quit->callback(quitProgram);
 
     window->end();
     window->show(argc, argv);
 
     return Fl::run();
 
+}
+
+void quitProgram(Fl_Widget* obj, void*) {
+    exit(0);
 }
