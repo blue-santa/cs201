@@ -27,23 +27,37 @@ int main() {
 
 	cout << "Begin coin flip experiment." << endl;
 
-	int heads = 0;
-	int tails = 0;
+	vector<size_t> shuffledDeck;
+
+	for (size_t i = 1; i <= 100; i++) {
+		cout << i << " ";
+		shuffledDeck.push_back(i);
+	}
+	cout << endl << endl;;
 
 	std::random_device device;
 	std::mt19937 generator(device());
-	std::uniform_int_distribution<int> distribution(1, 2);
+	std::uniform_int_distribution<int> distribution(0, 99);
 	
-	for (int i = 0; i < 1000; i++) {
-		int temp = distribution(generator);
-		if (temp == 1)
-			heads++;
-		else
-			tails++; 
+	for (size_t i = 0; i < shuffledDeck.size(); i++) {
+		// Capture initial number
+		int k = static_cast<int>(i);
+		size_t part1 = shuffledDeck[k];
+
+		// Generate a random index number within the range
+		int num = distribution(generator);
+
+		size_t part2 = shuffledDeck[num];
+
+		shuffledDeck[k] = part2;
+		shuffledDeck[num] = part1; 
 	}
 
-	cout << "Heads: " << heads << endl;
-	cout << "Tails: " << tails << endl;
+	for (size_t i = 0; i < shuffledDeck.size(); i++) {
+		int k = static_cast<int>(i);
+		cout << shuffledDeck[k] << " ";
+	}
+	cout << endl;
 
 	return 0;
 }
