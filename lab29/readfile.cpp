@@ -120,8 +120,32 @@ bool readFile2(const string & filename) {
 	//         while(iStringStreamOnLine >> str)
 	//         if(iStringStreamOnStr >> num)
 
-	cout << filename;  // DUMMY output
-	return false;  // DUMMY return
+	ifstream fin("data_2019.txt");
+
+	if (!fin) {
+		cout << "Error opening file" << endl;
+		return false;
+	}
+
+	while (!fin.eof()) {
+		string s1;
+		getline(fin, s1);
+
+		int tempInt;
+		string tempStr;
+	
+		std::istringstream instream(s1);
+
+		while (instream >> tempStr) {
+			std::istringstream instream2(tempStr);
+			if (instream2 >> tempInt)
+				cout << tempInt << endl;
+		}
+
+	} 
+
+	return true;
+
 
 	// ***************************************************************
 }
