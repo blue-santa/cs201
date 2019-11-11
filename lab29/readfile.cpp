@@ -30,7 +30,7 @@ using std::string;
 using std::istringstream;
 
 // Set the following to true to create formatting errors in the file.
-const bool MAKE_FILE_ERRORS = false;
+const bool MAKE_FILE_ERRORS = true;
 
 /**
  * Read a file and print it to the console.
@@ -40,11 +40,24 @@ const bool MAKE_FILE_ERRORS = false;
 bool readFile(const string & filename) {
 	// REQUIRED 1 ****************************************************
 	// TODO: If you can read the file,
+	
+	ifstream fin("data_2019.txt");
+
+	if (!fin) {
+		cout << "Error opening file" << endl;
+		return false;
+	}
+
 	//       While not at the end-of-file
 	//       Print each line of the file.
+	
+	while (!fin.eof()) {
+		string s1;
+		getline(fin, s1);
+		cout << s1 << endl;
+	} 
 
-	cout << filename;  // DUMMY output
-	return false;  // DUMMY return
+	return true;
 
 	// ***************************************************************
 }
@@ -58,14 +71,36 @@ bool readFile(const string & filename) {
 bool readFile1(const string & filename) {
 	// REQUIRED 2 ****************************************************
 	// TODO: Set MAKE_FILE_ERRORS to true.
+
+
 	//       If you can read the file,
+	ifstream fin("data_2019.txt");
+
+	if (!fin) {
+		cout << "Error opening file" << endl;
+		return false;
+	}
+
 	//       While not at the end-of-file
 	//       Print each line of the file,
 	//         but print ERROR: in front of
 	//         lines with strings.
+	
+	while (!fin.eof()) {
+		string s1;
+		getline(fin, s1);
 
-	cout << filename;  // DUMMY output
-	return false;  // DUMMY return
+		int tempInt;
+		std::istringstream instream(s1);
+
+		if (instream >> tempInt)
+			cout << s1 << endl;
+		else
+			cout << "Not an integer" << endl;
+
+	} 
+
+	return true;
 
 	// ***************************************************************
 }
