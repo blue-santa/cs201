@@ -5,7 +5,11 @@
 #include <random>
 #include <cmath>
 
-int RandomBetweenU(int first, int last);
+using std::cout;
+using std::cin;
+using std::endl;
+
+int RandomBetweenU(int first, int last, std::default_random_engine &e1);
 int RandomBetweenN(int first, int last);
 int RandomBetween(int first, int last);
 void PrintDistribution(const std::map<int, int> &numbers);
@@ -14,11 +18,17 @@ int main()
 {
     // Seed with a real random value, if available
     std::random_device r;
+
+    int first = 1;
+    int last = 6;
  
     // Choose a random mean between 1 and 6
     std::default_random_engine e1(r());
-    std::uniform_int_distribution<int> uniform_dist(1, 6);
+    std::uniform_int_distribution<int> uniform_dist(first, last);
 
+    int test_one = RandomBetweenU(first, last, e1);
+    
+    cout << "Test_one: " << test_one << endl;
 
 
     // Previous example code
@@ -41,15 +51,25 @@ int main()
     }
 }
 
-int RandomBetweenU(int first, int last) {
+int RandomBetweenU(int first, int last, std::default_random_engine &e1) {
+
+	std::uniform_int_distribution<int> uniform_dist(first, last);
+	int val = uniform_dist(e1);
+
+	return val;
 
 }
 
 int RandomBetweenN(int first, int last) {
 
+	int val = 0;
+	return val;
+	
 }
 
 int RandomBetween(int first, int last) {
+	int val = 0;
+	return val;
 
 } 
 
