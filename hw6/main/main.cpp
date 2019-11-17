@@ -43,7 +43,13 @@ int main()
 	// Create normal histogram
 	std::map<int, int> normalHistogram;
 	for (int i = 0; i < 10000; i++) {
-		++normalHistogram[std::round(RandomBetweenN(first, last, e1))];
+		int val;
+		while (true) {
+			val = std::round(RandomBetweenN(first, last, e1));
+			if (val <= last && val >= first)
+				break; 
+		}
+		++normalHistogram[val];
 	}
 
 	// Print the normal histogram
@@ -51,7 +57,7 @@ int main()
 
 	// Create standard rand() histogram
 	std::map<int, int> standardHistogram;
-	for (int i = 0; i < 10000; i++) {
+	for (int i = 0; i < 10000; i++) { 
 		++standardHistogram[std::round(RandomBetween(first, last))];
 	}
 
@@ -72,7 +78,7 @@ int RandomBetweenU(int first, int last, std::mt19937 &e1) {
 
 int RandomBetweenN(int first, int last, std::mt19937 &e1) {
 
-	std::normal_distribution<> normal_dist(4.0, 1), min(first), max (last);
+	std::normal_distribution<> normal_dist(4, 1), min(first), max(last);
 	int val = normal_dist(e1);
 
 	return val;
@@ -91,7 +97,7 @@ void PrintDistribution(const std::map<int, int> &numbers) {
 
 	for (auto p: numbers) {
 		if ( p.first > 1 || p.first < 6) {
-			cout << std::fixed << /* std::setprecision(1) << */ std::setw(2) << p.first << ' ' << std::string(p.second/20, '*') << endl;
+			cout << std::fixed << std::setprecision(1) << std::setw(2) << p.first << ' ' << std::string(p.second/20, '*') << endl;
 		} else {
 			cout << std::fixed << std::setprecision(1) << std::setw(2) << p.first << ' ' << "# of instances: " << p.second << endl;
 		}
