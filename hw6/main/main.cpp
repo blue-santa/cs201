@@ -72,7 +72,7 @@ int RandomBetweenU(int first, int last, std::mt19937 &e1) {
 
 int RandomBetweenN(int first, int last, std::mt19937 &e1) {
 
-	std::normal_distribution<> normal_dist(3.5, 1);
+	std::normal_distribution<> normal_dist(4.0, 1), min(first), max (last);
 	int val = normal_dist(e1);
 
 	return val;
@@ -81,7 +81,8 @@ int RandomBetweenN(int first, int last, std::mt19937 &e1) {
 
 int RandomBetween(int first, int last) {
 	int val = (std::round(std::rand()));
-	val = val % 10;
+	val = val % 6;
+	val++;
 	return val;
 
 } 
@@ -89,7 +90,11 @@ int RandomBetween(int first, int last) {
 void PrintDistribution(const std::map<int, int> &numbers) {
 
 	for (auto p: numbers) {
-		cout << std::fixed << std::setprecision(1) << std::setw(2) << p.first << ' ' << std::string(p.second/20, '*') << endl;
+		if ( p.first > 1 || p.first < 6) {
+			cout << std::fixed << /* std::setprecision(1) << */ std::setw(2) << p.first << ' ' << std::string(p.second/20, '*') << endl;
+		} else {
+			cout << std::fixed << std::setprecision(1) << std::setw(2) << p.first << ' ' << "# of instances: " << p.second << endl;
+		}
 	}
 
 	cout << endl;
