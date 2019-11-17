@@ -1,4 +1,4 @@
-TARGET = test
+TARGET = histograms
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
