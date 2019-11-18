@@ -4,7 +4,7 @@ HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
 LD = g++
 CXX = g++
-CXXFLAGS = -std=c++14 -g -Wall -Iinclude -DGL_SILENCE_DEPRECATION
+CXXFLAGS = -std=c++14 -g -Wall -Iinclude -DGL_SILENCE_DEPRECATION -Wfatal-errors
 LDFLAGS = 
 
 .PHONY: all clean

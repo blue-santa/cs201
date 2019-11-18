@@ -5,20 +5,21 @@
 #include <utility>
 #include <vector>
 #include <string>
+#include <map>
 
 using std::vector;
 using std::pair;
 using std::string;
 using std::cout;
 using std::endl;
-using std::map;
 using std::make_pair;
 using std::for_each;
 using std::getline;
 using std::istringstream;
 using std::ostringstream;
-
-using SizeStringPair = std::pair<size_t, std::string>;
+using std::to_string;
+using std::find;
+using std::map;
 
 void clearConsole();
 
@@ -26,7 +27,13 @@ void printCurrentProgress(map<char, bool> &quoteStatus);
 
 bool printCurrentHangmanState(map<string, bool> &hangmanState);
 
-void promptUserInput(map<char, bool> &quoteStatus, bool &isFinished);
+bool promptUserInput(map<char, bool> &quoteStatus, map<string, bool> &hangmanState, bool &isFinished);
+
+bool updateProgress(char &nextGuess, map<char, bool> &quoteStatus, bool &charFound);
+
+bool promptUserInput(map<char, bool> &quoteStatus, map<string, bool> &hangmanState, bool &isFinished);
+
+void updateHangmanState(map<string, bool> &hangmanState, bool &charFound);
 
 int main() {
 
@@ -36,36 +43,25 @@ int main() {
 
 	map<string, bool> hangmanStatus;
 
+	for_each(hangmanItems.begin(), hangmanItems.end(), [](string item, map<string, bool> &hangmanStatus) { 
+			hangmanStatus.insert(make_pair(item, false));
+	});
 
 	string quote = "Whenever people tell me that I will regret whatever I just did when tomorrow morning comes, I sleep in until noon the next day, because I am a problem solver.";
 
 	map<char, bool> quoteStatus;
-	for_each(quote.begin(), quote.end(), [](char n) {
+	for_each(quote.begin(), quote.end(), [](char n, map<char, bool> &quoteStatus) {
 		bool statusBool = false;
 		if (n == '.' || n == ' ' || n == ',')
 			statusBool = true;
-		map.insert(make_pair(n, statsBool)); 
+		quoteStatus.insert(make_pair(n, statusBool)); 
 	});
 
 	while (!isFinished) {
-		isFinished = promptUserInput(quoteStatus, isDead, userWon); 
+		isFinished = promptUserInput(quoteStatus, hangmanStatus, isFinished); 
 	}
 
-	return 0;
-
-
-	cout << endl << "Part 3: " << endl;
-
-	vector<SizeStringPair>::iterator it = std::find_if(v.begin(), v.end(), [](SizeStringPair a) {
-		return a.first > 15;
-	});
-
-	while (it->first > 15) { 
-		std::cout << "{ "<< it->first << ", "<< it->second << " }" << std::endl; 
-		it++;
-	}
-
-	return 0;
+	return 0; 
 }
 
 // Clear the console
@@ -76,44 +72,80 @@ void clearConsole() {
 
 bool printCurrentProgress(map<char, bool> &quoteStatus, bool &isFinished) { 
 	isFinished = true;
+
 	cout << "Current Progress:" << endl;
 
-	std::ostringstream output;
+	string output;
 
-	for_each(quoteStatus.begin(), quoteStatus.end(), [](map<char, bool>::iterator n){
+	for_each(quoteStatus.begin(), quoteStatus.end(), [](pair<char, bool> n){
 		if (n->second) {
-			output << n->first; 
+			output = output + to_string(n->first); 
 		} else {
 			isFinished = false;
-			output << '_';
+			output = output + "_";
 		}
 	});
+
 
 	cout << output << endl << endl; 
 
 	return isFinished;
 }
 
-bool printCurrentHangmanState(map<string, bool> &hangmanState, bool &isFinished) {
+bool printCurrentHangmanState(map<string, bool> &hangmanState, bool &isFinished, bool &charFound) {
+
+	cout << "The hangedman's state of affairs: " << endl << endl;
+
+	int turns = 0;
+
+	for_each(hangmanState.begin(), hangmanState.end(), [](pair<string, bool> n) {
+		if (n->second) {
+			cout << setw(15) << left << n->first << endl;		
+			turns++;
+		}		
+	});
+
+	cout << "Turns: " << turns << "/10" << endl << endl;
+
+	if (turns == 10)
+		isFinished = true;
 
 	return isFinished;
 }
 
-bool promptUserInput(map<char, bool> &quoteStatus, bool isFinished) {
+bool updateProgress(char &nextGuess, map<char, bool> &quoteStatus, bool &charFound) {
+	for_each(quoteStatus.begin(), quoteStatus.end(), [](pair<char,bool> a) {
+			if (a->first == nextGuess && a->second == false) {
+				charFound = true;
+				a->second = true;
+			} 
+	}); 
+
+	return charFound;
+}
+
+void updateHangmanState(map<string, bool> &hangmanState, bool &charFound) {
+	auto result1 = find(hangmanState.begin(), hangmanState.end(), false);
+	if (result1 != hangmanState.end())
+		result1->second = true;
+}
+
+bool promptUserInput(map<char, bool> &quoteStatus, map<string, bool> &hangmanState, bool &isFinished) {
 
 	clearConsole();
+
 	printCurrentProgress(quoteStatus, isFinished);
 
 	if (isFinished) {
 		cout << endl << "You win. Congrats!" << endl;
-		return isFinished
+		return isFinished;
 	} 
 
 	printCurrentHangmanState(isFinished);
 
 	if (isFinished) {
 		cout << "You lose. Try again!" << endl;
-		return isFinished
+		return isFinished;
 	}
 
 	cout << "Please provide your next guess as a single character: ";
@@ -126,7 +158,9 @@ bool promptUserInput(map<char, bool> &quoteStatus, bool isFinished) {
 	string temp_two << instream; 
 	nextGuess = temp_two[0];
 	
-	updateProgress(nextGuess, quoteStatus);
-	updateHangmanState(nextGuess, hangmanState);
+	bool charFound = false;
+	charFound = updateProgress(nextGuess, quoteStatus);
+	updateHangmanState(nextGuess, hangmanState, charFound);
 
+	return isFinished; 
 }
