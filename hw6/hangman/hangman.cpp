@@ -29,15 +29,15 @@ void clearConsole();
 
 void printCurrentProgress(map<char, bool> &quoteStatus);
 
-bool printCurrentHangmanState(map<bool, string> &hangmanState, bool &isFinished);
+bool printCurrentHangmanState(vector<pair<string, bool>> &hangmanState, bool &isFinished);
 
-bool promptUserInput(map<char, bool> &quoteStatus, map<bool, string> &hangmanState, bool &isFinished);
+bool promptUserInput(map<char, bool> &quoteStatus, vector<pair<string, bool>> &hangmanState, bool &isFinished);
 
 bool updateProgress(char &nextGuess, map<char, bool> &quoteStatus, bool &charFound);
 
-bool promptUserInput(map<char, bool> &quoteStatus, map<bool, string> &hangmanState, bool &isFinished);
+bool promptUserInput(map<char, bool> &quoteStatus, vector<pair<string, bool>> &hangmanState, bool &isFinished);
 
-void updateHangmanState(map<bool, string> &hangmanState, bool &charFound);
+void updateHangmanState(vector<pair<string, bool>> &hangmanState, bool &charFound);
 
 int main() {
 
@@ -45,10 +45,10 @@ int main() {
 
 	vector<string> hangmanItems {"head", "body", "right arm", "left arm", "right hand", "left hand", "right leg", "left leg", "right foot", "left foot"};
 
-	map<bool, string> hangmanState;
+	vector<pair<string, bool>> hangmanState;
 
 	for_each(hangmanItems.begin(), hangmanItems.end(), [&hangmanState](string item) { 
-			hangmanState.insert(make_pair(false, item));
+			hangmanState.push_back(make_pair(item, false));
 	});
 
 	string quote = "Whenever people tell me that I will regret whatever I just did when tomorrow morning comes, I sleep in until noon the next day, because I am a problem solver.";
@@ -56,10 +56,13 @@ int main() {
 	map<char, bool> quoteStatus;
 	for_each(quote.begin(), quote.end(), [&quoteStatus](char n) {
 		bool statusBool = false;
-		if (n == '.' || n == ' ' || n == ',')
+		if (n == '.' || n == ' ' || n == ',') {
 			statusBool = true;
+		}
 		quoteStatus.insert(make_pair(n, statusBool)); 
 	});
+
+	for_each(quoteStatus.begin(), quoteStatus.end(), [](auto &n) { cout << "First: " << n.first << " Second: " << n.second << endl; });
 
 	while (!isFinished) {
 		isFinished = promptUserInput(quoteStatus, hangmanState, isFinished); 
@@ -96,15 +99,15 @@ bool printCurrentProgress(map<char, bool> &quoteStatus, bool &isFinished) {
 	return isFinished;
 }
 
-bool printCurrentHangmanState(map<bool, string> &hangmanState, bool &isFinished) {
+bool printCurrentHangmanState(vector<pair<string, bool>> &hangmanState, bool &isFinished) {
 
 	cout << "The hangedman's state of affairs: " << endl << endl;
 
 	int turns = 0;
 
 	for_each(hangmanState.begin(), hangmanState.end(), [&turns](auto &n) {
-		if (n.first) {
-			cout << setw(15) << left << n.second << endl;
+		if (n.second) {
+			cout << setw(15) << left << n.first << endl;
 			turns++;
 		}		
 	});
@@ -128,15 +131,17 @@ bool updateProgress(char &nextGuess, map<char, bool> &quoteStatus, bool &charFou
 	return charFound;
 }
 
-void updateHangmanState(map<bool, string> &hangmanState, bool &charFound) {
-	map<bool, string>::iterator res = hangmanState.find(false);
-	if (res != hangmanState.end())
-		res->first = true;
+void updateHangmanState(vector<pair<string, bool>> &hangmanState, bool &charFound) {
+	bool set = false;
+	for_each(hangmanState.begin(), hangmanState.end(), [&set](auto &n) {
+			if (!(n.second) && !set)
+				n.second = true; 
+	});
 }
 
-bool promptUserInput(map<char, bool> &quoteStatus, map<bool, string> &hangmanState, bool &isFinished) {
+bool promptUserInput(map<char, bool> &quoteStatus, vector<pair<string, bool>> &hangmanState, bool &isFinished) {
 
-	clearConsole();
+	// clearConsole();
 
 	printCurrentProgress(quoteStatus, isFinished);
 
