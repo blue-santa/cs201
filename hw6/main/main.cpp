@@ -124,7 +124,7 @@ int RandomBetween(int first, int last) {
 void PrintDistribution(const std::map<int, int> &numbers) {
 
 	for (auto p: numbers) {
-		cout << std::fixed << std::setprecision(1) << std::setw(2) << p.first << ' ' << std::string(p.second/20, '*') << endl;
+		cout << std::fixed << std::setprecision(1) << std::setw(2) << p.first << ' ' << std::string(p.second/200, '*') << endl;
 	}
 
 	cout << endl;
