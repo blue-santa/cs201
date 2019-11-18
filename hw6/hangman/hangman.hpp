@@ -36,18 +36,22 @@ using std::map;
 using std::setw;
 using std::left;
 
+// Clear the console
 void clearConsole();
 
+// Print the intended sentence with the current progress showing, and unguessed characters hidden
 void printCurrentProgress(vector<pair<char, bool>> &quoteStatus);
 
+// Print the current state of the hangman, including all captured body parts
 bool printCurrentHangmanState(vector<pair<string, bool>> &hangmanState, bool &isFinished);
 
-bool promptUserInput(vector<pair<char, bool>> &quoteStatus, vector<pair<string, bool>> &hangmanState, bool &isFinished);
-
+// Update the progress achieved towards the intended sentence
 bool updateProgress(char &nextGuess, int &turns, vector<pair<char, bool>> &quoteStatus, bool &charFound);
 
+// Prompt user input
 bool promptUserInput(vector<pair<char, bool>> &quoteStatus, vector<pair<string, bool>> &hangmanState, bool &isFinished, int &turns, bool &charFound);
 
+// Update the state of the hanged man's captured body parts
 void updateHangmanState(vector<pair<string, bool>> &hangmanState, bool &charFound);
 
 #endif
