@@ -10,15 +10,21 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+// Return a random number according to a uniform distribution
 int RandomBetweenU(int first, int last, std::mt19937 &e1);
+
+// Return a random number according to a normal distribution 
 int RandomBetweenN(int first, int last, std::mt19937 &e1);
+
+// Return a random number using the standard library rand() function
 int RandomBetween(int first, int last);
+
+// Print the provided distribution to the console
 void PrintDistribution(const std::map<int, int> &numbers);
  
 int main()
 {
-	// Declare endpoints of the range for the distributions
-
+	// Declare endpoints of the range for the distributions 
 	int first = 1;
 	int last = 6;
 
@@ -44,6 +50,9 @@ int main()
 	std::map<int, int> normalHistogram;
 	for (int i = 0; i < 10000; i++) {
 		int val;
+		// Technically, a randomized normal distribution should never have defined endpoints
+		// However, because the assignment lists 1 and 6 as the required range,
+		// Only accept values that fit within the range
 		while (true) {
 			val = std::round(RandomBetweenN(first, last, e1));
 			if (val <= last && val >= first)
@@ -61,12 +70,13 @@ int main()
 		++standardHistogram[std::round(RandomBetween(first, last))];
 	}
 
-	// Print the normal histogram
+	// Print the standard histogram
 	PrintDistribution(standardHistogram);
 
 	return 0;
 }
 
+// Return a random value according to a uniform distribution
 int RandomBetweenU(int first, int last, std::mt19937 &e1) {
 
 	std::uniform_int_distribution<int> uniform_dist(first, last);
@@ -76,6 +86,7 @@ int RandomBetweenU(int first, int last, std::mt19937 &e1) {
 
 }
 
+// Return a random value according to a normal distribution
 int RandomBetweenN(int first, int last, std::mt19937 &e1) {
 
 	std::normal_distribution<> normal_dist(4, 1), min(first), max(last);
@@ -85,22 +96,27 @@ int RandomBetweenN(int first, int last, std::mt19937 &e1) {
 	
 }
 
+// Return a random value according to the default standard library
 int RandomBetween(int first, int last) {
+	// Acquire a random int value
 	int val = (std::round(std::rand()));
+	
+	// Ensure the value is within six digits
 	val = val % 6;
+
+	// Add 1 to the value, to account for the 0 - 5 default range
 	val++;
+
+	// Return value
 	return val;
 
 } 
 
+// Print the provided distribution to the console
 void PrintDistribution(const std::map<int, int> &numbers) {
 
 	for (auto p: numbers) {
-		if ( p.first > 1 || p.first < 6) {
-			cout << std::fixed << std::setprecision(1) << std::setw(2) << p.first << ' ' << std::string(p.second/20, '*') << endl;
-		} else {
-			cout << std::fixed << std::setprecision(1) << std::setw(2) << p.first << ' ' << "# of instances: " << p.second << endl;
-		}
+		cout << std::fixed << std::setprecision(1) << std::setw(2) << p.first << ' ' << std::string(p.second/20, '*') << endl;
 	}
 
 	cout << endl;
