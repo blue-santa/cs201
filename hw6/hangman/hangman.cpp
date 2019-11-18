@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <iomanip>
 #include <algorithm>
 #include <iterator>
 #include <utility>
@@ -11,6 +12,7 @@ using std::vector;
 using std::pair;
 using std::string;
 using std::cout;
+using std::cin;
 using std::endl;
 using std::make_pair;
 using std::for_each;
@@ -20,12 +22,14 @@ using std::ostringstream;
 using std::to_string;
 using std::find;
 using std::map;
+using std::setw;
+using std::left;
 
 void clearConsole();
 
 void printCurrentProgress(map<char, bool> &quoteStatus);
 
-bool printCurrentHangmanState(map<string, bool> &hangmanState);
+bool printCurrentHangmanState(map<string, bool> &hangmanState, bool &isFinished);
 
 bool promptUserInput(map<char, bool> &quoteStatus, map<string, bool> &hangmanState, bool &isFinished);
 
@@ -43,14 +47,15 @@ int main() {
 
 	map<string, bool> hangmanStatus;
 
-	for_each(hangmanItems.begin(), hangmanItems.end(), [](string item, map<string, bool> &hangmanStatus) { 
-			hangmanStatus.insert(make_pair(item, false));
+	for_each(hangmanItems.begin(), hangmanItems.end(), [&hangmanStatus](string item) { 
+			bool val = false;
+			hangmanStatus.insert(make_pair(item, val));
 	});
 
 	string quote = "Whenever people tell me that I will regret whatever I just did when tomorrow morning comes, I sleep in until noon the next day, because I am a problem solver.";
 
 	map<char, bool> quoteStatus;
-	for_each(quote.begin(), quote.end(), [](char n, map<char, bool> &quoteStatus) {
+	for_each(quote.begin(), quote.end(), [&quoteStatus](char n) {
 		bool statusBool = false;
 		if (n == '.' || n == ' ' || n == ',')
 			statusBool = true;
@@ -77,9 +82,9 @@ bool printCurrentProgress(map<char, bool> &quoteStatus, bool &isFinished) {
 
 	string output;
 
-	for_each(quoteStatus.begin(), quoteStatus.end(), [](pair<char, bool> n){
-		if (n->second) {
-			output = output + to_string(n->first); 
+	for_each(quoteStatus.begin(), quoteStatus.end(), [&output, &isFinished](auto &n){
+		if (n.second) {
+			output = output + to_string(n.first); 
 		} else {
 			isFinished = false;
 			output = output + "_";
@@ -92,15 +97,15 @@ bool printCurrentProgress(map<char, bool> &quoteStatus, bool &isFinished) {
 	return isFinished;
 }
 
-bool printCurrentHangmanState(map<string, bool> &hangmanState, bool &isFinished, bool &charFound) {
+bool printCurrentHangmanState(map<string, bool> &hangmanState, bool &isFinished) {
 
 	cout << "The hangedman's state of affairs: " << endl << endl;
 
 	int turns = 0;
 
-	for_each(hangmanState.begin(), hangmanState.end(), [](pair<string, bool> n) {
-		if (n->second) {
-			cout << setw(15) << left << n->first << endl;		
+	for_each(hangmanState.begin(), hangmanState.end(), [&turns](auto &n) {
+		if (n.second) {
+			cout << setw(15) << left << n.first << endl;
 			turns++;
 		}		
 	});
@@ -114,10 +119,10 @@ bool printCurrentHangmanState(map<string, bool> &hangmanState, bool &isFinished,
 }
 
 bool updateProgress(char &nextGuess, map<char, bool> &quoteStatus, bool &charFound) {
-	for_each(quoteStatus.begin(), quoteStatus.end(), [](pair<char,bool> a) {
-			if (a->first == nextGuess && a->second == false) {
+	for_each(quoteStatus.begin(), quoteStatus.end(), [&nextGuess, &charFound](auto &n) {
+			if (n.first == nextGuess && n.second == false) {
 				charFound = true;
-				a->second = true;
+				n.second = true;
 			} 
 	}); 
 
@@ -141,7 +146,7 @@ bool promptUserInput(map<char, bool> &quoteStatus, map<string, bool> &hangmanSta
 		return isFinished;
 	} 
 
-	printCurrentHangmanState(isFinished);
+	printCurrentHangmanState(hangmanState, isFinished);
 
 	if (isFinished) {
 		cout << "You lose. Try again!" << endl;
@@ -151,16 +156,19 @@ bool promptUserInput(map<char, bool> &quoteStatus, map<string, bool> &hangmanSta
 	cout << "Please provide your next guess as a single character: ";
 
 	string temp;
+	string temp_two;
+	char nextGuess;
+
 	getline(cin, temp); 
 	istringstream instream(temp);
 	if (!instream)
 		return isFinished;
-	string temp_two << instream; 
+	instream >> temp_two; 
 	nextGuess = temp_two[0];
 	
 	bool charFound = false;
-	charFound = updateProgress(nextGuess, quoteStatus);
-	updateHangmanState(nextGuess, hangmanState, charFound);
+	charFound = updateProgress(nextGuess, quoteStatus, charFound);
+	updateHangmanState(hangmanState, charFound);
 
 	return isFinished; 
 }
