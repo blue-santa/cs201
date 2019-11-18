@@ -1,3 +1,11 @@
+/*
+ * main.cpp
+ * CS 201
+ * November 15, 2019
+ * Bryan Beus
+ * Main file for the histogram project in hw6
+ */
+
 #include <iostream>
 #include <iomanip>
 #include <string>

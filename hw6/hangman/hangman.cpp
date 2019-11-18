@@ -1,3 +1,11 @@
+/*
+ * hangman.cpp
+ * CS 201
+ * November 15, 2019
+ * Bryan Beus
+ * Function definition file for hangman project in hw6
+ */
+
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -7,6 +15,8 @@
 #include <vector>
 #include <string>
 #include <map>
+
+#include "hangman.hpp"
 
 using std::vector;
 using std::pair;
@@ -24,53 +34,6 @@ using std::find;
 using std::map;
 using std::setw;
 using std::left;
-
-void clearConsole();
-
-void printCurrentProgress(vector<pair<char, bool>> &quoteStatus);
-
-bool printCurrentHangmanState(vector<pair<string, bool>> &hangmanState, bool &isFinished);
-
-bool promptUserInput(vector<pair<char, bool>> &quoteStatus, vector<pair<string, bool>> &hangmanState, bool &isFinished);
-
-bool updateProgress(char &nextGuess, int &turns, vector<pair<char, bool>> &quoteStatus, bool &charFound);
-
-bool promptUserInput(vector<pair<char, bool>> &quoteStatus, vector<pair<string, bool>> &hangmanState, bool &isFinished, int &turns, bool &charFound);
-
-void updateHangmanState(vector<pair<string, bool>> &hangmanState, bool &charFound);
-
-int main() {
-
-	bool isFinished = false;
-
-	vector<string> hangmanItems {"head", "body", "right arm", "left arm", "right hand", "left hand", "right leg", "left leg", "right foot", "left foot"};
-
-	vector<pair<string, bool>> hangmanState;
-
-	for_each(hangmanItems.begin(), hangmanItems.end(), [&hangmanState](string item) { 
-			hangmanState.push_back(make_pair(item, false));
-	});
-
-	string quote = "Whenever people tell me that I will regret whatever I just did when tomorrow morning comes, I sleep in until noon the next day, because I am a problem solver.";
-
-	vector<pair<char, bool>> quoteStatus;
-	for_each(quote.begin(), quote.end(), [&quoteStatus](char n) {
-		bool statusBool = false;
-		if (n == '.' || n == ' ' || n == ',') {
-			statusBool = true;
-		}
-		quoteStatus.push_back(make_pair(n, statusBool)); 
-	});
-
-	int turns = 0;
-	bool charFound = true;
-
-	while (!isFinished) {
-		isFinished = promptUserInput(quoteStatus, hangmanState, isFinished, turns, charFound); 
-	}
-
-	return 0; 
-}
 
 // Clear the console
 void clearConsole() {
