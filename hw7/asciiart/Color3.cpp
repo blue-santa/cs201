@@ -43,6 +43,7 @@ char Color3::asciiValue() const {
 	// rcvunxzjft
 	// LCJUYXZO0Q
 	// *WMB8&%$#@
+
 	unsigned darkness = 0;
 	return values[darkness];
 }
@@ -59,6 +60,9 @@ std::ostream& operator<<(std::ostream& ostr, const Color3& color) {
 std::istream& operator>>(std::istream& istr, Color3& color) {
 	// Implement your own input for a Color3
 
+	// istr << setw(3) << (int)color.r << " ";
+	// istr << setw(3) << (int)color.g << " ";
+	// istr << setw(3) << (int)color.b << " ";
 
 	return istr;
 }

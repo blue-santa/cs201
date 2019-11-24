@@ -8,7 +8,7 @@
 Image3::Image3(unsigned width, unsigned height) {
 	// TODO: resize the pixels array
 	
-	Color3& pixels = Images3::getPixel(width, height);	
+	// Color3& pixels = Images3::getPixel(width, height);	
 
 	// TODO: initialize the internal w and h members
 
@@ -42,12 +42,6 @@ bool Image3::loadPPM(const std::string& path) {
 	// TODO: Load an image from the disk
 	// REQUIREMENT: Use the STREAM operators for the file contents
 
-	Image3& image;
-
-	std::istream istr;
-
-	std::istream(istr, path);
-
 	return false;
 }
 
@@ -67,18 +61,7 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 	// TODO: Read in PPM image format from stream
 	// MAKE SURE FORMAT IS GOOD!!!
 
-	ifstream fin(image);
-
-	if (!fin) {
-		cout << "error opening file" << endl;
-		return 0;
-	}	
-
-	while (!fin.eof) {
-		istr << fin;
-	}
-
-	cout << "Successfully imported image" << endl;
+	// istr << setw(3) << image.something << " ";
 
 
 	return istr;
