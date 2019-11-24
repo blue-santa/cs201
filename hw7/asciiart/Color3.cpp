@@ -6,6 +6,9 @@
 #include "Color3.hpp"
 
 using std::setw;
+using std::cout;
+using std::cin;
+using std::endl;
 
 // Ensure values are in the range 0 to maxvalue
 constexpr int saturate(int x, int maxvalue) {
@@ -60,9 +63,17 @@ std::ostream& operator<<(std::ostream& ostr, const Color3& color) {
 std::istream& operator>>(std::istream& istr, Color3& color) {
 	// Implement your own input for a Color3
 
-	// istr << setw(3) << (int)color.r << " ";
-	// istr << setw(3) << (int)color.g << " ";
-	// istr << setw(3) << (int)color.b << " ";
+	int r;
+	istr >> r;
+	color.r = (r < 0) ? 0 : (r > 255) ? 255: (unsigned char)r; 
+
+	int b;
+	istr >> b;
+	color.b = (b < 0) ? 0 : (b > 255) ? 255: (unsigned char)b; 
+
+	int g;
+	istr >> g;
+	color.g = (g < 0) ? 0 : (g > 255) ? 255: (unsigned char)g; 
 
 	return istr;
 }
