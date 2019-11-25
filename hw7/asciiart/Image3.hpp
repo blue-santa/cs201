@@ -18,7 +18,7 @@ public:
 	void setPixel(unsigned x, unsigned y, const Color3& color);
 
 	bool savePPM(const std::string& path) const;
-	bool loadPPM(const std::string& path);
+	bool loadPPM(const std::string& path, std::string& file_contents);
 
 	void printASCII(std::ostream& ostr) const;
 

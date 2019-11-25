@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <sstream>
 
 #include "Color3.hpp" 
 #include "Image3.hpp"
@@ -12,37 +13,34 @@ using std::endl;
 using std::ifstream;
 using std::ofstream;
 
+using std::vector;
+using std::string;
+
 int main() {
 
-	Color3 myColor(38, 45, 12);
+	// Load file
+	string input_path = "parrot.ppm";
+	string output_path = "test.txt";
+	string file_contents;
 
-	ofstream fout ("testfile.txt");
+	Image3 image(0, 0); 
+
+	bool loaded;
+
+	loaded = image.loadPPM(input_path, file_contents);
+
+	if (!loaded) { 
+		cout << "Error loading image" << endl;
+	} 
+
+	ofstream fout(output_path);
 
 	if (!fout) {
-		cout << "error opening file" << endl;
-		// something here to close the file or stop it from being used
-	}
-
-	fout << myColor;
-
-	fout.close();
-
-	ifstream fin ("testfile.txt");
-
-	if (!fin) {
-		cout << "error opening file for fin" << endl;
-		// ensure program stops
+		cout << "Failed to create output file" << endl; 
 		return 0;
 	}
 
-	fin >> myColor;
+	image.printASCII(fout); 
 
-	cout << "r: " << (int)myColor.r << " " << (int)myColor.g << " " << (int)myColor.b << endl;
-
-	fin.close();
-
-
-	return 0;
-
-
+	return 0; 
 }

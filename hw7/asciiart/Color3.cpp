@@ -4,6 +4,10 @@
 // CS 201 course
 #include <iomanip>
 #include "Color3.hpp"
+#include <fstream>
+#include <sstream>
+
+#define MAXVAL 255
 
 using std::setw;
 using std::cout;
@@ -16,7 +20,7 @@ constexpr int saturate(int x, int maxvalue) {
 }
 
 Color3::Color3()
-	: r(0), g(0), b(0)
+	: r(255), g(255), b(255)
 { }
 
 Color3::Color3(int R, int G, int B) {
@@ -29,16 +33,22 @@ int Color3::weightedSum() const {
 	// Implement Y = 0.2126R + 0.7152G + 0.0722B
 	// Ensure values are inside the range 0 to 255
 
+	int temp_r = 0.2126 * saturate((int)r, MAXVAL);
+	int temp_g = 0.7152 * saturate((int)g, MAXVAL);
+	int temp_b = 0.0722 * saturate((int)b, MAXVAL);
+
 	// if (saturate(Y))
 
-	return 0;
+	int weightedsum = saturate(temp_r + temp_g + temp_b, MAXVAL);
+
+	return weightedsum;
 }
 
 char Color3::asciiValue() const {
 	// Use at least 16 characters, sort these from dark to light
 	// or light to dark and then map the weightedSum() to the range
 	// 0 to 15. Please pick your own characters
-	const char values[] = ".,~\"!+:vcIow0XP$";
+	const char values[] = "0$PX@Iwocv:+~,' ";
 	
 	// .'`,^:";~
 	// -_+<>i!lI?
@@ -47,7 +57,16 @@ char Color3::asciiValue() const {
 	// LCJUYXZO0Q
 	// *WMB8&%$#@
 
-	unsigned darkness = 0;
+	// Find the weighted sum of the r, g, b values for this asciiValue
+	int w_sum = weightedSum();
+
+	// Divide by 15 to eliminate color data and reduce to value data only 
+	w_sum = w_sum / 15;
+
+	// Get remainder to determine position in values[] array 
+	unsigned darkness = w_sum % 15;
+
+	// Return ascii character matching value of computation of weightedsum
 	return values[darkness];
 }
 
