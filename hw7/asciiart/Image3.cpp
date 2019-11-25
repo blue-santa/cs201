@@ -47,12 +47,13 @@ const Color3& Image3::getPixel(unsigned x, unsigned y) const {
 	return pixels[y * w + x];
 }
 
-void Image3::setPixel(unsigned x, unsigned y, const Color3& color) {
-	
+// Set a pixel to a new color
+void Image3::setPixel(unsigned x, unsigned y, const Color3& color) { 
 	// Set the pixel to the new color 
 	pixels[y * w + x] = color; 
 }
 
+// Save a ppm file to an output filestream
 bool Image3::savePPM(const std::string& path) const {
 	// TODO: Save the image to the disk
 	// REQUIREMENT: Use the STREAM operators for the file contents
@@ -65,6 +66,7 @@ bool Image3::savePPM(const std::string& path) const {
 	return true;
 }
 
+// Load a PPM file from a file path
 bool Image3::loadPPM(const std::string& path, std::string& file_contents) {
 	// TODO: Load an image from the disk
 	// REQUIREMENT: Use the STREAM operators for the file contents
@@ -80,11 +82,14 @@ bool Image3::loadPPM(const std::string& path, std::string& file_contents) {
 	return true;
 }
 
+// Send an ascii version of an image object to an output stream
 void Image3::printASCII(std::ostream& ostr) const {
 	// TODO: Print an ASCII version of this image
 
 	for (size_t i = 0; i < pixels.size(); i++) {
 		ostr << pixels[i].asciiValue(); 
+
+		// When reaching the end of a row, make sure to start a new line
 		if ((i + 1) % w == 0 && i != 0) {
 			ostr << "\n";
 		}
@@ -99,44 +104,42 @@ std::ostream& operator<<(std::ostream& ostr, const Image3& image) {
 	// Add dimensions
 	ostr << image.w << " " << image.h << "\n";
 
-	// Add max value
-	ostr << 255 << "\n";
-	cout << "image.pixels.size(): " << image.pixels.size() << endl;
-
+	// Insert the next pixel value
 	for (size_t i = 0; i < image.pixels.size(); i++) { 
-
-		// Insert the next pixel value
 		ostr << image.pixels[i] << "\n"; 
-
 	}
 
 	return ostr;
 }
 
+// When sending an input stream to an image object, format as follows
 std::istream& operator>>(std::istream& istr, Image3& image) {
 	// TODO: Read in PPM image format from stream
 	// MAKE SURE FORMAT IS GOOD!!!
 
-	// Need to handle comments 
+	// Initiate variable to track the first three rows for formatting
 	int first_three_vals = 0;
+
+	// Declare persistent rgb variables to track the progress through each line (in case the lines are not formatted with 3 values to a row
 	int temp_r = -1;
 	int temp_g = -1;
 	int temp_b = -1;
 
-	int count = 0;
-
+	// Initiate endless while loop for duration of stream
 	while (true) {
-		
-		count++;
+		// Capture current line
 		string line;
 		getline(istr, line);
 
+		// If the stream is empty, cease the while loop
 		if (!istr)
 			break;
 
+		// Ignore comments
 		if (line.at(0) == '#')
 			continue;
 
+		// Check the formatting is P3
 		if (first_three_vals == 0) {
 			if (line == "P3") {
 				first_three_vals++;
@@ -146,6 +149,7 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 			}
 		}
 			
+		// Initiate the w/h values
 		if (first_three_vals == 1) {
 			int temp_w;
 			int temp_h;
@@ -168,13 +172,13 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 			continue;
 		} 
 
+		// Ignore max value line
 		if (first_three_vals == 2) {
 			istringstream instr_maxval(line);
 
 			if (!instr_maxval)
 				return istr;
 
-			// Can consider making the #define MAXVAL here instead something pulled from the value below
 			int maxval;
 			instr_maxval >> maxval;
 	
@@ -182,28 +186,29 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 			first_three_vals++;
 			continue;
 		}
-		cout << "line: " << line << " count: " << count << " pixels.size(): " << image.pixels.size() <<  endl;
-		cout << "r: " << temp_r << " g: " << temp_g << " b: " << temp_b << endl; 
 
+		// Use a string stream to convert a string to an int more easiy
 		istringstream instr_rgb(line); 
 
+		// Load the next value into an r, g, or b persistent variable
 		if (temp_r == -1) {
 			instr_rgb >> temp_r; 
 		} else if (temp_g == -1 && temp_r != -1) {
 			instr_rgb >> temp_g; 
 		} else if (temp_b == -1 && temp_r != -1 && temp_g != -1) {
 			instr_rgb >> temp_b; 
+
+			// Once all three are loaded, add the combination to the pixels vector
 			image.pixels.push_back(Color3(temp_r, temp_g, temp_b)); 
 		} 
 		
+		// If all three persistent variables are loaded, reset to start again
 		if (temp_b != -1 && temp_r != -1 && temp_g != -1) {
 			temp_r = -1;
 			temp_g = -1;
 			temp_b = -1;
 		} 
 	}
-	cout << "image.pixels.size(): " << image.pixels.size() << endl;
-	cout << "count: " << count << endl;
 
 	return istr;
 }
