@@ -66,68 +66,10 @@ bool Image3::loadPPM(const std::string& path, std::string& file_contents) {
 
 	ifstream fin (path);
 
-	if (!fin) { 
-		cout << "Error opening file: " << path << endl; 
-
-		// ensure program stops 
-		return false; 
-	} 
-
-	string verify_ppm;
-	getline(fin, verify_ppm);
-
-	if (verify_ppm != "P3")
+	if (!fin)
 		return false;
 
-	// Need to handle ("#") comments
-
-	int temp_w;
-	int temp_h;
-	string temp_wh;
-
-	getline(fin, temp_wh); 
-	istringstream instr_wh(temp_wh);
-
-	if (!instr_wh)
-		return false;
-
-	instr_wh >> temp_w;
-	if ((typeid(int) != typeid(temp_w)) || temp_w < 0)
-	       return false;	
-
-	instr_wh >> temp_h;
-	if ((typeid(int) != typeid(temp_h)) || temp_h < 0)
-	       return false;	
-	
-	w = (unsigned)temp_w;
-	h = (unsigned)temp_h;
-
-	string maxval_temp;
-	getline(fin, maxval_temp);
-	istringstream instr_maxval(maxval_temp);
-
-	if (!instr_maxval)
-		return false;
-
-	// Can consider making the #define MAXVAL here instead something pulled from the value below
-	int maxval;
-	instr_maxval >> maxval;
-	
-	while (!fin.eof()) {
-
-		int temp_r;
-	       	int temp_g;
-	       	int temp_b;
-
-		for (int i = 0; i < 3; i++) {
-			fin >> temp_r;
-			fin >> temp_g;
-			fin >> temp_b; 
-		}
-
-		pixels.push_back(Color3(temp_r, temp_g, temp_b)); 
-
-	}
+	fin >> *this;
 
 	return true;
 }
@@ -179,46 +121,61 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 	// TODO: Read in PPM image format from stream
 	// MAKE SURE FORMAT IS GOOD!!!
 
-
-	// Need to handle comments
-	string temp_format;
-	istr >> temp_format;
-
-	if (temp_format != "P3") {
-		cout << "Error reading file - incorrect format type (P3 expected)" << endl;
-		return istr;
-	}
-
-	int temp_w;
-       	int temp_h;
-	string temp_wh;
-
-	getline(istr, temp_wh); 
-	istringstream instr_wh(temp_wh);
-
-	if (!instr_wh)
-		return istr;
-
-	instr_wh >> temp_w;
-	if ((typeid(unsigned) != typeid(temp_w)) || temp_w < 0)
-	       return istr;	
-
-	instr_wh >> temp_h;
-	if ((typeid(unsigned) != typeid(temp_h)) || temp_h < 0)
-	       return istr;	
-	
-	image.w = (unsigned)temp_w;
-	image.h = (unsigned)temp_h;
-
-	string maxval_temp;
-	getline(istr, maxval_temp);
-	istringstream instr_maxval(maxval_temp);
-
-	
-	int maxval;
-	instr_maxval >> maxval; 
+	// Need to handle comments 
+	int first_three_vals = 0;
 
 	while (!istr.eof()) {
+		string line;
+		getline(istr, line);
+
+		if (line.at(0) == '#')
+			continue;
+
+		if (first_three_vals == 0) {
+			if (line == "P3") {
+				first_three_vals++;
+				continue;
+			} else {
+				return istr;
+			}
+		}
+			
+		if (first_three_vals == 1) {
+			int temp_w;
+			int temp_h;
+			istringstream instr_wh(line);
+
+			if (!instr_wh)
+				return istr;
+
+			instr_wh >> temp_w;
+			if (temp_w < 0)
+			       return istr;	
+
+			instr_wh >> temp_h; 
+			if (temp_h < 0)
+			       return istr;	
+			
+			image.w = (unsigned)temp_w;
+			image.h = (unsigned)temp_h; 
+			first_three_vals++;
+			continue;
+		} 
+
+		if (first_three_vals == 2) {
+			istringstream instr_maxval(line);
+
+			if (!instr_maxval)
+				return istr;
+
+			// Can consider making the #define MAXVAL here instead something pulled from the value below
+			int maxval;
+			instr_maxval >> maxval;
+	
+
+			first_three_vals++;
+			continue;
+		}
 
 		int temp_r;
 	       	int temp_g;
@@ -232,7 +189,7 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 
 		image.pixels.push_back(Color3(temp_r, temp_g, temp_b)); 
 
-	} 
+	}
 
 	return istr;
 }
