@@ -20,12 +20,10 @@ int main() {
 
 	// Load file
 	string input_path = "parrot.ppm";
-	string output_path = "test.txt";
+	string output_path = "test.ppm";
 	string file_contents;
 
 	Image3 image(0, 0); 
-
-	bool loaded;
 
 	ifstream fin2(input_path);
 

@@ -40,8 +40,7 @@ const Color3& Image3::getPixel(unsigned x, unsigned y) const {
 	if (temp > pixels.size()) {
 
 		// If we are outside of the available pixels, return a default Color3 object
-		Color3 color_temp(0,0,0); 
-		return color_temp; 
+		return pixels[0];
 	}
 
 	// Otherwise, return the appropriate pixel from the pixels array
@@ -57,7 +56,13 @@ void Image3::setPixel(unsigned x, unsigned y, const Color3& color) {
 bool Image3::savePPM(const std::string& path) const {
 	// TODO: Save the image to the disk
 	// REQUIREMENT: Use the STREAM operators for the file contents
-	return false;
+	ofstream fout (path);
+
+	if (!fout)
+		return false;
+
+	fout << *this;
+	return true;
 }
 
 bool Image3::loadPPM(const std::string& path, std::string& file_contents) {
@@ -83,19 +88,12 @@ void Image3::printASCII(std::ostream& ostr) const {
 	ostr << 255;
 	
 	for (size_t i = 0; i < pixels.size(); i++) {
-		ostr << pixels[i].asciiValue(); 
-
-		if (i != 0 && i % w == 9) {
-			ostr << "\n"; 
-		}
+		ostr << "\n" << pixels[i].asciiValue(); 
 	} 
 }
 
 // STREAM OPERATORS for IMAGE3 class 
 std::ostream& operator<<(std::ostream& ostr, const Image3& image) {
-	// TODO: Write out PPM image format to stream
-	// ASSUME FORMAT WILL BE GOOD
-
 	// Add line formatting
 	ostr << "P3\n";
 
@@ -103,16 +101,14 @@ std::ostream& operator<<(std::ostream& ostr, const Image3& image) {
 	ostr << image.w << " " << image.h << "\n";
 
 	// Add max value
-	ostr << 255;
+	ostr << 255 << "\n";
+	cout << "image.pixels.size(): " << image.pixels.size() << endl;
 
-	for (size_t i = 1; i <= image.pixels.size(); i++) { 
+	for (size_t i = 0; i < image.pixels.size(); i++) { 
 
 		// Insert the next pixel value
-		ostr << image.pixels[i - 1]; 
+		ostr << image.pixels[i] << "\n"; 
 
-		// Add a new line every three values, for formatting
-		if (i % 3 == 0) 
-			ostr << "\n"; 
 	}
 
 	return ostr;
@@ -124,8 +120,15 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 
 	// Need to handle comments 
 	int first_three_vals = 0;
+	int temp_r = -1;
+	int temp_g = -1;
+	int temp_b = -1;
+
+	int count = 0;
 
 	while (true) {
+		
+		count++;
 		string line;
 		getline(istr, line);
 
@@ -180,22 +183,28 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 			first_three_vals++;
 			continue;
 		}
+		cout << "line: " << line << " count: " << count << " pixels.size(): " << image.pixels.size() <<  endl;
+		cout << "r: " << temp_r << " g: " << temp_g << " b: " << temp_b << endl; 
 
-		istringstream instr_rgb(line);
-		int temp_r;
-	       	int temp_g;
-	       	int temp_b;
+		istringstream instr_rgb(line); 
 
-		cout << "check: " << line << endl;
-		for (int i = 0; i < 3; i++) {
-			instr_rgb >> temp_r;
-			instr_rgb >> temp_g;
+		if (temp_r == -1) {
+			instr_rgb >> temp_r; 
+		} else if (temp_g == -1 && temp_r != -1) {
+			instr_rgb >> temp_g; 
+		} else if (temp_b == -1 && temp_r != -1 && temp_g != -1) {
 			instr_rgb >> temp_b; 
-		}
-
-		image.pixels.push_back(Color3(temp_r, temp_g, temp_b)); 
-
+			image.pixels.push_back(Color3(temp_r, temp_g, temp_b)); 
+		} 
+		
+		if (temp_b != -1 && temp_r != -1 && temp_g != -1) {
+			temp_r = -1;
+			temp_g = -1;
+			temp_b = -1;
+		} 
 	}
+	cout << "image.pixels.size(): " << image.pixels.size() << endl;
+	cout << "count: " << count << endl;
 
 	return istr;
 }

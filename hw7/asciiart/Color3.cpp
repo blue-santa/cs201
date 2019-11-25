@@ -3,9 +3,11 @@
 // Original Author: Jonathan Metzgar
 // CS 201 course
 #include <iomanip>
-#include "Color3.hpp"
 #include <fstream>
 #include <sstream>
+#include <cmath>
+
+#include "Color3.hpp"
 
 #define MAXVAL 255
 
@@ -20,7 +22,7 @@ constexpr int saturate(int x, int maxvalue) {
 }
 
 Color3::Color3()
-	: r(255), g(255), b(255)
+	: r(0), g(0), b(0)
 { }
 
 Color3::Color3(int R, int G, int B) {
@@ -33,13 +35,17 @@ int Color3::weightedSum() const {
 	// Implement Y = 0.2126R + 0.7152G + 0.0722B
 	// Ensure values are inside the range 0 to 255
 
-	int temp_r = 0.2126 * saturate((int)r, MAXVAL);
-	int temp_g = 0.7152 * saturate((int)g, MAXVAL);
-	int temp_b = 0.0722 * saturate((int)b, MAXVAL);
+	double temp_r = 0.2126 * (double)r;
+	double temp_g = 0.7152 * (double)g;
+	double temp_b = 0.0722 * (double)b;
 
 	// if (saturate(Y))
 
-	int weightedsum = saturate(temp_r + temp_g + temp_b, MAXVAL);
+	double before = temp_r + temp_g + temp_b;
+	before = std::round(before);
+	int after = int(before);
+
+	int weightedsum = saturate(after, MAXVAL);
 
 	return weightedsum;
 }
