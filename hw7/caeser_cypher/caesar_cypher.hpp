@@ -36,4 +36,24 @@ using std::map;
 using std::setw;
 using std::left;
 
+// Capture the user input - for string portion
+void capture_user_input_string(string& user_input, bool& isFinished);
+
+// Test whether the user's input is a valid response
+bool testUserInput_string(string &userInput, bool& isFinished);
+
+void capture_user_input_int(int& shift_amount);
+
+// Test whether the user's input is a valid response
+bool testUserInput_int(string& userInput, int& shift_amount);
+
+// Clear the console
+void clearConsole();
+
+// Wait for user response
+void waitForContinue();
+
+// Shift the user's method according to their requested cypher length
+void shift_message(string& user_input, int& shift_amount, string& res_str);
+
 #endif
