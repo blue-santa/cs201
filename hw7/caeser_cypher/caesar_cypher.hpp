@@ -36,8 +36,4 @@ using std::map;
 using std::setw;
 using std::left;
 
-// Clear the console
-void clearConsole();
-
-
 #endif

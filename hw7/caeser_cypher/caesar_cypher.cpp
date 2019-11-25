@@ -35,9 +35,3 @@ using std::map;
 using std::setw;
 using std::left;
 
-// Clear the console
-void clearConsole() {
-
-	cout << "\033[2J\033[1;1H";
-}
-
