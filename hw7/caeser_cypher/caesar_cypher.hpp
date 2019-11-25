@@ -1,6 +1,3 @@
-#ifndef _HANGMAN_HPP_
-#define _HANGMAN_HPP_
-
 /*
  * caesar_cypher.hpp
  * CS 201
@@ -8,6 +5,9 @@
  * Bryan Beus
  * Header file for caesar cypher project in hw7 
  */
+
+#ifndef _HANGMAN_HPP_
+#define _HANGMAN_HPP_
 
 #include <cstdlib>
 #include <iostream>
