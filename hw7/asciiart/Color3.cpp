@@ -54,7 +54,7 @@ char Color3::asciiValue() const {
 	// Use at least 16 characters, sort these from dark to light
 	// or light to dark and then map the weightedSum() to the range
 	// 0 to 15. Please pick your own characters
-	const char values[] = "0$PX@Iwocv:+~,' ";
+	const char values[] = " ',~+:vcowI@XP$";
 	
 	// .'`,^:";~
 	// -_+<>i!lI?

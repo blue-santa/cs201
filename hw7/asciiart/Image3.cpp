@@ -83,12 +83,11 @@ bool Image3::loadPPM(const std::string& path, std::string& file_contents) {
 void Image3::printASCII(std::ostream& ostr) const {
 	// TODO: Print an ASCII version of this image
 
-	ostr << "P3\n";
-	ostr << w << " " << h << "\n";
-	ostr << 255;
-	
 	for (size_t i = 0; i < pixels.size(); i++) {
-		ostr << "\n" << pixels[i].asciiValue(); 
+		ostr << pixels[i].asciiValue(); 
+		if ((i + 1) % w == 0 && i != 0) {
+			ostr << "\n";
+		}
 	} 
 }
 

@@ -21,6 +21,7 @@ int main() {
 	// Load file
 	string input_path = "parrot.ppm";
 	string output_path = "test.ppm";
+	string ascii_output_path = "ascii.txt";
 	string file_contents;
 
 	Image3 image(0, 0); 
@@ -42,6 +43,15 @@ int main() {
 	fout2 << image;
 
 	fout2.close();
+
+	ofstream fout3(ascii_output_path);
+
+	if (!fout3)
+		cout << "no fout3" << endl;
+
+
+	image.printASCII(fout3);
+
 
 	
 	/*
