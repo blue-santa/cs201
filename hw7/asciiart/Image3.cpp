@@ -36,12 +36,12 @@ Image3::Image3(unsigned width, unsigned height) {
 const Color3& Image3::getPixel(unsigned x, unsigned y) const {
 	// Convert (x,y) coordinate from 2D image to 1D vector format
 	unsigned temp = y * w + x;
-
 	// Test if the pixel location is actually available in the pixels array 
 	if (temp > pixels.size()) {
 
 		// If we are outside of the available pixels, return a default Color3 object
-		return Color3(0, 0, 0); 
+		Color3 color_temp(0,0,0); 
+		return color_temp; 
 	}
 
 	// Otherwise, return the appropriate pixel from the pixels array
@@ -66,8 +66,9 @@ bool Image3::loadPPM(const std::string& path, std::string& file_contents) {
 
 	ifstream fin (path);
 
-	if (!fin)
+	if (!fin) {
 		return false;
+	}
 
 	fin >> *this;
 
@@ -124,9 +125,12 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 	// Need to handle comments 
 	int first_three_vals = 0;
 
-	while (!istr.eof()) {
+	while (true) {
 		string line;
 		getline(istr, line);
+
+		if (!istr)
+			break;
 
 		if (line.at(0) == '#')
 			continue;
@@ -177,14 +181,16 @@ std::istream& operator>>(std::istream& istr, Image3& image) {
 			continue;
 		}
 
+		istringstream instr_rgb(line);
 		int temp_r;
 	       	int temp_g;
 	       	int temp_b;
 
+		cout << "check: " << line << endl;
 		for (int i = 0; i < 3; i++) {
-			istr >> temp_r;
-			istr >> temp_g;
-			istr >> temp_b; 
+			instr_rgb >> temp_r;
+			instr_rgb >> temp_g;
+			instr_rgb >> temp_b; 
 		}
 
 		image.pixels.push_back(Color3(temp_r, temp_g, temp_b)); 

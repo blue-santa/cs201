@@ -27,6 +27,27 @@ int main() {
 
 	bool loaded;
 
+	ifstream fin2(input_path);
+
+	if (!fin2)
+		cout << "no fin" << endl;
+
+	fin2 >> image;
+
+	fin2.close();
+
+	ofstream fout2(output_path);
+
+	if (!fout2)
+		cout << "no fout" << endl;
+
+	fout2 << image;
+
+	fout2.close();
+
+	
+	/*
+
 	loaded = image.loadPPM(input_path, file_contents);
 
 	if (!loaded) { 
@@ -41,6 +62,7 @@ int main() {
 	}
 
 	image.printASCII(fout); 
+	*/
 
 	return 0; 
 }
