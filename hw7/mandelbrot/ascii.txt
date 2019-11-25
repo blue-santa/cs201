@@ -1,0 +1,80 @@
+  ''        '     ''  ''~c@ovc~,''''        ,~,'''' '~+~,'~,~::+'      :::~'''  
+  ''               ' ~P $X$' '' $X+~~    ~cXXPo,~''~:',''~+~,,~''      ,vv,',   
+   '             ',:P $XP    $ ' $'' PX '''''''' PX@@'''',:+,  ''     ,'''  '',,
+                ,w@PP$PPP   PPPP '''''''''  '''' '''$:ov',+,'  ''     ',  ,  '~~
+              'cowIXXIXPPPPPP$$    ''   ''''''   '' $  'X,'~,  '''     ,~',  ,,,
+             ~cccowwwI@X@PXXXP$  '''' ''''' $  '    $PXPP,'~,   ''  '   ',' ',,,
+             vc::vvowIIX@@@I@XPP$P$$   '  $$X$  ' $P$PP$$$X,'   '' '''    ' ,~'~
+''           ::++::cwIIIIwwIwI@PX@PP$PP$$  PP$$$ XPP$ $ ''' :' ',' ',+,''++,~c:+
++            v+++~+vcoIo@@XPI@@@@I@XX$$P$ $$XXXX$XP $'''''''$,'',' '+wv+:+++~::+
+X'           :~~+~~+voww@P$  XX@wI@X$$$P$$PXXPXXPXP$P '''   '$~,,,',~coowov+~~~~
+'           '',v~+~,v@XXPX$$  $PX@XXP$PX$$X@@Xwooww@X$ '  XP$  +~,,+:Iwo@@w+v:,'
+              o$o~+,cPPPPo~$$   $P@@XX@XPP@@X@wwww@X@IX  PIX$$ P,',~+vocw@Iw@o+,
+   ''       ''  $:,,:P$$$X@P$PP $PXPPXX$PX@@@@@X@XXXX@P@I@@X$$ v,''',,+ccowIwv,'
+    ,,'','   c' $P~~+@P$$$P$XX$$ PPPPPXPPXX@I@P$PP  $P@II@XXPPX:~,',,, ,::cov~ '
+   ',~,,,,,' $   $@~vX$$$$PPP  ' PPXPX@XXII@XXXP$$$@ocwX@@@IXPP@PX',,, ',~:~,:,~
+   ',,'''',,,'    o~~@X       ''$PXXX@@@XII@@@XP$P@ocwIXI@@w@P$',P'',,',~~',covw
+    ''''' ,,~ $   o~~c P$ ''''  $XXXXXXP$PXI@@@X@wocoIX@@X@@IP '$P$$@~~~,,~+IIIX
+    ,'''   '+ $$ $w++I$$$     $ $XXXXXPP$$XXX@IwccvcowwII@I@@P  $'$Xw~v:,,:~oII@
+         ,''+P$$$$c:,+X   '    $PPPXXXP$$PXPPIwwwIccccI@@I@IX$$    $$@I@@+v:coo:
+         '  ,PP$$I~,''w'''''''  $PPXXXXXP@wXPIwI@XIcow@XwwIwP $ XP$PwIP$ Ioowo::
+             $PPPo+''': ''''     $PXX@@@IIoI@II@XX@wwI@owww@P$''PIXovIX ' @:vv:v
+             oPP@c+v:+v'''     $ $PXI@IIwoowowIIIXIwwIIcwwwvoX'' Iw::ww$$ co,~~v
+             'XXI:+:++vwX'  $PP$PPXXIwwowoowcwww@XcowIccIwwov@' '$Iovoo@XXIIvvvw
+         :'   wXw+++:v:+~:$ $P$PXXXX@wcowwoocwoI@o+vowvoow@ccI$ '$IovcowX@XP@vvo
+         ,~   +wo:cv:++,~~,:XX@I@@I@IwoowwooccwIo:+:vocwwIPIoIXP ' wccvwI@ o :,~
+         ,+'  ~::co:, ,,,~~,,cwwwIwwIwooowoo+:vcc:~~+cw@o@PPII@X$'$Pwccooww@IX~,
+'       ',,~  :Xwovc+ ,,,,~,,,+IoIcoIocvoccc+:vvc:,,:cIII@@@@wI@P$P@@ccII@$wXww~
++vcov,  ','~~vXXIoc~+:,,,,''''vocwoowo:v:+vo:::vov~+coI@wwwIIwwwIXPIwcvoIIwIwIo:
+XXXIIw   ',,IPPXwIo+:v:~',,~~~oo:occoc+vv:vo:~:vo::voooIwoowwcvowI@Iov:cIIIXwwwo
+XX@I@@,   ,@$ @@Iowoccoc,,,~~:oc~cooow~:ov~+vc:cc::vowvooccoovcowwIww+~coooIIw@X
+wIIIw:   'XXXXPPwo:oocco~,,,,~c~'vocwv,:v+~,vo:v:::voov:vvvvvvccoowwIc~vcvIwwIoP
+wwc''    o$$PXXwcoo+vw:vc:,,,''''~::+:,+v,:,~c::~+:vccv~::++:vvcowwwIwvvcooowIco
+III,     XwoI$Iovvc++oc++:~,,,,,,'+:,v,,+,+,,~~~~~+:::~~~~+::vcooowwooo:vvccow@,
+cc:'''' cvcovIco+cIv~+ov,,,,,,,,,':~,:,~~,,~,,,~+~,~~~~+::vv:ccccoooovov:+wcowX+
+  ~+,'''IPXvoo++:+wc++,,,~,~,,~,,,~+~~,,,,,,~~~~+,,,~~+:vcoovccccccoccvc+o@:ow@+
+cw@Ic~ c$X::@ccv+~+:::,,'~,~~~~~,,,~~,,,,,,,~~~+~,~~+::vvccovcccccccccvc+:w+w@w+
+I@XPPo~XX+~oIwIwocc~+~:~'~~~~~~~,',,~',,,,,,,,~,,+::vvvvvvccvvcccovccccc::ovcoo+
+ooowwcvwv~cwoocwocv~~+~~,~~~~~,~'',,~,~+,~~,,,,~~:vvvvcvvvccvvcocovvvccc::+cwc@~
+cv:+:::cvvoowwvwov+~vv:~,,~~,~,,''',,,~+'~~~~~~~~:vvvvvvv:vvvvvccoo:~vcc~~~vIow~
+X@,,~+:wvwIwwocvov:,~cv+,,,~,,,,''',,,~~,~~+~~~~~+:::::::vcvvvcccoo:~+v:,,+:IoI+
+owo+,,cocIII+vv::vv~~+:+,,,,,,,,''',,,+,~~~++~~~~~+++++::vccvvvccco+~+:+,,+:Iow~
+cX$P~'IowIwv+::v+vc:++~,,,,,,',, ',,,~+,+:~~~~~~~~~~~~++:vccvvvcccc:+:::,~++Ico~
+I@X@~'IIwv~+:++:cvvv+++,~,~,,',   ,~,+~~+::~~~~~~~~~+~++::vc:v:cccc++vvv~~++@cc~
+oww: 'o@o+,,:~vcw+:v:++,~,~,~'' ''~~:+~++:+~+~~~~~~~~+++::::+:::vcc~:ccc+:++Icc~
+oov,+ :@w+vo:,:wIv::v:+,~~,,~,'''~,:+++++++++~~~~~~~~++++::vv:++:vv,:ccc:+:+wcv+
++vccXvI@o:wov~vcIv:v:v:,~~~,~~'',~++++::::::+++~~~~~~~~++:::vvv+::+~+cocv+++wv:c
+~'vwXIXIvvocc:+vwv:v:::',~~~~~,,,~:~++:v:++++++~++~~~~~~~+::vv:::+~~vvccc:++wv::
+wooc@PXw+ccc:c:~oc~:~,,',~~,~~,'~~~~+::::+++++++++~~~~~++++~v:::vv~~+vcccv:~wv:~
+wIo:IPIo:oo:+ocv:c:~,,,,',~,~~,'~~~~:c+:+::+::+::+++~~~~++~~+::+vv~~+cooovv~w:c:
+IwovcXwvcov+cvvv:ov:+,,,'''',,''~~~++:+:::::::++++~~~~~~~+~+~+~+::+~+:occvc:c:ov
+o~~::XIvwcc:ccvoooc::,,,'''','',~~~+++v:::::::+:+:++++~~~~~:+:+~+~++~~+::vccc:+c
+~   'PwcIwo+ccvwooc::+''''''''',++~++:v:+:::v::~+++~++~~~~+++++~+++++~~+:vcov:+:
+'    Xo:Iwvvvv:cwwc::v,''' '' ',~~++:::::::::v:+++++++~~~~++++~+~+++~~~+vvvco:c:
+:+' '@c:oocvoov:vwcc:v~''     ,,~~++:::::v::::+++++++~~+~+~~~~++~+++,~~:vvvccvoI
+ow+''Ivowoc+Iocv+cow:::,'    ',~+~+++:+::vv:::+~+++++~~~~~,~~+:+,+++~'~,:vvcccI@
+ow:~,wvvc:+vwwwc+cowc:v,'    ,,+~++++:+::vv:+++~+++++~~~~~~~+:+~'~++,''',+ccc+cI
+oI:+~ovvvovoo@@v+vowwvc,''   ,,~~++::v+::vvvv,:+:+~++~~~~~~~~+~,,++~,'', ~ov,,+c
+wI:+~o~voococI@cvvowIvc,''  ,~+~++::v:+:::vv:~++++~:~~~~,,~~+~~~,v:~,''' ,::++~+
+vI+,,o+oXccocco:c:cwIoc~,'  ++:~~++:::++::vv:~~+++~+~~~,~~~~+~+,'vv~,,~'',+ovvc+
+vv~'~o+oooococc:cvcowIv:,' ':::~~+++:+~+:::~~~+~+~~+,~,,~~~+~~~ ':v+,,,+c'vwvcIc
+vv~ +o:Icowcccc:ccccwIvv,' ~v++~~+++++~++::,~~:+~++~~~~~~~++~~,  ++,,'+c:,cocvc:
+:~, :c+w:ccwvv::cocoowc+~'':v++~++:+~+~,~~,~~++++:++++~+++++,,'  '',~,~v,~coov+~
+I::v@o+o:ccccv+:coooooo++,'v+++~~+:~~~,''',~++~+:++:++++++++~,'  ',~'v+,~+oowv~~
+oIwI$@~v:cv+vov+coooooc+~~'~+++~~++~~~,,,,,~++~++::::::+~+,,,,'  '~~,o,,,,voIv'~
+~@IX$P'+vcc:voo+ccooooc+~~',:++~~~~~+:wwIw~,~~++~~~~~+:+~,'','' ',v~~+++,',cI:,'
+coI$$P~+vvvcooI+:ccoooc++, ,:+~,,~~~~Iw@@II~',,,~'',''~~ '',,,,',~v~',:::, +o~''
+IcwPX@w,:v:vIwIc+vvvcw::+~ ~:+~,~~~+wPwoXX@$~  '~~,~:,v:' ','''',vv~~,+::+',,',,
+vw@X@$P~cv:cI@ww++::v:::+, +v~~,~~+I@@vo@XI@c ',~,~vo~cv,,,,''',~v~+++,+++~~, '~
+wocI@@c~vooow@ow+++:v:vv+~ +v~~,,~IXov++@@XcXwwwocvoIIwwvvcvcwwc:v:vvv+,,~''   '
++vvvc+':oooooIowv~+:c:vv~~ :v::,,:Icocoww@Xc@Iooocvo@wowvccccccoowI@Ioc,,~'     
+'~:::,'+Icocowocw+::v::++' ~cc:+vI@XXXXIcw@o@Xooooc:IPocccccccooowwwwX@v~~,'    
+wI:vw:'~ovocooocw:::v++~,   +oII@PP@wIwwcwwoowwwoocoocwcooooowooooowwIIw@I::,   
+cv:vo, ,:vvcccwvov::v:+''',cI@XXXIIwwwwwvcco+vccv:~,:vow~++:vccowIwwwwowwIXI,   
+v+vowo',:v:vcvwvcv+vvvv:,wX@X$XIwwwIIIwwccwc',,,,'~~,+Io''',',~+::cwwIwwwwwIXv  
+w:~v@@o,:c+::vwvvc,+vvvIXXPPXIIwIwIIIwc+,voc~',~,~+~,+wv'',,',~++~~++coIIwwwwII+
+Xw:+wPI,vc:++:ocvo,+vwXXXPXIwwwIIIwov+~' vo@:',,~v~~,:o,'',''~~::+ '~~+:owwwwww@
+X@o:vX@~voc~+:vccw~wPXP$XwwIwwIIwv:vv:~~'+I@c,',vc~, ,''','',~+:v~,++~++~:cwIwww
+@Pw,c@Xvvww~~:::vw@PP$X@IwwIIwo::~,vv:+~,,+,c+~:I:'''  '', '~+:vv,:v:vvvv:~+cwww
++wc ,wX+vI@v,,++IPXP$IwwwIIwovv~v~,+:::~+~~,+cwIv,'''  ',''~+~v:,~cvvccvcoc+~:ow
+,''  ,+ :IIw:~vXPP XwowwIIov':v~v~,,v::++++,~+:::'''' '''',~~,~~ :occcccvcooc~~v
