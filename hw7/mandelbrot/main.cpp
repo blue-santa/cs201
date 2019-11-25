@@ -2,7 +2,7 @@
  * main.cpp
  * Bryan Beus
  * November 24, 2019
- * The main file for the ascii art project
+ * The main file for the mandelbrot project in hw7
  */
 
 #include <cmath>
