@@ -42,18 +42,7 @@ int main() {
 
     // Create initial environment, iteration, and quit vars 
     Environment env(e1); 
-    Agent agt;
-    Simulator sim;
-    bool calibrated = false;
-    int iter = 0;
-    bool isFinished = false;
-
-    // Clear screen and print introduction to console
-    clearConsole();
-    cout << "Environment created" << endl;
-    waitForContinue();
-
-    // Initiate while loop 
+    / Initiate while loop 
     while (!isFinished) { 
 
         // Clear screen

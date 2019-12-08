@@ -88,3 +88,16 @@ bool testUserInput(string& user_input_temp, int& userInput) {
     return res;
 }
 
+// Return a random value according to a normal distribution
+bool rollBool(mt19937& e1) {
+    // Declare endpoints of the range for the distributions 
+    int firs = 0; 
+    int last = 16; 
+    bool val = false;
+
+	std::normal_distribution<> normal_dist(8, 4), min(firs), max(last);
+	int res = normal_dist(e1);
+    if (res > 15)
+        val = true;
+	return val;
+}
