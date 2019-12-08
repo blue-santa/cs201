@@ -77,6 +77,7 @@ void Agent::think(bool& calibrated) {
     }
 }
 
+// Switch the environment heater and reset the local switching variables
 void Agent::act(Environment& env) {
     if (_shouldSwitch) {
         env.switchHeater();
