@@ -24,19 +24,25 @@ using std::left;
 Class Agent {
 
     private: 
-        _desired; 
-        _heater;
+        int _desired; 
+        int _currentTemp;
+        bool _heater;
 
     public:
 
         Agent()
-           : _desired(75), _heater(false) { 
+           : _desired(75), _heater(false), _currentTemp(75) { 
 
         }
 
-        void perceive(Environment) {
+        void setDesired(userInput) {
+            _desired = userInput;
+        }
 
-            _heater = Environment.getHeater();
+        void perceive(Environment& env) {
+
+            _heater = env.getHeater();
+
 
         }
 
@@ -68,7 +74,7 @@ Class Environment {
 
 
         void switchHeater() {
-            _heater = !_hejater;
+            _heater = !_heater;
         }
 
         void iteration() { 
@@ -91,46 +97,139 @@ Class Environment {
 Class Simulator() {
 
     public:
-        void askOwner() {
+        void askOwner(bool& isFinished, Agent& agt) {
 
-            string temp;
+            int userInput;
+            capture_user_input(userInput);
 
-            while (true) {
-                getline(cin, temp); 
-                if (!cin) { 
+            if (userInput < -273)
+                isFinished = true;
 
-                }
-            }
-
-
-        }
-
+            agt.setDesired(userInput);
+        } 
 };
 
-int main() {
+// Clear the console
+void clearConsole() {
 
-    // Create initial environment
+    // Clear the console
+    cout << "\033[2J\033[1;1H";
+}
 
-    // Set iteration var
+// Wait for user response
+void waitForContinue() {
+    cout << endl << "Press enter to continue...";
+    getchar();
+}
 
-    // Inform user of the nature of the software
+// Capture the user input
+void capture_user_input(int& userInput) {
+
+	// Assume user input is invalid until proven otherwise
+	bool valid_input = false;
+
+	// Initiate endless loop to wait for valid response
+	while (!valid_input) {
+
+		// Receive user input as a string
+		string user_input_temp;
+		cout << "Please indicate the desired temperature (celsius)." << endl;
+        cout << "(To stop the program, enter a value less than absolute zero (-274 or below))" << endl;
+
+		getline(cin, user_input_temp);
+
+		// Test if the user input is valid, and convert to an integer
+		valid_input = testUserInput(user_input_temp, userInput);
+
+		// If invalid, replay the while loop
+		if (!valid_input) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << endl;
+			cout << "Please try again" << endl;
+		} 
+        
+        // Removing the below as I believe valid_input is already set
+        // else {
+			// End the while loop, if valid
+		// 	valid_input = true;
+		// }
+
+		// Add formatting
+		cout << endl;
+	}
+}
+
+// Test whether the user's integer input is a valid response
+bool testUserInput(string& user_input_temp, int& userInput) {
+
+    // Assume user input is valid
+    bool res = true;
+
+    // Use a istringstream to convert user input to an integer within the appropriate range
+    istringstream iss (user_input_temp);
+    iss >> userInput;
+
+    // If the string is not a valid reponse, return false and repeat loop
+    if (iss.fail()) {
+	res = false;
+    }    
+
+    // Return the result
+    return res;
+}
+
+int main() { 
+
+    // Inform user of the nature of the software 
+    clearConsole(); 
+    cout << "Welcome to the Temperature Simulator" << endl;
+    cout << "\nPress any key to instruct the simulator to create an environment" << endl;
+    waitForContinue();
+
+    // Create initial environment, iteration, and quit vars 
+    Environment env; 
+    Agent agt;
+    Simulator sim;
+    int iter = 0;
+    bool isFinished = false;
+
+    clearConsole();
+    cout << "Environment created" << endl;
+    waitForContinue();
+
     // The temperature is going to go to zero, but slowly, unless you set the
     // temperature correctly, or something
 
     // Initiate while loop
-    //
-    // Simulator runs through iteration, affecting the environment
-    //
-    // The environment sends the agent percepts
-    //
-    // Agent requests current state from environment
-    //
-    // Agent does whatever it does automatically before asking user for input
-    //
-    // If iteration is divisible by 10, Agent requests user input
-    // Test whether user wants to quit
-    //
-    // Agent sends actions that affect the environment
+
+    while (!isFinished) { 
+        // Affect the environment
+        env.iteration();
+
+        // The agent senses the environment's temperature
+        agt.perceive(env);
+
+        // Agent requests current state from environment
+
+        // Agent does whatever it does automatically before asking user for input
+
+        // If iteration is divisible by 10, Agent requests user input
+        // Test whether user wants to quit
+
+        if (iter % 10 == 0) {
+            sim.askOwner(isFinished, agt);
+        }
+
+        if (isFinished)
+            break;
+
+        // Agent sends actions that affect the environment
+
+        // Increase iteration count
+        iter++;
+    }
+
 
     return 0; 
 }
