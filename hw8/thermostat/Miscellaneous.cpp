@@ -63,12 +63,6 @@ void capture_user_input(int& userInput) {
 			cout << endl;
 			cout << "Please try again" << endl;
 		} 
-        
-        // Removing the below as I believe valid_input is already set
-        // else {
-			// End the while loop, if valid
-		// 	valid_input = true;
-		// }
 
 		// Add formatting
 		cout << endl;
@@ -81,7 +75,7 @@ bool testUserInput(string& user_input_temp, int& userInput) {
     // Assume user input is valid
     bool res = true;
 
-    // Use a istringstream to convert user input to an integer within the appropriate range
+    // Convert user input to an integer
     istringstream iss (user_input_temp);
     iss >> userInput;
 
