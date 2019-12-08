@@ -1,15 +1,16 @@
 /*
  * main.cpp
  * CS 201
- * December 6, 2019
+ * December 7, 2019
  * Bryan Beus
- * Main file for themostat main project in hw8
+ * Main file for vacuum project in hw8
  */
 
 #include <iostream>
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <map>
 
 #include "Environment.hpp"
 #include "Agent.hpp"
@@ -28,14 +29,23 @@ using std::left;
 
 int main() { 
 
+	// Declare pseudo-random device for creating seeds 
+	std::random_device r; 
+
+	// Create a seed sequence to feed to the generator 
+	std::seed_seq seedObj{r(), r(), r(), r(), r(), r(), r(), r()};
+
+    // Declare random-number generator and provide with seedObj sequence 
+	mt19937 e1(seedObj);
+
     // Inform user of the nature of the software 
     clearConsole(); 
-    cout << "Welcome to the Temperature Simulator" << endl;
+    cout << "Welcome to the Vacuum Simulator" << endl;
     cout << "\nThe simulator will now create an environment" << endl;
     waitForContinue();
 
     // Create initial environment, iteration, and quit vars 
-    Environment env; 
+    Environment env(e1); 
     Agent agt;
     Simulator sim;
     bool calibrated = false;

@@ -1,37 +1,50 @@
 /*
  * Environment.cpp
  * CS 201
- * December 7, 2019
+ * December 8, 2019
  * Bryan Beus
  * Environment definition file
  */
 
-#include <iostream>
-#include <iomanip>
-#include <vector>
-#include <string>
+#include <iostream> 
+#include <iomanip> 
+#include <vector> 
+#include <string> 
+#include <map> 
+#include <random> 
+#include <cmath> 
+#include <stdlib.h>
 
 #include "Environment.hpp"
 
-using std::vector;
-using std::string;
-using std::cout;
-using std::cin;
-using std::endl;
-using std::getline;
-using std::istringstream;
-using std::setw;
-using std::left;
+using std::vector; 
+using std::string; 
+using std::cout; 
+using std::cin; 
+using std::endl; 
+using std::getline; 
+using std::istringstream; 
+using std::setw; 
+using std::left; 
+
+// Return a random value according to a normal distribution
+int Environment::RandomBetweenN(int first, int last, mt19937 &e1) {
+	std::normal_distribution<> normal_dist(8, 4), min(first), max(last);
+	int val = normal_dist(e1);
+	return val;
+}
 
 // Default constructor for Environment class
-Environment::Environment()
-    : _temp(45), _heater(false) {};
+Environment::Environment(mt19937& e1) {
+    for (int i = 0; i < 8; i++) {
+        bool val = *this.rollRoom(e1);
+        _rooms.push_back(val);        
+    }
+};
 
-// Custom constructor for Environment class
-Environment::Environment(int Temp, bool Heater) {
-    _temp = Temp;
-    _heater = Heater;
-} 
+bool Environment::rollRoom(mt19937& e1) {
+        
+}
 
 // Switch the heater to the opposite boolean value
 void Environment::switchHeater() {

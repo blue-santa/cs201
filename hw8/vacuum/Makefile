@@ -1,4 +1,4 @@
-TARGET = thermostat
+TARGET = vacuum
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
