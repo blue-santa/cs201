@@ -39,10 +39,7 @@ class Environment {
 
         // Member Variables 
         vector<bool> _rooms;
-
-        // Declare endpoints of the range for the distributions 
-        int _first = 0; 
-        int _last = 16; 
+        mt19937 *_e1;
 
     public:
 
@@ -50,22 +47,18 @@ class Environment {
         Environment(mt19937& e1);
 
         // Member Functions
-        void switchHeater();
+        void cleanRoom();
         void iteration();
         int getTemp();
         bool getHeater();
 
-        // Roll roll to make room dirty
-        bool rollRoom();)
-
-        // Return a random number according to a normal distribution
-        int RandomBetweenN(int first, int last, mt19937 &e1); 
 };
 
 #endif
 
 int main()
 {
+
 	// Create normal histogram
 	map<int, int> normalHistogram;
 	for (int i = 0; i < 10000; i++) {

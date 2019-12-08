@@ -36,4 +36,6 @@ void capture_user_input(int& userInput);
 // Test whether the user's integer input is a valid response
 bool testUserInput(string& user_input_temp, int& userInput);
 
+bool rollBool(mt19937& e1);
+
 #endif

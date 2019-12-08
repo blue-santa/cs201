@@ -29,13 +29,9 @@ using std::left;
 
 int main() { 
 
-	// Declare pseudo-random device for creating seeds 
+	// Create pseudo-random device
 	std::random_device r; 
-
-	// Create a seed sequence to feed to the generator 
 	std::seed_seq seedObj{r(), r(), r(), r(), r(), r(), r(), r()};
-
-    // Declare random-number generator and provide with seedObj sequence 
 	mt19937 e1(seedObj);
 
     // Inform user of the nature of the software 
