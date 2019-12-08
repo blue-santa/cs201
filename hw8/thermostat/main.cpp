@@ -31,7 +31,7 @@ int main() {
     // Inform user of the nature of the software 
     clearConsole(); 
     cout << "Welcome to the Temperature Simulator" << endl;
-    cout << "\nPress any key to instruct the simulator to create an environment" << endl;
+    cout << "\nThe simulator will now create an environment" << endl;
     waitForContinue();
 
     // Create initial environment, iteration, and quit vars 
@@ -49,6 +49,9 @@ int main() {
 
     // Initiate while loop 
     while (!isFinished) { 
+
+        // Clear screen
+        clearConsole();
 
         // Affect the environment
         env.iteration();

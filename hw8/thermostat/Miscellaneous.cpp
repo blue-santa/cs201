@@ -49,7 +49,7 @@ void capture_user_input(int& userInput) {
 		string user_input_temp;
         cout << endl;
 		cout << "Please indicate the desired temperature (celsius)." << endl;
-        cout << "(To stop the program, enter a value less than absolute zero (-274 or below))" << endl;
+        cout << " -- To stop the program, enter a value less than absolute zero (-274 or below))" << endl;
 
 		getline(cin, user_input_temp);
 
@@ -85,9 +85,9 @@ bool testUserInput(string& user_input_temp, int& userInput) {
     istringstream iss (user_input_temp);
     iss >> userInput;
 
-    // If the string is not a valid reponse, return false and repeat loop
+    // If the string is not a valid reponse, return false
     if (iss.fail()) {
-	res = false;
+        res = false;
     }    
 
     // Return the result

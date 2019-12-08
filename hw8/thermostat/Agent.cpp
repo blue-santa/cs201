@@ -69,15 +69,12 @@ void Agent::think(bool& calibrated) {
     // If the machine has been calibrated at least once, and the machine has
     // not yet sought to get to the desired temperature, and the current
     // temperature is out of the range
-    } else if (
-            calibrated 
-            &&
-            !_switched
-            &&
-            (_currentTemp <= _desired - minBelow 
-            || _currentTemp >= _desired + minAbove)
-            )
+    } else if ( calibrated && !_switched
+                && _currentTemp <= _desired - minBelow) {
         _shouldSwitch = true;
+    } else if (_heater && _currentTemp >= _desired + minAbove) {
+        _shouldSwitch = true;
+    }
 }
 
 void Agent::act(Environment& env) {
