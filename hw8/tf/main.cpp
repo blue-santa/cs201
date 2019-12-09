@@ -42,7 +42,7 @@ bool printRes(vector< pair<string, int> >& vec);
 int main() {
 
     // Set initial filename
-    string filename = "***REMOVED***";
+    string filename = "the_works_of_voltaire.txt";
 
     // Create initial vectors for holding data
     vector< pair<string, int> > vec;
