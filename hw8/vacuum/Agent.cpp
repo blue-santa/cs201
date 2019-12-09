@@ -31,14 +31,17 @@ void Agent::perceive(Environment& env) {
     _roomDirty = env.getRoom(_currRoom);
 }
 
-// Agent makes decisions about its next action
+// Instruct agent to consider next action
 void Agent::think() { 
 
+    // At the edges of the room values, switch the move direction
     if (_currRoom == 0)
         _moveVal = 1;
     else if (_currRoom == 7)
         _moveVal = -1;
 
+    // Decide which action is next, based on whether or not the current room is
+    // dirty
     if (_roomDirty) {
         _nextAction = 0;
     } else {

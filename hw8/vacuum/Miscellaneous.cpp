@@ -67,9 +67,12 @@ void printState(Environment& env, Agent& agt) {
 
 }
 
-// Return a random value according to a normal distribution
+// Return a random boolean value according to a normal distribution
 bool rollBool(mt19937* e1) {
     // Declare endpoints of the range for the distributions 
+    // Setting the range as follows, with the normal_dist() value below,
+    // creates an environment where 95% of the time the rooms stay clean, but
+    // occasionally become dirty
     int firs = 0; 
     int last = 16; 
     bool val = false;
