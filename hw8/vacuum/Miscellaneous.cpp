@@ -55,7 +55,7 @@ void printState(Environment& env, Agent& agt) {
     cout << "Vacuum status: " << endl;
 
     int currR = agt.getCurrRoom();
-    cout << "Room: " << currR << endl;
+    cout << "Room: " << currR + 1 << endl;
     cout << "Action: ";
 
     int act = agt.getAction();
