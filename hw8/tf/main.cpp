@@ -28,6 +28,7 @@ using std::make_pair;
 using std::ifstream;
 using std::sort;
 using std::left;
+using std::right;
 using std::find_if;
 
 bool readFile(string& filename, ifstream& ifs); 
@@ -153,7 +154,7 @@ bool printRes(vector< pair<string, int> >& vec) {
 
     for (int i = 0; i < 20; i++) {
         auto it = vec.begin() + i;
-        cout << setw(2) << left << i + 1 <<  ":  ";
+        cout << setw(2) << right << i + 1 <<  ":  ";
         cout << setw(35) << left << it->first;  
         cout << setw(10) << left << "occurances:  ";
         cout << setw(15) << left << it->second << endl;
