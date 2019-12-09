@@ -40,8 +40,8 @@ bool printRes(vector< pair<string, int> >& vec);
 
 int main() {
 
-    // string filename = "***REMOVED***";
-    string filename = "the_wasteland_excerpt.txt";
+    string filename = "***REMOVED***";
+    // string filename = "the_wasteland_excerpt.txt";
     vector< pair<string, int> > vec;
     vector<string> stop_words;
 
@@ -101,8 +101,6 @@ bool parseBook(string& filename, vector< pair<string, int> >& vec) {
         if ( it == vec.end() ) {
             vec.push_back(make_pair(s1, 0));
         } else {
-            int val = (*it).second;
-            cout << "val: " << val << endl;
             it->second++;
             //(vec.begin() + it).second = val + 1;
             // (*it).second == val + 1;
@@ -113,7 +111,7 @@ bool parseBook(string& filename, vector< pair<string, int> >& vec) {
 
 bool sortBook(vector< pair<string, int> >& vec) {
     sort(vec.begin(), vec.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
-                return (a.second < b.second);
+                return (a.second > b.second);
     });
     return true;
 }
@@ -155,8 +153,8 @@ bool printRes(vector< pair<string, int> >& vec) {
 
     for (int i = 0; i < 20; i++) {
         auto it = vec.begin() + i;
-        cout << setw(5) << left << i + 1 <<  ":";
-        cout << setw(35) << left << it->first << endl;  
+        cout << setw(2) << left << i + 1 <<  ":  ";
+        cout << setw(35) << left << it->first;  
         cout << setw(10) << left << "occurances:  ";
         cout << setw(15) << left << it->second << endl;
     }
