@@ -6,22 +6,19 @@
  * Miscellaneous content definition file
  */
 
-#include <iostream>
-#include <iomanip>
-#include <vector>
-#include <string>
-
 #include "Miscellaneous.hpp"
 
-using std::vector;
-using std::string;
-using std::cout;
-using std::cin;
-using std::endl;
-using std::getline;
-using std::istringstream;
-using std::setw;
-using std::left;
+#include <iostream> 
+#include <iomanip> 
+#include <random> 
+#include <cmath> 
+#include <stdlib.h> 
+
+using std::vector; 
+using std::cout; 
+using std::cin; 
+using std::endl; 
+using std::mt19937; 
 
 // Clear the console
 void clearConsole() {
@@ -55,20 +52,22 @@ void printState(Environment& env, Agent& agt) {
     cout << "Room: " << agt._currRoom << endl;
     cout << "Action: ";
     if (agt._nextAction == 0) {
-
+        cout << "Clean";
+    } else {
+        cout << "Move";
     }
 
 }
 
 // Return a random value according to a normal distribution
-bool rollBool(mt19937& e1) {
+bool rollBool(mt19937* e1) {
     // Declare endpoints of the range for the distributions 
     int firs = 0; 
     int last = 16; 
     bool val = false;
 
 	std::normal_distribution<> normal_dist(8, 4), min(firs), max(last);
-	int res = normal_dist(e1);
+	int res = normal_dist(*e1);
     if (res > 15)
         val = true;
 	return val;

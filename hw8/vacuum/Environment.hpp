@@ -12,25 +12,14 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
-#include <string>
-#include <map>
 #include <random>
 #include <cmath>
 #include <stdlib.h> 
-#include <utility>
 
 using std::vector;
-using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
-using std::getline;
-using std::istringstream;
-using std::setw;
-using std::map;
-using std::pair;
-using std::make_pair;
-using std::left;
 using std::mt19937;
 
 class Environment {

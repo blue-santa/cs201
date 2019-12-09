@@ -6,32 +6,29 @@
  * Main file for vacuum project in hw8
  */
 
-#include <iostream>
+#include <iostream> 
 #include <iomanip>
-#include <vector>
-#include <string>
-#include <map>
+#include <random>
+#include <cmath>
+#include <stdlib.h>
 
 #include "Environment.hpp"
 #include "Agent.hpp"
 #include "Simulator.hpp"
 #include "Miscellaneous.hpp"
 
-using std::vector;
-using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
-using std::getline;
-using std::istringstream;
-using std::setw;
-using std::left;
+using std::random_device;
+using std::seed_seq;
+using std::mt19937;
 
 int main() { 
 
 	// Create pseudo-random device
-	std::random_device r; 
-	std::seed_seq seedObj{r(), r(), r(), r(), r(), r(), r(), r()};
+	random_device r; 
+	seed_seq seedObj{r(), r(), r(), r(), r(), r(), r(), r()};
 	mt19937 e1(seedObj);
 
     // Inform user of the nature of the software 
@@ -62,7 +59,7 @@ int main() {
         agt.think();
         agt.act(env);
 
-        printState(env);
+        printState(env, agt);
 
         sim.askOwner();
     } 

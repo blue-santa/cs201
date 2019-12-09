@@ -11,28 +11,19 @@
 
 #include <iostream>
 #include <iomanip>
-#include <vector>
-#include <string>
+#include <random>
+#include <cmath>
+#include <stdlib.h>
 
 using std::vector;
-using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
-using std::getline;
-using std::istringstream;
-using std::setw;
-using std::left;
+using std::mt19937;
 
-// Clear the console
 void clearConsole();
-
-// Wait for user response
 void waitForContinue();
-
-// Print the environment's current state
-void printState(Environment& env);
-
-bool rollBool(mt19937& e1);
+void printState(Environment& env); 
+bool rollBool(mt19937* e1);
 
 #endif

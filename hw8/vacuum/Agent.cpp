@@ -14,21 +14,16 @@
 #include "Agent.hpp"
 #include "Environment.hpp"
 
-using std::vector;
-using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
-using std::getline;
-using std::istringstream;
-using std::setw;
-using std::left;
 
 // Default Agent Constructor
 Agent::Agent()
     :
-       _currRoom(0),
-       _moveRight(true);
+        _currRoom(0),
+        _moveVal(1),
+        _nextAction(0)
 { }
 
 // Agent gathers precepts from the environment's state
@@ -37,7 +32,7 @@ void Agent::perceive(Environment& env) {
 }
 
 // Agent makes decisions about its next action
-void Agent::think(bool& calibrated) { 
+void Agent::think() { 
 
     if (_currRoom == 0)
         _moveVal = 1;
