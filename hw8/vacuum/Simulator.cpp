@@ -6,7 +6,8 @@
  * Agent definition file
  */
 
-#include "Agent.hpp"
+#include "Simulator.hpp"
+#include "Miscellaneous.hpp"
 
 // Request input from the owner
 void Simulator::askOwner() { 

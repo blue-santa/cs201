@@ -22,8 +22,8 @@ using std::endl;
 Agent::Agent()
     :
         _currRoom(0),
-        _moveVal(1),
-        _nextAction(0)
+        _nextAction(0),
+        _moveVal(1)
 { }
 
 // Agent gathers precepts from the environment's state
@@ -48,10 +48,19 @@ void Agent::think() {
 
 // Switch the environment heater and reset the local switching variables
 void Agent::act(Environment& env) {
-    if (_nextAction == 0) 
+    if (_nextAction == 0) {
         env.cleanRoom(_currRoom);
     } else {
         _currRoom += _moveVal;
     }
 }
 
+// Return the next action
+int Agent::getAction() {
+    return _nextAction;
+}
+
+// Return the current room
+int Agent::getCurrRoom() {
+    return _currRoom;
+}

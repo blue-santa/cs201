@@ -46,7 +46,7 @@ int main() {
     waitForContinue();
 
     // Initiate while loop 
-    while (!isFinished) { 
+    while (true) { 
 
         // Clear screen
         clearConsole();

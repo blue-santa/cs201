@@ -21,9 +21,12 @@ using std::cin;
 using std::endl;
 using std::mt19937;
 
+class Environment;
+class Agent;
+
 void clearConsole();
 void waitForContinue();
-void printState(Environment& env); 
+void printState(Environment& env, Agent& agt); 
 bool rollBool(mt19937* e1);
 
 #endif

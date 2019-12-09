@@ -14,6 +14,8 @@
 #include <stdlib.h>
 
 #include "Environment.hpp"
+#include "Miscellaneous.hpp"
+#include "Agent.hpp"
 
 using std::vector; 
 using std::cout; 

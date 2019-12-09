@@ -37,6 +37,8 @@ class Agent {
         void perceive(Environment& env);
         void think();
         void act(Environment& env);
+        int getAction();
+        int getCurrRoom();
 };
 
 #endif

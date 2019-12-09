@@ -7,6 +7,8 @@
  */
 
 #include "Miscellaneous.hpp"
+#include "Agent.hpp"
+#include "Environment.hpp"
 
 #include <iostream> 
 #include <iomanip> 
@@ -38,9 +40,11 @@ void printState(Environment& env, Agent& agt) {
 
     // Print room status
     cout << "Current status of each room:" << endl;
-    for (size_t i = 0; i < env.rooms.size(); i++) {
+    for (int i = 0; i < 8; i++) {
         cout << "Room " << i + 1 << ": ";
-        if (env.rooms[i] == true)
+
+        bool val = env.getRoom(i);
+        if (val)
             cout << "dirty" << endl;
         else 
             cout << "clean" << endl;
@@ -49,9 +53,13 @@ void printState(Environment& env, Agent& agt) {
 
     // Vacuum status
     cout << "Vacuum status: " << endl;
-    cout << "Room: " << agt._currRoom << endl;
+
+    int currR = agt.getCurrRoom();
+    cout << "Room: " << currR << endl;
     cout << "Action: ";
-    if (agt._nextAction == 0) {
+
+    int act = agt.getAction();
+    if (act == 0) {
         cout << "Clean";
     } else {
         cout << "Move";
@@ -68,7 +76,8 @@ bool rollBool(mt19937* e1) {
 
 	std::normal_distribution<> normal_dist(8, 4), min(firs), max(last);
 	int res = normal_dist(*e1);
-    if (res > 15)
+    if (res > 15) {
         val = true;
+    }
 	return val;
 }
