@@ -19,10 +19,6 @@ using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
-using std::getline;
-using std::istringstream;
-using std::setw;
-using std::left;
 
 class Environment;
 
@@ -31,11 +27,10 @@ class Agent {
     private:
 
         // Member Variables
-        int _desired;
-        int _currentTemp;
-        bool _heater;
-        bool _shouldSwitch;
-        bool _switched;
+        int _currRoom;
+        int _nextAction;
+        int _moveVal;
+        bool _roomDirty;
 
     public:
 
@@ -43,9 +38,8 @@ class Agent {
         Agent();
 
         // Member Functions
-        void setDesired(int& userInput);
         void perceive(Environment& env);
-        void think(bool& calibrated);
+        void think();
         void act(Environment& env);
 };
 

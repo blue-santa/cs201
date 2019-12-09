@@ -31,7 +31,7 @@ class Simulator {
 
     public:
         // Member Functions
-        void askOwner(bool& isFinished, Agent& agt, Environment& env);
+        void askOwner();
 
 };
 

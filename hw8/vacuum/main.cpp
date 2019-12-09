@@ -41,8 +41,14 @@ int main() {
     waitForContinue();
 
     // Create initial environment, iteration, and quit vars 
+    clearConsole();
     Environment env(e1); 
-    / Initiate while loop 
+    Agent agt;
+    Simulator sim;
+    cout << "Environment created" << endl;
+    waitForContinue();
+
+    // Initiate while loop 
     while (!isFinished) { 
 
         // Clear screen
@@ -53,20 +59,12 @@ int main() {
 
         // The agent performs its duties 
         agt.perceive(env);
-        agt.think(calibrated);
+        agt.think();
         agt.act(env);
 
-        // If iteration is divisible by 10, Agent requests user input
-        // Test whether user wants to quit 
-        if (iter % 10 == 0) {
-            sim.askOwner(isFinished, agt, env);
-        }
+        printState(env);
 
-        if (isFinished)
-            break;
-
-        // Increase iteration count
-        iter++;
+        sim.askOwner();
     } 
 
     return 0; 

@@ -29,7 +29,7 @@ using std::left;
 
 // Default constructor for Environment class
 Environment::Environment(mt19937& e1) {
-    *_e1 = e1;
+    *_e1 = &e1;
     for (int i = 0; i < 8; i++) {
         bool val = rollBool(_e1);
         _rooms.push_back(val);        

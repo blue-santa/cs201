@@ -30,11 +30,8 @@ void clearConsole();
 // Wait for user response
 void waitForContinue();
 
-// Capture the user input
-void capture_user_input(int& userInput);
-
-// Test whether the user's integer input is a valid response
-bool testUserInput(string& user_input_temp, int& userInput);
+// Print the environment's current state
+void printState(Environment& env);
 
 bool rollBool(mt19937& e1);
 
